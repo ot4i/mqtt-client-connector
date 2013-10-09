@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>
+    <!--This is a generated file.-->
+    <!--User modifications to this section will not be preserved.-->
+    <extension point="org.eclipse.help.contexts">
+        <contexts file="HelpContexts.xml"/>
+    </extension>
+    <!--This is a generated file.-->
+    <!--User modifications to this section will not be preserved.-->
+    <extension point="com.ibm.etools.mft.api.nodes"/>
+    <!--This is a generated file.-->
+    <!--User modifications to this section will not be preserved.-->
+    <extension point="com.ibm.etools.mft.uri.pluginspace">
+        <directory>
+            <file encoding="Cp1252" name="ComIbmOutput.msgnode"/>
+            <file encoding="Cp1252" name="ComIbmEventInput.msgnode"/>
+        </directory>
+    </extension>
+</plugin>

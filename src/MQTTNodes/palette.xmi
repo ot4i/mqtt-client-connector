@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<palette:CategoryCmp xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:palette="http://www.ibm.com/wbi/2005/eflow_palette" xmlns:utility="http://www.ibm.com/wbi/2005/eflow_utility" xmi:id="MQTT">
+  <categoryLabel xsi:type="utility:TranslatableString" key="category.name" bundleName="palette" pluginId="MQTTNodes"/>
+  <cmpGroups xsi:type="palette:GroupCmp">
+    <cmpEntries xsi:type="palette:ToolEntry" xmi:id="ComIbmEventInput" icon16Name="platform:/plugin/MQTTNodes/icons/full/clcl16/ComIbmEventInput.gif" icon32Name="platform:/plugin/MQTTNodes/icons/full/obj32/ComIbmEventInput.gif" toolClassName="com.ibm.etools.mft.flow.editor.MFTNodeCreationTool" toolClassPluginId="com.ibm.etools.mft.flow" nodeURI="ComIbmEventInput.msgnode">
+      <entryLabel xsi:type="utility:TranslatableString" key="entry.ComIbmEventInput" bundleName="palette" pluginId="MQTTNodes"/>
+      <entryShortDescription xsi:type="utility:TranslatableString" key="tooltip.ComIbmEventInput" bundleName="palette" pluginId="MQTTNodes"/>
+    </cmpEntries>
+    <cmpEntries xsi:type="palette:ToolEntry" xmi:id="ComIbmOutput" icon16Name="platform:/plugin/MQTTNodes/icons/full/clcl16/ComIbmOutput.gif" icon32Name="platform:/plugin/MQTTNodes/icons/full/obj32/ComIbmOutput.gif" toolClassName="com.ibm.etools.mft.flow.editor.MFTNodeCreationTool" toolClassPluginId="com.ibm.etools.mft.flow" nodeURI="ComIbmOutput.msgnode">
+      <entryLabel xsi:type="utility:TranslatableString" key="entry.ComIbmOutput" bundleName="palette" pluginId="MQTTNodes"/>
+      <entryShortDescription xsi:type="utility:TranslatableString" key="tooltip.ComIbmOutput" bundleName="palette" pluginId="MQTTNodes"/>
+    </cmpEntries>
+  </cmpGroups>
+</palette:CategoryCmp>

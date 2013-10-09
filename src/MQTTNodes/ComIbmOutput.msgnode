@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:eflow="http://www.ibm.com/wbi/2005/eflow" xmlns:utility="http://www.ibm.com/wbi/2005/eflow_utility" nsURI="ComIbmOutput.msgnode" nsPrefix="ComIbmOutput.msgnode">
+  <eClassifiers xmi:type="eflow:PropertySet" name="nsMappingTableRow">
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.nsPrefix" name="nsPrefix">
+      <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.namespace" name="namespace" lowerBound="1">
+      <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eStructuralFeatures>
+    <propertyOrganizer>
+      <propertyDescriptor propertyEditor="com.ibm.etools.mft.flow.properties.celleditors.StringCellPropertyEditor" describedAttribute="Property.nsPrefix">
+        <propertyName xmi:type="utility:TranslatableString" key="Property.nsPrefix" bundleName="ComIbmOutput" pluginId="MQTTNodes"/>
+        <propertyDescriptor propertyEditor="com.ibm.etools.mft.flow.properties.celleditors.StringCellPropertyEditor" describedAttribute="Property.namespace">
+          <propertyName xmi:type="utility:TranslatableString" key="Property.namespace" bundleName="ComIbmOutput" pluginId="MQTTNodes"/>
+        </propertyDescriptor>
+      </propertyDescriptor>
+    </propertyOrganizer>
+  </eClassifiers>
+  <eClassifiers xmi:type="eflow:PropertySet" name="monitorEventsRow">
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.eventEnabled" name="eventEnabled" lowerBound="1" defaultValueLiteral="true">
+      <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.eventSourceDescription" name="eventSourceDescription" lowerBound="1">
+      <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.eventSourceName" name="eventSourceName" lowerBound="1">
+      <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.eventIdentity" name="eventIdentity" lowerBound="1">
+      <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.eventFilter" name="eventFilter" lowerBound="1" defaultValueLiteral="true()">
+      <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eStructuralFeatures>
+    <propertyOrganizer>
+      <propertyDescriptor propertyEditor="com.ibm.etools.mft.ibmnodes.editors.monitoring.MonitorEventEnabledCellPropertyEditor" describedAttribute="Property.eventEnabled">
+        <propertyName xmi:type="utility:TranslatableString" key="Property.eventEnabled" bundleName="ComIbmOutput" pluginId="MQTTNodes"/>
+        <propertyDescriptor propertyEditor="com.ibm.etools.mft.ibmnodes.editors.monitoring.MonitorEventSourceDescriptionCellPropertyEditor" readOnly="true" describedAttribute="Property.eventSourceDescription">
+          <propertyName xmi:type="utility:TranslatableString" key="Property.eventSourceDescription" bundleName="ComIbmOutput" pluginId="MQTTNodes"/>
+          <propertyDescriptor propertyEditor="com.ibm.etools.mft.ibmnodes.editors.monitoring.MonitorEventSourceAddressCellPropertyEditor" readOnly="true" describedAttribute="Property.eventSourceName">
+            <propertyName xmi:type="utility:TranslatableString" key="Property.eventSourceName" bundleName="ComIbmOutput" pluginId="MQTTNodes"/>
+            <propertyDescriptor propertyEditor="com.ibm.etools.mft.ibmnodes.editors.monitoring.MonitorEventIdentityCellPropertyEditor" readOnly="true" describedAttribute="Property.eventIdentity">
+              <propertyName xmi:type="utility:TranslatableString" key="Property.eventIdentity" bundleName="ComIbmOutput" pluginId="MQTTNodes"/>
+              <propertyDescriptor propertyEditor="com.ibm.etools.mft.ibmnodes.editors.monitoring.MonitorEventDetailsCellPropertyEditor" readOnly="true" describedAttribute="Property.eventFilter">
+                <propertyName xmi:type="utility:TranslatableString" key="Property.eventFilter" bundleName="ComIbmOutput" pluginId="MQTTNodes"/>
+              </propertyDescriptor>
+            </propertyDescriptor>
+          </propertyDescriptor>
+        </propertyDescriptor>
+      </propertyDescriptor>
+    </propertyOrganizer>
+  </eClassifiers>
+  <eClassifiers xmi:type="eflow:FCMComposite" name="FCMComposite_1" useDefaults="true">
+    <eSuperTypes href="http://www.ibm.com/wbi/2005/eflow#//FCMBlock"/>
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.clientId" name="clientId" lowerBound="1">
+      <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.topicName" name="topicName" lowerBound="1">
+      <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.brokerUrl" name="brokerUrl" lowerBound="1" defaultValueLiteral="tcp://m2m.eclipse.org:1883">
+      <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.connectorName" name="connectorName" defaultValueLiteral="MQTT">
+      <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.validateMaster" name="validateMaster" lowerBound="1" eType="//@eClassifiers.3" defaultValueLiteral="inherit"/>
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.validateFailureAction" name="validateFailureAction" lowerBound="1" eType="//@eClassifiers.4" defaultValueLiteral="exception"/>
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.validateAllValueConstraints" name="validateAllValueConstraints" lowerBound="1" defaultValueLiteral="true">
+      <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.validateFixup" name="validateFixup" lowerBound="1" eType="//@eClassifiers.5" defaultValueLiteral="none"/>
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.securityProfileName" name="securityProfileName" defaultValueLiteral="">
+      <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="Property.nsMappingTable" name="nsMappingTable" upperBound="-1" eType="//nsMappingTableRow" containment="true"/>
+    <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="Property.monitorEvents" name="monitorEvents" upperBound="-1" eType="//monitorEventsRow" containment="true"/>
+    <translation xmi:type="utility:TranslatableString" key="ComIbmOutput" bundleName="ComIbmOutput" pluginId="MQTTNodes"/>
+    <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/MQTTNodes/icons/full/obj16/ComIbmOutput.gif"/>
+    <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/MQTTNodes/icons/full/obj30/ComIbmOutput.gif"/>
+    <composition>
+      <nodes xmi:type="eflow:FCMSource" xmi:id="InTerminal.in" location="100,20">
+        <translation xmi:type="utility:TranslatableString" key="InTerminal.in" bundleName="ComIbmOutput" pluginId="MQTTNodes"/>
+      </nodes>
+      <nodes xmi:type="eflow:FCMSink" xmi:id="OutTerminal.failure" location="200,40">
+        <translation xmi:type="utility:TranslatableString" key="OutTerminal.failure" bundleName="ComIbmOutput" pluginId="MQTTNodes"/>
+      </nodes>
+      <nodes xmi:type="eflow:FCMSink" xmi:id="OutTerminal.out" location="300,60">
+        <translation xmi:type="utility:TranslatableString" key="OutTerminal.out" bundleName="ComIbmOutput" pluginId="MQTTNodes"/>
+      </nodes>
+    </composition>
+    <propertyOrganizer>
+      <propertyDescriptor configurable="true" describedAttribute="Property.clientId">
+        <propertyName xmi:type="utility:TranslatableString" key="Property.clientId" bundleName="ComIbmOutput" pluginId="MQTTNodes"/>
+        <propertyDescriptor configurable="true" describedAttribute="Property.topicName">
+          <propertyName xmi:type="utility:TranslatableString" key="Property.topicName" bundleName="ComIbmOutput" pluginId="MQTTNodes"/>
+          <propertyDescriptor configurable="true" describedAttribute="Property.brokerUrl">
+            <propertyName xmi:type="utility:TranslatableString" key="Property.brokerUrl" bundleName="ComIbmOutput" pluginId="MQTTNodes"/>
+            <propertyDescriptor hidden="true" describedAttribute="Property.connectorName">
+              <propertyName xmi:type="utility:TranslatableString" key="Property.connectorName" bundleName="ComIbmOutput" pluginId="MQTTNodes"/>
+              <propertyDescriptor groupName="Group.validation" configurable="true" describedAttribute="Property.validateMaster">
+                <propertyName xmi:type="utility:TranslatableString" key="Property.validateMaster" bundleName="ComIbmOutput" pluginId="MQTTNodes"/>
+                <propertyDescriptor groupName="Group.validation" propertyEditor="com.ibm.etools.mft.ibmnodes.editors.ValidateMasterListenerPropertyEditor" describedAttribute="Property.validateFailureAction">
+                  <propertyName xmi:type="utility:TranslatableString" key="Property.validateFailureAction" bundleName="ComIbmOutput" pluginId="MQTTNodes"/>
+                  <propertyDescriptor groupName="Group.validation" compiler="com.ibm.etools.mft.ibmnodes.compilers.BooleanPropertyCompiler" readOnly="true" hidden="true" describedAttribute="Property.validateAllValueConstraints">
+                    <propertyName xmi:type="utility:TranslatableString" key="Property.validateAllValueConstraints" bundleName="ComIbmOutput" pluginId="MQTTNodes"/>
+                    <propertyDescriptor groupName="Group.validation" readOnly="true" hidden="true" describedAttribute="Property.validateFixup">
+                      <propertyName xmi:type="utility:TranslatableString" key="Property.validateFixup" bundleName="ComIbmOutput" pluginId="MQTTNodes"/>
+                      <propertyDescriptor groupName="Group.security" propertyEditor="com.ibm.etools.mft.ibmnodes.editors.SecurityProfileNamePropertyEditor" hidden="true" configurable="true" describedAttribute="Property.securityProfileName">
+                        <propertyName xmi:type="utility:TranslatableString" key="Property.securityProfileName" bundleName="ComIbmOutput" pluginId="MQTTNodes"/>
+                        <propertyDescriptor groupName="Group.monitoring" readOnly="true" hidden="true" describedReference="Property.nsMappingTable">
+                          <propertyName xmi:type="utility:TranslatableString" key="Property.nsMappingTable" bundleName="ComIbmOutput" pluginId="MQTTNodes"/>
+                          <propertyDescriptor groupName="Group.monitoring" propertyEditor="com.ibm.etools.mft.ibmnodes.editors.monitoring.MonitoringEventsComplexPropertyEditor" describedReference="Property.monitorEvents">
+                            <propertyName xmi:type="utility:TranslatableString" key="Property.monitorEvents" bundleName="ComIbmOutput" pluginId="MQTTNodes"/>
+                          </propertyDescriptor>
+                        </propertyDescriptor>
+                      </propertyDescriptor>
+                    </propertyDescriptor>
+                  </propertyDescriptor>
+                </propertyDescriptor>
+              </propertyDescriptor>
+            </propertyDescriptor>
+          </propertyDescriptor>
+        </propertyDescriptor>
+      </propertyDescriptor>
+    </propertyOrganizer>
+  </eClassifiers>
+  <eClassifiers xmi:type="ecore:EEnum">
+    <eLiterals xmi:id="validateMaster.none" name="none"/>
+    <eLiterals xmi:id="validateMaster.contentAndValue" name="contentAndValue" value="1"/>
+    <eLiterals xmi:id="validateMaster.content" name="content" value="2"/>
+    <eLiterals xmi:id="validateMaster.inherit" name="inherit" value="3"/>
+  </eClassifiers>
+  <eClassifiers xmi:type="ecore:EEnum">
+    <eLiterals xmi:id="validateFailureAction.userTrace" name="userTrace"/>
+    <eLiterals xmi:id="validateFailureAction.localError" name="localError" value="1"/>
+    <eLiterals xmi:id="validateFailureAction.exception" name="exception" value="2"/>
+    <eLiterals xmi:id="validateFailureAction.exceptionList" name="exceptionList" value="3"/>
+  </eClassifiers>
+  <eClassifiers xmi:type="ecore:EEnum">
+    <eLiterals xmi:id="validateFixup.none" name="none"/>
+    <eLiterals xmi:id="validateFixup.full" name="full" value="1"/>
+  </eClassifiers>
+</ecore:EPackage>

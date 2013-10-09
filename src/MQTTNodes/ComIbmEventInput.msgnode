@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:eflow="http://www.ibm.com/wbi/2005/eflow" xmlns:utility="http://www.ibm.com/wbi/2005/eflow_utility" nsURI="ComIbmEventInput.msgnode" nsPrefix="ComIbmEventInput.msgnode">
+  <eClassifiers xmi:type="eflow:PropertySet" name="parserXmlnscOpaqueElementsRow">
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.elements" name="elements">
+      <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eStructuralFeatures>
+    <propertyOrganizer>
+      <propertyDescriptor propertyEditor="com.ibm.etools.mft.ibmnodes.editors.xpath.XPathOpaqueParsingCellPropertyEditor" describedAttribute="Property.elements">
+        <propertyName xmi:type="utility:TranslatableString" key="Property.elements" bundleName="ComIbmEventInput" pluginId="MQTTNodes"/>
+      </propertyDescriptor>
+    </propertyOrganizer>
+  </eClassifiers>
+  <eClassifiers xmi:type="eflow:PropertySet" name="nsMappingTableRow">
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.nsPrefix" name="nsPrefix">
+      <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.namespace" name="namespace" lowerBound="1">
+      <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eStructuralFeatures>
+    <propertyOrganizer>
+      <propertyDescriptor propertyEditor="com.ibm.etools.mft.flow.properties.celleditors.StringCellPropertyEditor" describedAttribute="Property.nsPrefix">
+        <propertyName xmi:type="utility:TranslatableString" key="Property.nsPrefix" bundleName="ComIbmEventInput" pluginId="MQTTNodes"/>
+        <propertyDescriptor propertyEditor="com.ibm.etools.mft.flow.properties.celleditors.StringCellPropertyEditor" describedAttribute="Property.namespace">
+          <propertyName xmi:type="utility:TranslatableString" key="Property.namespace" bundleName="ComIbmEventInput" pluginId="MQTTNodes"/>
+        </propertyDescriptor>
+      </propertyDescriptor>
+    </propertyOrganizer>
+  </eClassifiers>
+  <eClassifiers xmi:type="eflow:PropertySet" name="monitorEventsRow">
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.eventEnabled" name="eventEnabled" lowerBound="1" defaultValueLiteral="true">
+      <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.eventSourceDescription" name="eventSourceDescription" lowerBound="1">
+      <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.eventSourceName" name="eventSourceName" lowerBound="1">
+      <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.eventIdentity" name="eventIdentity" lowerBound="1">
+      <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.eventFilter" name="eventFilter" lowerBound="1" defaultValueLiteral="true()">
+      <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eStructuralFeatures>
+    <propertyOrganizer>
+      <propertyDescriptor propertyEditor="com.ibm.etools.mft.ibmnodes.editors.monitoring.MonitorEventEnabledCellPropertyEditor" describedAttribute="Property.eventEnabled">
+        <propertyName xmi:type="utility:TranslatableString" key="Property.eventEnabled" bundleName="ComIbmEventInput" pluginId="MQTTNodes"/>
+        <propertyDescriptor propertyEditor="com.ibm.etools.mft.ibmnodes.editors.monitoring.MonitorEventSourceDescriptionCellPropertyEditor" readOnly="true" describedAttribute="Property.eventSourceDescription">
+          <propertyName xmi:type="utility:TranslatableString" key="Property.eventSourceDescription" bundleName="ComIbmEventInput" pluginId="MQTTNodes"/>
+          <propertyDescriptor propertyEditor="com.ibm.etools.mft.ibmnodes.editors.monitoring.MonitorEventSourceAddressCellPropertyEditor" readOnly="true" describedAttribute="Property.eventSourceName">
+            <propertyName xmi:type="utility:TranslatableString" key="Property.eventSourceName" bundleName="ComIbmEventInput" pluginId="MQTTNodes"/>
+            <propertyDescriptor propertyEditor="com.ibm.etools.mft.ibmnodes.editors.monitoring.MonitorEventIdentityCellPropertyEditor" readOnly="true" describedAttribute="Property.eventIdentity">
+              <propertyName xmi:type="utility:TranslatableString" key="Property.eventIdentity" bundleName="ComIbmEventInput" pluginId="MQTTNodes"/>
+              <propertyDescriptor propertyEditor="com.ibm.etools.mft.ibmnodes.editors.monitoring.MonitorEventDetailsCellPropertyEditor" readOnly="true" describedAttribute="Property.eventFilter">
+                <propertyName xmi:type="utility:TranslatableString" key="Property.eventFilter" bundleName="ComIbmEventInput" pluginId="MQTTNodes"/>
+              </propertyDescriptor>
+            </propertyDescriptor>
+          </propertyDescriptor>
+        </propertyDescriptor>
+      </propertyDescriptor>
+    </propertyOrganizer>
+  </eClassifiers>
+  <eClassifiers xmi:type="eflow:FCMComposite" name="FCMComposite_1" message="in" useDefaults="true">
+    <eSuperTypes href="http://www.ibm.com/wbi/2005/eflow#//FCMBlock"/>
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.clientId" name="clientId" lowerBound="1">
+      <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.topicName" name="topicName" lowerBound="1">
+      <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.brokerUrl" name="brokerUrl" lowerBound="1" defaultValueLiteral="tcp://m2m.eclipse.org:1883">
+      <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.connectorName" name="connectorName" defaultValueLiteral="MQTT">
+      <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.messageDomainProperty" name="messageDomainProperty">
+      <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.messageSetProperty" name="messageSetProperty">
+      <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.messageTypeProperty" name="messageTypeProperty">
+      <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.messageFormatProperty" name="messageFormatProperty">
+      <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.validateTiming" name="validateTiming" lowerBound="1" eType="//@eClassifiers.4" defaultValueLiteral="deferred"/>
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.parserXmlnscBuildTreeUsingXMLSchema" name="parserXmlnscBuildTreeUsingXMLSchema" lowerBound="1" defaultValueLiteral="false">
+      <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.parserXmlnscUseForXmlnsDomain" name="parserXmlnscUseForXmlnsDomain" lowerBound="1" defaultValueLiteral="false">
+      <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.parserXmlnscMixedContentRetainMode" name="parserXmlnscMixedContentRetainMode" lowerBound="1" eType="//@eClassifiers.5" defaultValueLiteral="none"/>
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.parserXmlnscCommentsRetainMode" name="parserXmlnscCommentsRetainMode" lowerBound="1" eType="//@eClassifiers.6" defaultValueLiteral="none"/>
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.parserXmlnscProcessingInstructionsRetainMode" name="parserXmlnscProcessingInstructionsRetainMode" lowerBound="1" eType="//@eClassifiers.7" defaultValueLiteral="none"/>
+    <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="Property.parserXmlnscOpaqueElements" name="parserXmlnscOpaqueElements" upperBound="-1" eType="//parserXmlnscOpaqueElementsRow" containment="true"/>
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.validateMaster" name="validateMaster" lowerBound="1" eType="//@eClassifiers.8" defaultValueLiteral="none"/>
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.validateFailureAction" name="validateFailureAction" lowerBound="1" eType="//@eClassifiers.9" defaultValueLiteral="exception"/>
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.validateAllValueConstraints" name="validateAllValueConstraints" lowerBound="1" defaultValueLiteral="true">
+      <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.validateFixup" name="validateFixup" lowerBound="1" eType="//@eClassifiers.10" defaultValueLiteral="none"/>
+    <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="Property.nsMappingTable" name="nsMappingTable" upperBound="-1" eType="//nsMappingTableRow" containment="true"/>
+    <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="Property.monitorEvents" name="monitorEvents" upperBound="-1" eType="//monitorEventsRow" containment="true"/>
+    <translation xmi:type="utility:TranslatableString" key="ComIbmEventInput" bundleName="ComIbmEventInput" pluginId="MQTTNodes"/>
+    <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/MQTTNodes/icons/full/obj16/ComIbmEventInput.gif"/>
+    <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/MQTTNodes/icons/full/obj30/ComIbmEventInput.gif"/>
+    <composition>
+      <nodes xmi:type="eflow:FCMSink" xmi:id="OutTerminal.failure" location="100,20">
+        <translation xmi:type="utility:TranslatableString" key="OutTerminal.failure" bundleName="ComIbmEventInput" pluginId="MQTTNodes"/>
+      </nodes>
+      <nodes xmi:type="eflow:FCMSink" xmi:id="OutTerminal.out" location="200,40">
+        <translation xmi:type="utility:TranslatableString" key="OutTerminal.out" bundleName="ComIbmEventInput" pluginId="MQTTNodes"/>
+      </nodes>
+      <nodes xmi:type="eflow:FCMSink" xmi:id="OutTerminal.catch" location="300,60">
+        <translation xmi:type="utility:TranslatableString" key="OutTerminal.catch" bundleName="ComIbmEventInput" pluginId="MQTTNodes"/>
+      </nodes>
+    </composition>
+    <propertyOrganizer>
+      <propertyDescriptor configurable="true" describedAttribute="Property.clientId">
+        <propertyName xmi:type="utility:TranslatableString" key="Property.clientId" bundleName="ComIbmEventInput" pluginId="MQTTNodes"/>
+        <propertyDescriptor configurable="true" describedAttribute="Property.topicName">
+          <propertyName xmi:type="utility:TranslatableString" key="Property.topicName" bundleName="ComIbmEventInput" pluginId="MQTTNodes"/>
+          <propertyDescriptor configurable="true" describedAttribute="Property.brokerUrl">
+            <propertyName xmi:type="utility:TranslatableString" key="Property.brokerUrl" bundleName="ComIbmEventInput" pluginId="MQTTNodes"/>
+            <propertyDescriptor hidden="true" describedAttribute="Property.connectorName">
+              <propertyName xmi:type="utility:TranslatableString" key="Property.connectorName" bundleName="ComIbmEventInput" pluginId="MQTTNodes"/>
+              <propertyDescriptor groupName="Group.parsing" propertyEditor="com.ibm.etools.mft.ibmnodes.editors.MRMessageDomainPropertyEditor" describedAttribute="Property.messageDomainProperty">
+                <propertyName xmi:type="utility:TranslatableString" key="Property.messageDomainProperty" bundleName="ComIbmEventInput" pluginId="MQTTNodes"/>
+                <propertyDescriptor groupName="Group.parsing" propertyEditor="com.ibm.etools.mft.ibmnodes.editors.MRMessageSetNamePropertyEditorV8" describedAttribute="Property.messageSetProperty">
+                  <propertyName xmi:type="utility:TranslatableString" key="Property.messageSetProperty" bundleName="ComIbmEventInput" pluginId="MQTTNodes"/>
+                  <propertyDescriptor groupName="Group.parsing" propertyEditor="com.ibm.etools.mft.ibmnodes.editors.MRMessageTypePropertyEditorV8" describedAttribute="Property.messageTypeProperty">
+                    <propertyName xmi:type="utility:TranslatableString" key="Property.messageTypeProperty" bundleName="ComIbmEventInput" pluginId="MQTTNodes"/>
+                    <propertyDescriptor groupName="Group.parsing" propertyEditor="com.ibm.etools.mft.ibmnodes.editors.MRMessageFormatPropertyEditor" describedAttribute="Property.messageFormatProperty">
+                      <propertyName xmi:type="utility:TranslatableString" key="Property.messageFormatProperty" bundleName="ComIbmEventInput" pluginId="MQTTNodes"/>
+                      <propertyDescriptor groupName="Group.parserOptions.sub" describedAttribute="Property.validateTiming">
+                        <propertyName xmi:type="utility:TranslatableString" key="Property.validateTiming" bundleName="ComIbmEventInput" pluginId="MQTTNodes"/>
+                        <propertyDescriptor groupName="Group.parserOptions.sub" propertyEditor="com.ibm.etools.mft.ibmnodes.editors.BuildTreePropertyEditor" compiler="com.ibm.etools.mft.ibmnodes.compilers.BooleanPropertyCompiler" describedAttribute="Property.parserXmlnscBuildTreeUsingXMLSchema">
+                          <propertyName xmi:type="utility:TranslatableString" key="Property.parserXmlnscBuildTreeUsingXMLSchema" bundleName="ComIbmEventInput" pluginId="MQTTNodes"/>
+                          <propertyDescriptor groupName="Group.parserOptions.sub" propertyEditor="com.ibm.etools.mft.ibmnodes.editors.XmlnsMessageDomainPropertyEditor" compiler="com.ibm.etools.mft.ibmnodes.compilers.BooleanPropertyCompiler" describedAttribute="Property.parserXmlnscUseForXmlnsDomain">
+                            <propertyName xmi:type="utility:TranslatableString" key="Property.parserXmlnscUseForXmlnsDomain" bundleName="ComIbmEventInput" pluginId="MQTTNodes"/>
+                            <propertyDescriptor groupName="Group.parserOptions.sub" propertyEditor="com.ibm.etools.mft.ibmnodes.editors.XmlnscPropertyEditor" describedAttribute="Property.parserXmlnscMixedContentRetainMode">
+                              <propertyName xmi:type="utility:TranslatableString" key="Property.parserXmlnscMixedContentRetainMode" bundleName="ComIbmEventInput" pluginId="MQTTNodes"/>
+                              <propertyDescriptor groupName="Group.parserOptions.sub" propertyEditor="com.ibm.etools.mft.ibmnodes.editors.XmlnscPropertyEditor" describedAttribute="Property.parserXmlnscCommentsRetainMode">
+                                <propertyName xmi:type="utility:TranslatableString" key="Property.parserXmlnscCommentsRetainMode" bundleName="ComIbmEventInput" pluginId="MQTTNodes"/>
+                                <propertyDescriptor groupName="Group.parserOptions.sub" propertyEditor="com.ibm.etools.mft.ibmnodes.editors.XmlnscPropertyEditor" describedAttribute="Property.parserXmlnscProcessingInstructionsRetainMode">
+                                  <propertyName xmi:type="utility:TranslatableString" key="Property.parserXmlnscProcessingInstructionsRetainMode" bundleName="ComIbmEventInput" pluginId="MQTTNodes"/>
+                                  <propertyDescriptor groupName="Group.parserOptions.sub" propertyEditor="com.ibm.etools.mft.ibmnodes.editors.OpaqueElementsPropertyEditor" describedReference="Property.parserXmlnscOpaqueElements">
+                                    <propertyName xmi:type="utility:TranslatableString" key="Property.parserXmlnscOpaqueElements" bundleName="ComIbmEventInput" pluginId="MQTTNodes"/>
+                                    <propertyDescriptor groupName="Group.validation" propertyEditor="com.ibm.etools.mft.ibmnodes.editors.ValidateMasterForOpaqueParsingAndBuildTreePropertyEditor" configurable="true" describedAttribute="Property.validateMaster">
+                                      <propertyName xmi:type="utility:TranslatableString" key="Property.validateMaster" bundleName="ComIbmEventInput" pluginId="MQTTNodes"/>
+                                      <propertyDescriptor groupName="Group.validation" propertyEditor="com.ibm.etools.mft.ibmnodes.editors.ValidateMasterListenerPropertyEditor" describedAttribute="Property.validateFailureAction">
+                                        <propertyName xmi:type="utility:TranslatableString" key="Property.validateFailureAction" bundleName="ComIbmEventInput" pluginId="MQTTNodes"/>
+                                        <propertyDescriptor groupName="Group.validation" compiler="com.ibm.etools.mft.ibmnodes.compilers.BooleanPropertyCompiler" readOnly="true" hidden="true" describedAttribute="Property.validateAllValueConstraints">
+                                          <propertyName xmi:type="utility:TranslatableString" key="Property.validateAllValueConstraints" bundleName="ComIbmEventInput" pluginId="MQTTNodes"/>
+                                          <propertyDescriptor groupName="Group.validation" readOnly="true" hidden="true" describedAttribute="Property.validateFixup">
+                                            <propertyName xmi:type="utility:TranslatableString" key="Property.validateFixup" bundleName="ComIbmEventInput" pluginId="MQTTNodes"/>
+                                            <propertyDescriptor groupName="Group.monitoring" readOnly="true" hidden="true" describedReference="Property.nsMappingTable">
+                                              <propertyName xmi:type="utility:TranslatableString" key="Property.nsMappingTable" bundleName="ComIbmEventInput" pluginId="MQTTNodes"/>
+                                              <propertyDescriptor groupName="Group.monitoring" propertyEditor="com.ibm.etools.mft.ibmnodes.editors.monitoring.MonitoringEventsComplexPropertyEditor" describedReference="Property.monitorEvents">
+                                                <propertyName xmi:type="utility:TranslatableString" key="Property.monitorEvents" bundleName="ComIbmEventInput" pluginId="MQTTNodes"/>
+                                              </propertyDescriptor>
+                                            </propertyDescriptor>
+                                          </propertyDescriptor>
+                                        </propertyDescriptor>
+                                      </propertyDescriptor>
+                                    </propertyDescriptor>
+                                  </propertyDescriptor>
+                                </propertyDescriptor>
+                              </propertyDescriptor>
+                            </propertyDescriptor>
+                          </propertyDescriptor>
+                        </propertyDescriptor>
+                      </propertyDescriptor>
+                    </propertyDescriptor>
+                  </propertyDescriptor>
+                </propertyDescriptor>
+              </propertyDescriptor>
+            </propertyDescriptor>
+          </propertyDescriptor>
+        </propertyDescriptor>
+      </propertyDescriptor>
+    </propertyOrganizer>
+  </eClassifiers>
+  <eClassifiers xmi:type="ecore:EEnum">
+    <eLiterals xmi:id="validateTiming.deferred" name="deferred"/>
+    <eLiterals xmi:id="validateTiming.immediate" name="immediate" value="1"/>
+    <eLiterals xmi:id="validateTiming.complete" name="complete" value="2"/>
+  </eClassifiers>
+  <eClassifiers xmi:type="ecore:EEnum">
+    <eLiterals xmi:id="parserXmlnscMixedContentRetainMode.none" name="none"/>
+    <eLiterals xmi:id="parserXmlnscMixedContentRetainMode.all" name="all" value="1"/>
+  </eClassifiers>
+  <eClassifiers xmi:type="ecore:EEnum">
+    <eLiterals xmi:id="parserXmlnscCommentsRetainMode.none" name="none"/>
+    <eLiterals xmi:id="parserXmlnscCommentsRetainMode.all" name="all" value="1"/>
+  </eClassifiers>
+  <eClassifiers xmi:type="ecore:EEnum">
+    <eLiterals xmi:id="parserXmlnscProcessingInstructionsRetainMode.none" name="none"/>
+    <eLiterals xmi:id="parserXmlnscProcessingInstructionsRetainMode.all" name="all" value="1"/>
+  </eClassifiers>
+  <eClassifiers xmi:type="ecore:EEnum">
+    <eLiterals xmi:id="validateMaster.none" name="none"/>
+    <eLiterals xmi:id="validateMaster.contentAndValue" name="contentAndValue" value="1"/>
+    <eLiterals xmi:id="validateMaster.content" name="content" value="2"/>
+  </eClassifiers>
+  <eClassifiers xmi:type="ecore:EEnum">
+    <eLiterals xmi:id="validateFailureAction.userTrace" name="userTrace"/>
+    <eLiterals xmi:id="validateFailureAction.localError" name="localError" value="1"/>
+    <eLiterals xmi:id="validateFailureAction.exception" name="exception" value="2"/>
+    <eLiterals xmi:id="validateFailureAction.exceptionList" name="exceptionList" value="3"/>
+  </eClassifiers>
+  <eClassifiers xmi:type="ecore:EEnum">
+    <eLiterals xmi:id="validateFixup.none" name="none"/>
+    <eLiterals xmi:id="validateFixup.full" name="full" value="1"/>
+  </eClassifiers>
+</ecore:EPackage>

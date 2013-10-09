@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-Vendor: MQTTNodes Provider
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-Name: MQTTNodes Plug-in
+Bundle-SymbolicName: MQTTNodes; singleton:=true
+Require-Bundle: com.ibm.etools.mft.api,com.ibm.etools.mft.util.ui,com.
+ ibm.etools.mft.config,com.ibm.etools.mft.ibmnodes
+Bundle-Version: 1.0.0.qualifier
+Bundle-ManifestVersion: 2
+

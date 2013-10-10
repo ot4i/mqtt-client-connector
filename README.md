@@ -6,7 +6,7 @@ The MQTT connector enables you to extend the capability of IBM Integration Bus (
 ##Dependencies
 Install [IBM Integration Bus Developer Edition](http://www.ibm.com/software/products/us/en/integration-bus/).
 
-To avoid having to manually import the projects into the Integration Toolkit, install the EGit client. A specific version of the client is needed, see [additional instructions](sample/readme.md).
+To avoid having to manually import the projects into the Integration Toolkit, install the EGit client. A specific version of the client is needed, see [additional instructions](INSTRUCTIONS.md).
 
 ##Setup
 1. Clone the Git repositories and import the projects (see [additional instructions](instructions.md) if you need more detailed instructions):

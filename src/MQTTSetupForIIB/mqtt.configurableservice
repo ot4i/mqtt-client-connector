@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurableservice connectorClassName="com.ibm.broker.connector.mqtt.MQTTConnectorFactory" csName="MQTT" csType="ConnectorProviders" jarsURL="c:\Connectors\MQTT" nativeLibs="default_Path" property1="" property2="" property3="" property4="" property5=""/>

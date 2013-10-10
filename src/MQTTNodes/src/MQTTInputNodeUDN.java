@@ -1,5 +1,3 @@
-package ComIbm;
-
 import com.ibm.broker.config.appdev.InputTerminal;
 import com.ibm.broker.config.appdev.Node;
 import com.ibm.broker.config.appdev.NodeProperty;

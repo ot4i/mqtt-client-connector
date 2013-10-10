@@ -9,7 +9,7 @@ Install [IBM Integration Bus Developer Edition](http://www.ibm.com/software/prod
 To avoid having to manually import the projects into the Integration Toolkit, install the EGit client. A specific version of the client is needed, see [additional instructions](INSTRUCTIONS.md).
 
 ##Setup
-1. Clone the Git repositories and import the projects (see [additional instructions](instructions.md) if you need more detailed instructions):
+1. Clone the Git repositories and import the projects (see [additional instructions](INSTRUCTIONS.md) if you need more detailed instructions):
   * Clone and import the Eclipse Paho project (URI: git://git.eclipse.org/gitroot/paho/org.eclipse.paho.mqtt.java.git).
   * Clone and import this repository (URI:  git@github.com:ot4i/mqtt-client-connector.git).
  

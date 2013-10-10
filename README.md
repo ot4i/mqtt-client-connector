@@ -15,8 +15,8 @@ To avoid having to manually import the projects into the Integration Toolkit, in
  
 2. Add the nodes to the Integration Toolkit:
   * Clean the projects by clicking **Project** on the menu bar, and selecting **Clean All**.
-  * If IIB was not installed in the default location, right-click the MQTTConnector project and select **Build Path**, followed by  **Configure Build Path**. In the **Libraries** tab, update the location of jplugin2.jar and connectors.jar to the classes folder of your IIB runtime installation. The default location of the classes folder on Windows is C:\Program Files\IBM\MQSI\9.0.0.0\classes. 
-  * In the MQTTNodes project, remove the package declaration 'package ComIbm;' from the start of the two files MQTTInputNodeUDN.java and MQTTOutputNodeUDN.java. Note, every time a full build is run or the user defined node project is built, the package declaration will need to be removed from these files.
+  * Define an eclipse classpath variable called IIB\_PATH which points to your IBM Integration Bus installation directory by opening the eclipse preferences (Window -> Preferences) and navigating to Java -> Build Path -> Classpath Variables and selecting NEW.
+  * In the MQTTNodes project, you may need to remove the package declaration 'package ComIbm;' from the start of the two files MQTTInputNodeUDN.java and MQTTOutputNodeUDN.java. Note, every time a full build is run or the user defined node project is built, the package declaration will need to be removed from these files.
   * In the Application Development view of the Integration Development perspective, right-click the Independent Resource **MQTTNodes** and select **Start Simulation**. The MQTTNodes resource is now accessible to the Integration Toolkit, and the project MQTTSample is rebuilt.
 
 3. Install the connector on IIB:

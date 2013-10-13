@@ -10,8 +10,14 @@ To avoid having to manually import the projects into the Integration Toolkit, in
 
 ##Setup
 1. Clone the Git repositories and import the projects (see [additional instructions](INSTRUCTIONS.md) if you need more detailed instructions):
-  * Clone and import the Eclipse Paho project (URI: git://git.eclipse.org/gitroot/paho/org.eclipse.paho.mqtt.java.git). Check out tag 0.1.
-  * Clone and import this repository (URI:  git@github.com:ot4i/mqtt-client-connector.git).
+  * Clone the Eclipse Paho project
+    ``` git clone git://git.eclipse.org/gitroot/paho/org.eclipse.paho.mqtt.java.git ```
+  * Check out Paho v0.1
+    ``` git checkout tags/v0.1 ```
+  * Import the Paho projects into your Eclipse workspace 
+  * Clone this git repository
+    ``` git clone git://github.com/ot4i/mqtt-client-connector.git ```
+  * Import the MQTTConnector, MQTTNodes and MQTTSetupForIIB projects into your Eclipse workspace
  
 2. Add the nodes to the Integration Toolkit:
   * Clean all projects by clicking **Project** on the menu bar, and selecting **Clean...**.

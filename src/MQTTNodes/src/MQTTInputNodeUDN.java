@@ -266,7 +266,7 @@ public class MQTTInputNodeUDN extends Node {
 		return new NodeProperty[] {
 			new NodeProperty(MQTTInputNodeUDN.PROPERTY_CLIENTID,		NodeProperty.Usage.MANDATORY,	true,	NodeProperty.Type.STRING, null,"","",	"ComIbmEventInput",	"MQTTNodes"),
 			new NodeProperty(MQTTInputNodeUDN.PROPERTY_TOPICNAME,		NodeProperty.Usage.MANDATORY,	true,	NodeProperty.Type.STRING, null,"","",	"ComIbmEventInput",	"MQTTNodes"),
-			new NodeProperty(MQTTInputNodeUDN.PROPERTY_BROKERURL,		NodeProperty.Usage.MANDATORY,	true,	NodeProperty.Type.STRING, "tcp://m2m.eclipse.org:1883","","",	"ComIbmEventInput",	"MQTTNodes"),
+			new NodeProperty(MQTTInputNodeUDN.PROPERTY_BROKERURL,		NodeProperty.Usage.MANDATORY,	true,	NodeProperty.Type.STRING, null,"","",	"ComIbmEventInput",	"MQTTNodes"),
 			new NodeProperty(MQTTInputNodeUDN.PROPERTY_CONNECTORNAME,		NodeProperty.Usage.OPTIONAL,	false,	NodeProperty.Type.STRING, "MQTT","","",	"ComIbmEventInput",	"MQTTNodes"),
 			new NodeProperty(MQTTInputNodeUDN.PROPERTY_MESSAGEDOMAINPROPERTY,		NodeProperty.Usage.OPTIONAL,	false,	NodeProperty.Type.STRING, null,"",	"com.ibm.etools.mft.ibmnodes.editors.MRMessageDomainPropertyEditor",	"ComIbmEventInput",	"MQTTNodes"),
 			new NodeProperty(MQTTInputNodeUDN.PROPERTY_MESSAGESETPROPERTY,		NodeProperty.Usage.OPTIONAL,	false,	NodeProperty.Type.STRING, null,"",	"com.ibm.etools.mft.ibmnodes.editors.MRMessageSetNamePropertyEditorV8",	"ComIbmEventInput",	"MQTTNodes"),
@@ -589,9 +589,9 @@ public class MQTTInputNodeUDN extends Node {
 	}
 
 	/**
-	 * Set the <I>MQTTInputNodeUDN</I> "<I>parserXmlnscBuildTreeUsingXMLSchema</I>" property
+	 * Set the <I>MQTTInputNodeUDN</I> "<I>Build tree using XML schema data types</I>" property
 	 * 
-	 * @param value boolean ; the value to set the property "<I>parserXmlnscBuildTreeUsingXMLSchema</I>"
+	 * @param value boolean ; the value to set the property "<I>Build tree using XML schema data types</I>"
 	 */
 	public MQTTInputNodeUDN setParserXmlnscBuildTreeUsingXMLSchema(boolean value) {
 		setProperty(MQTTInputNodeUDN.PROPERTY_PARSERXMLNSCBUILDTREEUSINGXMLSCHEMA, String.valueOf(value));
@@ -599,9 +599,9 @@ public class MQTTInputNodeUDN extends Node {
 	}
 
 	/**
-	 * Get the <I>MQTTInputNodeUDN</I> "<I>parserXmlnscBuildTreeUsingXMLSchema</I>" property
+	 * Get the <I>MQTTInputNodeUDN</I> "<I>Build tree using XML schema data types</I>" property
 	 * 
-	 * @return boolean; the value of the property "<I>parserXmlnscBuildTreeUsingXMLSchema</I>"
+	 * @return boolean; the value of the property "<I>Build tree using XML schema data types</I>"
 	 */
 	public boolean getParserXmlnscBuildTreeUsingXMLSchema(){
 	if (getPropertyValue(MQTTInputNodeUDN.PROPERTY_PARSERXMLNSCBUILDTREEUSINGXMLSCHEMA).equals("true")){

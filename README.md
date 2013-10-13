@@ -10,14 +10,13 @@ To avoid having to manually import the projects into the Integration Toolkit, in
 
 ##Setup
 1. Clone the Git repositories and import the projects (see [additional instructions](INSTRUCTIONS.md) if you need more detailed instructions):
-  * Clone and import the Eclipse Paho project (URI: git://git.eclipse.org/gitroot/paho/org.eclipse.paho.mqtt.java.git).
+  * Clone and import the Eclipse Paho project (URI: git://git.eclipse.org/gitroot/paho/org.eclipse.paho.mqtt.java.git). Check out tag 0.1.
   * Clone and import this repository (URI:  git@github.com:ot4i/mqtt-client-connector.git).
  
 2. Add the nodes to the Integration Toolkit:
-  * Clean the projects by clicking **Project** on the menu bar, and selecting **Clean All**.
+  * Clean all projects by clicking **Project** on the menu bar, and selecting **Clean...**.
   * If IIB was not installed in the default location, right-click the MQTTConnector project and select **Build Path**, followed by  **Configure Build Path**. In the **Libraries** tab, update the location of jplugin2.jar and connectors.jar to the classes folder of your IIB runtime installation. The default location of the classes folder on Windows is C:\Program Files\IBM\MQSI\9.0.0.0\classes. 
-  * In the MQTTNodes project, remove the package declaration 'package ComIbm;' from the start of the two files MQTTInputNodeUDN.java and MQTTOutputNodeUDN.java. Note, every time a full build is run or the user defined node project is built, the package declaration will need to be removed from these files.
-  * In the Application Development view of the Integration Development perspective, right-click the Independent Resource **MQTTNodes** and select **Start Simulation**. The MQTTNodes resource is now accessible to the Integration Toolkit, and the project MQTTSample is rebuilt.
+  * In the Application Development view of the Integration Development perspective, right-click the Independent Resource **MQTTNodes** and select **Start Simulation**. The MQTTNodes resource is now accessible to the Integration Toolkit.
 
 3. Install the connector on IIB:
   * Export the MQTTConnector and the org.eclipse.paho.client.mqttv3 projects as separate jar files, with the same names as the projects, into your file system's *ConnectorRuntimeDirectory*, e.g. C:\Connectors\MQTT.

@@ -96,7 +96,7 @@ public class MQTTTrace {
 	}
 
 	private void setupException(Properties providerProps) {
-		if (providerProps.getProperty("property3") != null) {
+		if (providerProps!= null && providerProps.getProperty("property3") != null) {
 			if (providerProps.getProperty("property3").equalsIgnoreCase(
 					"useBuildMode")) {
 				useBuildMode = true;

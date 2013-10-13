@@ -1,5 +1,3 @@
-package ComIbm;
-
 import com.ibm.broker.config.appdev.InputTerminal;
 import com.ibm.broker.config.appdev.Node;
 import com.ibm.broker.config.appdev.NodeProperty;
@@ -14,7 +12,7 @@ public class MQTTOutputNodeUDN extends Node {
 	private static final long serialVersionUID = 1L;
 
 	// Node constants
-	protected final static String NODE_TYPE_NAME = "ComIbm/OutputNode";
+	protected final static String NODE_TYPE_NAME = "OutputNode";
 	protected final static String NODE_GRAPHIC_16 = "platform:/plugin/MQTTNodes/icons/full/obj16/ComIbmOutput.gif";
 	protected final static String NODE_GRAPHIC_32 = "platform:/plugin/MQTTNodes/icons/full/obj30/ComIbmOutput.gif";
 
@@ -134,7 +132,7 @@ public class MQTTOutputNodeUDN extends Node {
 		return new NodeProperty[] {
 			new NodeProperty(MQTTOutputNodeUDN.PROPERTY_CLIENTID,		NodeProperty.Usage.MANDATORY,	true,	NodeProperty.Type.STRING, null,"","",	"ComIbmOutput",	"MQTTNodes"),
 			new NodeProperty(MQTTOutputNodeUDN.PROPERTY_TOPICNAME,		NodeProperty.Usage.MANDATORY,	true,	NodeProperty.Type.STRING, null,"","",	"ComIbmOutput",	"MQTTNodes"),
-			new NodeProperty(MQTTOutputNodeUDN.PROPERTY_BROKERURL,		NodeProperty.Usage.MANDATORY,	true,	NodeProperty.Type.STRING, "tcp://m2m.eclipse.org:1883","","",	"ComIbmOutput",	"MQTTNodes"),
+			new NodeProperty(MQTTOutputNodeUDN.PROPERTY_BROKERURL,		NodeProperty.Usage.MANDATORY,	true,	NodeProperty.Type.STRING, null,"","",	"ComIbmOutput",	"MQTTNodes"),
 			new NodeProperty(MQTTOutputNodeUDN.PROPERTY_CONNECTORNAME,		NodeProperty.Usage.OPTIONAL,	false,	NodeProperty.Type.STRING, "MQTT","","",	"ComIbmOutput",	"MQTTNodes"),
 			new NodeProperty(MQTTOutputNodeUDN.PROPERTY_VALIDATEMASTER,		NodeProperty.Usage.MANDATORY,	true,	NodeProperty.Type.ENUMERATION, "inherit", ENUM_MQTTOUTPUT_VALIDATEMASTER.class,"","",	"ComIbmOutput",	"MQTTNodes"),
 			new NodeProperty(MQTTOutputNodeUDN.PROPERTY_VALIDATEFAILUREACTION,		NodeProperty.Usage.MANDATORY,	false,	NodeProperty.Type.ENUMERATION, "exception", ENUM_MQTTOUTPUT_VALIDATEFAILUREACTION.class,"",	"com.ibm.etools.mft.ibmnodes.editors.ValidateMasterListenerPropertyEditor",	"ComIbmOutput",	"MQTTNodes"),

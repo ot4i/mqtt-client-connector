@@ -1,5 +1,3 @@
-package ComIbm;
-
 import com.ibm.broker.config.appdev.InputTerminal;
 import com.ibm.broker.config.appdev.Node;
 import com.ibm.broker.config.appdev.NodeProperty;
@@ -17,7 +15,7 @@ public class MQTTInputNodeUDN extends Node {
 	private static final long serialVersionUID = 1L;
 
 	// Node constants
-	protected final static String NODE_TYPE_NAME = "ComIbm/EventInputNode";
+	protected final static String NODE_TYPE_NAME = "EventInputNode";
 	protected final static String NODE_GRAPHIC_16 = "platform:/plugin/MQTTNodes/icons/full/obj16/ComIbmEventInput.gif";
 	protected final static String NODE_GRAPHIC_32 = "platform:/plugin/MQTTNodes/icons/full/obj30/ComIbmEventInput.gif";
 
@@ -589,9 +587,9 @@ public class MQTTInputNodeUDN extends Node {
 	}
 
 	/**
-	 * Set the <I>MQTTInputNodeUDN</I> "<I>Build tree using XML schema data types</I>" property
+	 * Set the <I>MQTTInputNodeUDN</I> "<I>parserXmlnscBuildTreeUsingXMLSchema</I>" property
 	 * 
-	 * @param value boolean ; the value to set the property "<I>Build tree using XML schema data types</I>"
+	 * @param value boolean ; the value to set the property "<I>parserXmlnscBuildTreeUsingXMLSchema</I>"
 	 */
 	public MQTTInputNodeUDN setParserXmlnscBuildTreeUsingXMLSchema(boolean value) {
 		setProperty(MQTTInputNodeUDN.PROPERTY_PARSERXMLNSCBUILDTREEUSINGXMLSCHEMA, String.valueOf(value));
@@ -599,9 +597,9 @@ public class MQTTInputNodeUDN extends Node {
 	}
 
 	/**
-	 * Get the <I>MQTTInputNodeUDN</I> "<I>Build tree using XML schema data types</I>" property
+	 * Get the <I>MQTTInputNodeUDN</I> "<I>parserXmlnscBuildTreeUsingXMLSchema</I>" property
 	 * 
-	 * @return boolean; the value of the property "<I>Build tree using XML schema data types</I>"
+	 * @return boolean; the value of the property "<I>parserXmlnscBuildTreeUsingXMLSchema</I>"
 	 */
 	public boolean getParserXmlnscBuildTreeUsingXMLSchema(){
 	if (getPropertyValue(MQTTInputNodeUDN.PROPERTY_PARSERXMLNSCBUILDTREEUSINGXMLSCHEMA).equals("true")){

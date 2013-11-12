@@ -15,7 +15,7 @@ public class MQTTInputNodeUDN extends Node {
 	private static final long serialVersionUID = 1L;
 
 	// Node constants
-	protected final static String NODE_TYPE_NAME = "ComIbm/EventInputNode";
+	protected final static String NODE_TYPE_NAME = "EventInputNode";
 	protected final static String NODE_GRAPHIC_16 = "platform:/plugin/MQTTNodes/icons/full/obj16/ComIbmEventInput.gif";
 	protected final static String NODE_GRAPHIC_32 = "platform:/plugin/MQTTNodes/icons/full/obj30/ComIbmEventInput.gif";
 
@@ -264,7 +264,7 @@ public class MQTTInputNodeUDN extends Node {
 		return new NodeProperty[] {
 			new NodeProperty(MQTTInputNodeUDN.PROPERTY_CLIENTID,		NodeProperty.Usage.MANDATORY,	true,	NodeProperty.Type.STRING, null,"","",	"ComIbmEventInput",	"MQTTNodes"),
 			new NodeProperty(MQTTInputNodeUDN.PROPERTY_TOPICNAME,		NodeProperty.Usage.MANDATORY,	true,	NodeProperty.Type.STRING, null,"","",	"ComIbmEventInput",	"MQTTNodes"),
-			new NodeProperty(MQTTInputNodeUDN.PROPERTY_BROKERURL,		NodeProperty.Usage.MANDATORY,	true,	NodeProperty.Type.STRING, "tcp://m2m.eclipse.org:1883","","",	"ComIbmEventInput",	"MQTTNodes"),
+			new NodeProperty(MQTTInputNodeUDN.PROPERTY_BROKERURL,		NodeProperty.Usage.MANDATORY,	true,	NodeProperty.Type.STRING, null,"","",	"ComIbmEventInput",	"MQTTNodes"),
 			new NodeProperty(MQTTInputNodeUDN.PROPERTY_CONNECTORNAME,		NodeProperty.Usage.OPTIONAL,	false,	NodeProperty.Type.STRING, "MQTT","","",	"ComIbmEventInput",	"MQTTNodes"),
 			new NodeProperty(MQTTInputNodeUDN.PROPERTY_MESSAGEDOMAINPROPERTY,		NodeProperty.Usage.OPTIONAL,	false,	NodeProperty.Type.STRING, null,"",	"com.ibm.etools.mft.ibmnodes.editors.MRMessageDomainPropertyEditor",	"ComIbmEventInput",	"MQTTNodes"),
 			new NodeProperty(MQTTInputNodeUDN.PROPERTY_MESSAGESETPROPERTY,		NodeProperty.Usage.OPTIONAL,	false,	NodeProperty.Type.STRING, null,"",	"com.ibm.etools.mft.ibmnodes.editors.MRMessageSetNamePropertyEditorV8",	"ComIbmEventInput",	"MQTTNodes"),

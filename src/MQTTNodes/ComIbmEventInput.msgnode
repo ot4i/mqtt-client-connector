@@ -68,7 +68,7 @@
     <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.topicName" name="topicName" lowerBound="1">
       <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.brokerUrl" name="brokerUrl" lowerBound="1" defaultValueLiteral="tcp://m2m.eclipse.org:1883">
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.brokerUrl" name="brokerUrl" lowerBound="1">
       <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eStructuralFeatures>
     <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.connectorName" name="connectorName" defaultValueLiteral="MQTT">

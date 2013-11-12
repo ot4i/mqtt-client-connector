@@ -10,14 +10,20 @@ To avoid having to manually import the projects into the Integration Toolkit, in
 
 ##Setup
 1. Clone the Git repositories and import the projects (see [additional instructions](INSTRUCTIONS.md) if you need more detailed instructions):
-  * Clone and import the Eclipse Paho project (URI: git://git.eclipse.org/gitroot/paho/org.eclipse.paho.mqtt.java.git).
-  * Clone and import this repository (URI:  git@github.com:ot4i/mqtt-client-connector.git).
+  * Clone the Eclipse Paho project
+    ``` git clone git://git.eclipse.org/gitroot/paho/org.eclipse.paho.mqtt.java.git ```
+  * Check out Paho v0.1
+    ``` git checkout tags/v0.1 ```
+  * Import the Paho projects into your Eclipse workspace 
+  * Clone this git repository
+    ``` git clone git://github.com/ot4i/mqtt-client-connector.git ```
+  * Import the MQTTConnector, MQTTNodes and MQTTSetupForIIB projects into your Eclipse workspace
  
 2. Add the nodes to the Integration Toolkit:
   * Clean the projects by clicking **Project** on the menu bar, and selecting **Clean All**.
-  * Define an eclipse classpath variable called IIB\_PATH which points to your IBM Integration Bus installation directory by opening the eclipse preferences (Window -> Preferences) and navigating to Java -> Build Path -> Classpath Variables and selecting NEW.
-  * In the MQTTNodes project, you may need to remove the package declaration 'package ComIbm;' from the start of the two files MQTTInputNodeUDN.java and MQTTOutputNodeUDN.java. Note, every time a full build is run or the user defined node project is built, the package declaration will need to be removed from these files.
-  * In the Application Development view of the Integration Development perspective, right-click the Independent Resource **MQTTNodes** and select **Start Simulation**. The MQTTNodes resource is now accessible to the Integration Toolkit, and the project MQTTSample is rebuilt.
+  *  Define an eclipse classpath variable called IIB\_PATH which points to your IBM Integration Bus installation directory by opening the eclipse preferences (Window -> Preferences) and navigating to Java -> Build Path -> Classpath Variables and selecting NEW.
+  * In the MQTTNodes project, remove the package declaration 'package ComIbm;' from the start of the two files MQTTInputNodeUDN.java and MQTTOutputNodeUDN.java. Note, every time a full build is run or the user defined node project is built, the package declaration will need to be removed from these files. You will need to switch to the Java perspective to see these files in the package explorer. Alternatively, you can double click on the errors in the problems view to open these files for editing.
+  * In the Application Development view of the Integration Development perspective, right-click the Independent Resource **MQTTNodes** and select **Start Simulation**. The MQTTNodes resource is now accessible to the Integration Toolkit.
 
 3. Install the connector on IIB:
   * Export the MQTTConnector and the org.eclipse.paho.client.mqttv3 projects as separate jar files, with the same names as the projects, into your file system's *ConnectorRuntimeDirectory*, e.g. C:\Connectors\MQTT.

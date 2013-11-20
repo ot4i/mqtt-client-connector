@@ -61,15 +61,16 @@
     <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.brokerUrl" name="brokerUrl" lowerBound="1">
       <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eStructuralFeatures>
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.qualityOfService" name="qualityOfService" eType="//@eClassifiers.3" defaultValueLiteral="atMostOnce"/>
     <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.connectorName" name="connectorName" defaultValueLiteral="MQTT">
       <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.validateMaster" name="validateMaster" lowerBound="1" eType="//@eClassifiers.3" defaultValueLiteral="inherit"/>
-    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.validateFailureAction" name="validateFailureAction" lowerBound="1" eType="//@eClassifiers.4" defaultValueLiteral="exception"/>
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.validateMaster" name="validateMaster" lowerBound="1" eType="//@eClassifiers.4" defaultValueLiteral="inherit"/>
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.validateFailureAction" name="validateFailureAction" lowerBound="1" eType="//@eClassifiers.5" defaultValueLiteral="exception"/>
     <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.validateAllValueConstraints" name="validateAllValueConstraints" lowerBound="1" defaultValueLiteral="true">
       <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.validateFixup" name="validateFixup" lowerBound="1" eType="//@eClassifiers.5" defaultValueLiteral="none"/>
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.validateFixup" name="validateFixup" lowerBound="1" eType="//@eClassifiers.6" defaultValueLiteral="none"/>
     <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.securityProfileName" name="securityProfileName" defaultValueLiteral="">
       <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eStructuralFeatures>
@@ -96,22 +97,25 @@
           <propertyName xmi:type="utility:TranslatableString" key="Property.topicName" bundleName="ComIbmOutput" pluginId="MQTTNodes"/>
           <propertyDescriptor configurable="true" describedAttribute="Property.brokerUrl">
             <propertyName xmi:type="utility:TranslatableString" key="Property.brokerUrl" bundleName="ComIbmOutput" pluginId="MQTTNodes"/>
-            <propertyDescriptor hidden="true" describedAttribute="Property.connectorName">
-              <propertyName xmi:type="utility:TranslatableString" key="Property.connectorName" bundleName="ComIbmOutput" pluginId="MQTTNodes"/>
-              <propertyDescriptor groupName="Group.validation" configurable="true" describedAttribute="Property.validateMaster">
-                <propertyName xmi:type="utility:TranslatableString" key="Property.validateMaster" bundleName="ComIbmOutput" pluginId="MQTTNodes"/>
-                <propertyDescriptor groupName="Group.validation" propertyEditor="com.ibm.etools.mft.ibmnodes.editors.ValidateMasterListenerPropertyEditor" describedAttribute="Property.validateFailureAction">
-                  <propertyName xmi:type="utility:TranslatableString" key="Property.validateFailureAction" bundleName="ComIbmOutput" pluginId="MQTTNodes"/>
-                  <propertyDescriptor groupName="Group.validation" compiler="com.ibm.etools.mft.ibmnodes.compilers.BooleanPropertyCompiler" readOnly="true" hidden="true" describedAttribute="Property.validateAllValueConstraints">
-                    <propertyName xmi:type="utility:TranslatableString" key="Property.validateAllValueConstraints" bundleName="ComIbmOutput" pluginId="MQTTNodes"/>
-                    <propertyDescriptor groupName="Group.validation" readOnly="true" hidden="true" describedAttribute="Property.validateFixup">
-                      <propertyName xmi:type="utility:TranslatableString" key="Property.validateFixup" bundleName="ComIbmOutput" pluginId="MQTTNodes"/>
-                      <propertyDescriptor groupName="Group.security" propertyEditor="com.ibm.etools.mft.ibmnodes.editors.SecurityProfileNamePropertyEditor" hidden="true" configurable="true" describedAttribute="Property.securityProfileName">
-                        <propertyName xmi:type="utility:TranslatableString" key="Property.securityProfileName" bundleName="ComIbmOutput" pluginId="MQTTNodes"/>
-                        <propertyDescriptor groupName="Group.monitoring" readOnly="true" hidden="true" describedReference="Property.nsMappingTable">
-                          <propertyName xmi:type="utility:TranslatableString" key="Property.nsMappingTable" bundleName="ComIbmOutput" pluginId="MQTTNodes"/>
-                          <propertyDescriptor groupName="Group.monitoring" propertyEditor="com.ibm.etools.mft.ibmnodes.editors.monitoring.MonitoringEventsComplexPropertyEditor" describedReference="Property.monitorEvents">
-                            <propertyName xmi:type="utility:TranslatableString" key="Property.monitorEvents" bundleName="ComIbmOutput" pluginId="MQTTNodes"/>
+            <propertyDescriptor configurable="true" describedAttribute="Property.qualityOfService">
+              <propertyName xmi:type="utility:TranslatableString" key="Property.qualityOfService" bundleName="ComIbmOutput" pluginId="MQTTNodes"/>
+              <propertyDescriptor hidden="true" describedAttribute="Property.connectorName">
+                <propertyName xmi:type="utility:TranslatableString" key="Property.connectorName" bundleName="ComIbmOutput" pluginId="MQTTNodes"/>
+                <propertyDescriptor groupName="Group.validation" configurable="true" describedAttribute="Property.validateMaster">
+                  <propertyName xmi:type="utility:TranslatableString" key="Property.validateMaster" bundleName="ComIbmOutput" pluginId="MQTTNodes"/>
+                  <propertyDescriptor groupName="Group.validation" propertyEditor="com.ibm.etools.mft.ibmnodes.editors.ValidateMasterListenerPropertyEditor" describedAttribute="Property.validateFailureAction">
+                    <propertyName xmi:type="utility:TranslatableString" key="Property.validateFailureAction" bundleName="ComIbmOutput" pluginId="MQTTNodes"/>
+                    <propertyDescriptor groupName="Group.validation" compiler="com.ibm.etools.mft.ibmnodes.compilers.BooleanPropertyCompiler" readOnly="true" hidden="true" describedAttribute="Property.validateAllValueConstraints">
+                      <propertyName xmi:type="utility:TranslatableString" key="Property.validateAllValueConstraints" bundleName="ComIbmOutput" pluginId="MQTTNodes"/>
+                      <propertyDescriptor groupName="Group.validation" readOnly="true" hidden="true" describedAttribute="Property.validateFixup">
+                        <propertyName xmi:type="utility:TranslatableString" key="Property.validateFixup" bundleName="ComIbmOutput" pluginId="MQTTNodes"/>
+                        <propertyDescriptor groupName="Group.security" propertyEditor="com.ibm.etools.mft.ibmnodes.editors.SecurityProfileNamePropertyEditor" hidden="true" configurable="true" describedAttribute="Property.securityProfileName">
+                          <propertyName xmi:type="utility:TranslatableString" key="Property.securityProfileName" bundleName="ComIbmOutput" pluginId="MQTTNodes"/>
+                          <propertyDescriptor groupName="Group.monitoring" readOnly="true" hidden="true" describedReference="Property.nsMappingTable">
+                            <propertyName xmi:type="utility:TranslatableString" key="Property.nsMappingTable" bundleName="ComIbmOutput" pluginId="MQTTNodes"/>
+                            <propertyDescriptor groupName="Group.monitoring" propertyEditor="com.ibm.etools.mft.ibmnodes.editors.monitoring.MonitoringEventsComplexPropertyEditor" describedReference="Property.monitorEvents">
+                              <propertyName xmi:type="utility:TranslatableString" key="Property.monitorEvents" bundleName="ComIbmOutput" pluginId="MQTTNodes"/>
+                            </propertyDescriptor>
                           </propertyDescriptor>
                         </propertyDescriptor>
                       </propertyDescriptor>
@@ -124,6 +128,11 @@
         </propertyDescriptor>
       </propertyDescriptor>
     </propertyOrganizer>
+  </eClassifiers>
+  <eClassifiers xmi:type="ecore:EEnum">
+    <eLiterals xmi:id="qualityOfService.atMostOnce" name="atMostOnce"/>
+    <eLiterals xmi:id="qualityOfService.atLeastOnce" name="atLeastOnce" value="1"/>
+    <eLiterals xmi:id="qualityOfService.exactlyOnce" name="exactlyOnce" value="2"/>
   </eClassifiers>
   <eClassifiers xmi:type="ecore:EEnum">
     <eLiterals xmi:id="validateMaster.none" name="none"/>

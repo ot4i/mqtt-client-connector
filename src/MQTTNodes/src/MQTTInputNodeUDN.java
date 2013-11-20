@@ -15,13 +15,14 @@ public class MQTTInputNodeUDN extends Node {
 	private static final long serialVersionUID = 1L;
 
 	// Node constants
-	protected final static String NODE_TYPE_NAME = "EventInputNode";
+	protected final static String NODE_TYPE_NAME = "ComIbm/EventInputNode";
 	protected final static String NODE_GRAPHIC_16 = "platform:/plugin/MQTTNodes/icons/full/obj16/ComIbmEventInput.gif";
 	protected final static String NODE_GRAPHIC_32 = "platform:/plugin/MQTTNodes/icons/full/obj30/ComIbmEventInput.gif";
 
 	protected final static String PROPERTY_CLIENTID = "clientId";
 	protected final static String PROPERTY_TOPICNAME = "topicName";
 	protected final static String PROPERTY_BROKERURL = "brokerUrl";
+	protected final static String PROPERTY_QUALITYOFSERVICE = "qualityOfService";
 	protected final static String PROPERTY_CONNECTORNAME = "connectorName";
 	protected final static String PROPERTY_MESSAGEDOMAINPROPERTY = "messageDomainProperty";
 	protected final static String PROPERTY_MESSAGESETPROPERTY = "messageSetProperty";
@@ -38,6 +39,39 @@ public class MQTTInputNodeUDN extends Node {
 	protected final static String PROPERTY_VALIDATEALLVALUECONSTRAINTS = "validateAllValueConstraints";
 	protected final static String PROPERTY_VALIDATEFIXUP = "validateFixup";
 
+
+	/**
+	 * <I>ENUM_MQTTINPUT_VALIDATEMASTER</I>
+	 * <pre>
+	 * ENUM_MQTTINPUT_VALIDATEMASTER.none = None
+	 * ENUM_MQTTINPUT_VALIDATEMASTER.contentAndValue = Content and Value
+	 * ENUM_MQTTINPUT_VALIDATEMASTER.content = Content
+	 * </pre>
+	 */
+	public static class ENUM_MQTTINPUT_VALIDATEMASTER {
+		private String value;
+
+		public static final ENUM_MQTTINPUT_VALIDATEMASTER none = new ENUM_MQTTINPUT_VALIDATEMASTER("none");
+		public static final ENUM_MQTTINPUT_VALIDATEMASTER contentAndValue = new ENUM_MQTTINPUT_VALIDATEMASTER("contentAndValue");
+		public static final ENUM_MQTTINPUT_VALIDATEMASTER content = new ENUM_MQTTINPUT_VALIDATEMASTER("content");
+
+		protected ENUM_MQTTINPUT_VALIDATEMASTER(String value) {
+			this.value = value;
+		}
+		public String toString() {
+			return value;
+		}
+
+		protected static ENUM_MQTTINPUT_VALIDATEMASTER getEnumFromString(String enumValue) {
+			ENUM_MQTTINPUT_VALIDATEMASTER enumConst = ENUM_MQTTINPUT_VALIDATEMASTER.none;
+			if (ENUM_MQTTINPUT_VALIDATEMASTER.contentAndValue.value.equals(enumValue)) enumConst = ENUM_MQTTINPUT_VALIDATEMASTER.contentAndValue;
+			if (ENUM_MQTTINPUT_VALIDATEMASTER.content.value.equals(enumValue)) enumConst = ENUM_MQTTINPUT_VALIDATEMASTER.content;
+			return enumConst;
+		}
+
+		public static String[] values = new String[]{ "none", "contentAndValue", "content" };
+
+	}
 
 	/**
 	 * <I>ENUM_MQTTINPUT_VALIDATEFAILUREACTION</I>
@@ -102,6 +136,39 @@ public class MQTTInputNodeUDN extends Node {
 		}
 
 		public static String[] values = new String[]{ "none", "full" };
+
+	}
+
+	/**
+	 * <I>ENUM_MQTTINPUT_QUALITYOFSERVICE</I>
+	 * <pre>
+	 * ENUM_MQTTINPUT_QUALITYOFSERVICE.atMostOnce = 0 - At most once
+	 * ENUM_MQTTINPUT_QUALITYOFSERVICE.atLeastOnce = 1 - At least once
+	 * ENUM_MQTTINPUT_QUALITYOFSERVICE.exactlyOnce = 2 - Exactly once
+	 * </pre>
+	 */
+	public static class ENUM_MQTTINPUT_QUALITYOFSERVICE {
+		private String value;
+
+		public static final ENUM_MQTTINPUT_QUALITYOFSERVICE atMostOnce = new ENUM_MQTTINPUT_QUALITYOFSERVICE("atMostOnce");
+		public static final ENUM_MQTTINPUT_QUALITYOFSERVICE atLeastOnce = new ENUM_MQTTINPUT_QUALITYOFSERVICE("atLeastOnce");
+		public static final ENUM_MQTTINPUT_QUALITYOFSERVICE exactlyOnce = new ENUM_MQTTINPUT_QUALITYOFSERVICE("exactlyOnce");
+
+		protected ENUM_MQTTINPUT_QUALITYOFSERVICE(String value) {
+			this.value = value;
+		}
+		public String toString() {
+			return value;
+		}
+
+		protected static ENUM_MQTTINPUT_QUALITYOFSERVICE getEnumFromString(String enumValue) {
+			ENUM_MQTTINPUT_QUALITYOFSERVICE enumConst = ENUM_MQTTINPUT_QUALITYOFSERVICE.atMostOnce;
+			if (ENUM_MQTTINPUT_QUALITYOFSERVICE.atLeastOnce.value.equals(enumValue)) enumConst = ENUM_MQTTINPUT_QUALITYOFSERVICE.atLeastOnce;
+			if (ENUM_MQTTINPUT_QUALITYOFSERVICE.exactlyOnce.value.equals(enumValue)) enumConst = ENUM_MQTTINPUT_QUALITYOFSERVICE.exactlyOnce;
+			return enumConst;
+		}
+
+		public static String[] values = new String[]{ "atMostOnce", "atLeastOnce", "exactlyOnce" };
 
 	}
 
@@ -227,44 +294,12 @@ public class MQTTInputNodeUDN extends Node {
 		public static String[] values = new String[]{ "none", "all" };
 
 	}
-
-	/**
-	 * <I>ENUM_MQTTINPUT_VALIDATEMASTER</I>
-	 * <pre>
-	 * ENUM_MQTTINPUT_VALIDATEMASTER.none = None
-	 * ENUM_MQTTINPUT_VALIDATEMASTER.contentAndValue = Content and Value
-	 * ENUM_MQTTINPUT_VALIDATEMASTER.content = Content
-	 * </pre>
-	 */
-	public static class ENUM_MQTTINPUT_VALIDATEMASTER {
-		private String value;
-
-		public static final ENUM_MQTTINPUT_VALIDATEMASTER none = new ENUM_MQTTINPUT_VALIDATEMASTER("none");
-		public static final ENUM_MQTTINPUT_VALIDATEMASTER contentAndValue = new ENUM_MQTTINPUT_VALIDATEMASTER("contentAndValue");
-		public static final ENUM_MQTTINPUT_VALIDATEMASTER content = new ENUM_MQTTINPUT_VALIDATEMASTER("content");
-
-		protected ENUM_MQTTINPUT_VALIDATEMASTER(String value) {
-			this.value = value;
-		}
-		public String toString() {
-			return value;
-		}
-
-		protected static ENUM_MQTTINPUT_VALIDATEMASTER getEnumFromString(String enumValue) {
-			ENUM_MQTTINPUT_VALIDATEMASTER enumConst = ENUM_MQTTINPUT_VALIDATEMASTER.none;
-			if (ENUM_MQTTINPUT_VALIDATEMASTER.contentAndValue.value.equals(enumValue)) enumConst = ENUM_MQTTINPUT_VALIDATEMASTER.contentAndValue;
-			if (ENUM_MQTTINPUT_VALIDATEMASTER.content.value.equals(enumValue)) enumConst = ENUM_MQTTINPUT_VALIDATEMASTER.content;
-			return enumConst;
-		}
-
-		public static String[] values = new String[]{ "none", "contentAndValue", "content" };
-
-	}
 	protected NodeProperty[] getNodeProperties() {
 		return new NodeProperty[] {
 			new NodeProperty(MQTTInputNodeUDN.PROPERTY_CLIENTID,		NodeProperty.Usage.MANDATORY,	true,	NodeProperty.Type.STRING, null,"","",	"ComIbmEventInput",	"MQTTNodes"),
 			new NodeProperty(MQTTInputNodeUDN.PROPERTY_TOPICNAME,		NodeProperty.Usage.MANDATORY,	true,	NodeProperty.Type.STRING, null,"","",	"ComIbmEventInput",	"MQTTNodes"),
 			new NodeProperty(MQTTInputNodeUDN.PROPERTY_BROKERURL,		NodeProperty.Usage.MANDATORY,	true,	NodeProperty.Type.STRING, null,"","",	"ComIbmEventInput",	"MQTTNodes"),
+			new NodeProperty(MQTTInputNodeUDN.PROPERTY_QUALITYOFSERVICE,		NodeProperty.Usage.OPTIONAL,	true,	NodeProperty.Type.ENUMERATION, "atMostOnce", ENUM_MQTTINPUT_QUALITYOFSERVICE.class,"","",	"ComIbmEventInput",	"MQTTNodes"),
 			new NodeProperty(MQTTInputNodeUDN.PROPERTY_CONNECTORNAME,		NodeProperty.Usage.OPTIONAL,	false,	NodeProperty.Type.STRING, "MQTT","","",	"ComIbmEventInput",	"MQTTNodes"),
 			new NodeProperty(MQTTInputNodeUDN.PROPERTY_MESSAGEDOMAINPROPERTY,		NodeProperty.Usage.OPTIONAL,	false,	NodeProperty.Type.STRING, null,"",	"com.ibm.etools.mft.ibmnodes.editors.MRMessageDomainPropertyEditor",	"ComIbmEventInput",	"MQTTNodes"),
 			new NodeProperty(MQTTInputNodeUDN.PROPERTY_MESSAGESETPROPERTY,		NodeProperty.Usage.OPTIONAL,	false,	NodeProperty.Type.STRING, null,"",	"com.ibm.etools.mft.ibmnodes.editors.MRMessageSetNamePropertyEditorV8",	"ComIbmEventInput",	"MQTTNodes"),
@@ -472,6 +507,26 @@ public class MQTTInputNodeUDN extends Node {
 	}
 
 	/**
+	 * Set the <I>MQTTInputNodeUDN</I> "<I>Quality of service</I>" property
+	 * 
+	 * @param value ENUM_MQTTINPUT_QUALITYOFSERVICE ; the value to set the property "<I>Quality of service</I>"
+	 */
+	public MQTTInputNodeUDN setQualityOfService(ENUM_MQTTINPUT_QUALITYOFSERVICE value) {
+		setProperty(MQTTInputNodeUDN.PROPERTY_QUALITYOFSERVICE, value.toString());
+		return this;
+	}
+
+	/**
+	 * Get the <I>MQTTInputNodeUDN</I> "<I>Quality of service</I>" property
+	 * 
+	 * @return ENUM_MQTTINPUT_QUALITYOFSERVICE; the value of the property "<I>Quality of service</I>"
+	 */
+	public ENUM_MQTTINPUT_QUALITYOFSERVICE getQualityOfService() {
+		ENUM_MQTTINPUT_QUALITYOFSERVICE value = ENUM_MQTTINPUT_QUALITYOFSERVICE.getEnumFromString((String)getPropertyValue(MQTTInputNodeUDN.PROPERTY_QUALITYOFSERVICE));
+		return value;
+	}
+
+	/**
 	 * Set the <I>MQTTInputNodeUDN</I> "<I>Connector name</I>" property
 	 * 
 	 * @param value String ; the value to set the property "<I>Connector name</I>"
@@ -587,9 +642,9 @@ public class MQTTInputNodeUDN extends Node {
 	}
 
 	/**
-	 * Set the <I>MQTTInputNodeUDN</I> "<I>parserXmlnscBuildTreeUsingXMLSchema</I>" property
+	 * Set the <I>MQTTInputNodeUDN</I> "<I>Build tree using XML schema data types</I>" property
 	 * 
-	 * @param value boolean ; the value to set the property "<I>parserXmlnscBuildTreeUsingXMLSchema</I>"
+	 * @param value boolean ; the value to set the property "<I>Build tree using XML schema data types</I>"
 	 */
 	public MQTTInputNodeUDN setParserXmlnscBuildTreeUsingXMLSchema(boolean value) {
 		setProperty(MQTTInputNodeUDN.PROPERTY_PARSERXMLNSCBUILDTREEUSINGXMLSCHEMA, String.valueOf(value));
@@ -597,9 +652,9 @@ public class MQTTInputNodeUDN extends Node {
 	}
 
 	/**
-	 * Get the <I>MQTTInputNodeUDN</I> "<I>parserXmlnscBuildTreeUsingXMLSchema</I>" property
+	 * Get the <I>MQTTInputNodeUDN</I> "<I>Build tree using XML schema data types</I>" property
 	 * 
-	 * @return boolean; the value of the property "<I>parserXmlnscBuildTreeUsingXMLSchema</I>"
+	 * @return boolean; the value of the property "<I>Build tree using XML schema data types</I>"
 	 */
 	public boolean getParserXmlnscBuildTreeUsingXMLSchema(){
 	if (getPropertyValue(MQTTInputNodeUDN.PROPERTY_PARSERXMLNSCBUILDTREEUSINGXMLSCHEMA).equals("true")){

@@ -12,13 +12,14 @@ public class MQTTOutputNodeUDN extends Node {
 	private static final long serialVersionUID = 1L;
 
 	// Node constants
-	protected final static String NODE_TYPE_NAME = "OutputNode";
+	protected final static String NODE_TYPE_NAME = "ComIbm/OutputNode";
 	protected final static String NODE_GRAPHIC_16 = "platform:/plugin/MQTTNodes/icons/full/obj16/ComIbmOutput.gif";
 	protected final static String NODE_GRAPHIC_32 = "platform:/plugin/MQTTNodes/icons/full/obj30/ComIbmOutput.gif";
 
 	protected final static String PROPERTY_CLIENTID = "clientId";
 	protected final static String PROPERTY_TOPICNAME = "topicName";
 	protected final static String PROPERTY_BROKERURL = "brokerUrl";
+	protected final static String PROPERTY_QUALITYOFSERVICE = "qualityOfService";
 	protected final static String PROPERTY_CONNECTORNAME = "connectorName";
 	protected final static String PROPERTY_VALIDATEMASTER = "validateMaster";
 	protected final static String PROPERTY_VALIDATEFAILUREACTION = "validateFailureAction";
@@ -26,6 +27,39 @@ public class MQTTOutputNodeUDN extends Node {
 	protected final static String PROPERTY_VALIDATEFIXUP = "validateFixup";
 	protected final static String PROPERTY_SECURITYPROFILENAME = "securityProfileName";
 
+
+	/**
+	 * <I>ENUM_MQTTOUTPUT_QUALITYOFSERVICE</I>
+	 * <pre>
+	 * ENUM_MQTTOUTPUT_QUALITYOFSERVICE.atMostOnce = 0 - At most once
+	 * ENUM_MQTTOUTPUT_QUALITYOFSERVICE.atLeastOnce = 1 - At least once
+	 * ENUM_MQTTOUTPUT_QUALITYOFSERVICE.exactlyOnce = 2 - Exactly once
+	 * </pre>
+	 */
+	public static class ENUM_MQTTOUTPUT_QUALITYOFSERVICE {
+		private String value;
+
+		public static final ENUM_MQTTOUTPUT_QUALITYOFSERVICE atMostOnce = new ENUM_MQTTOUTPUT_QUALITYOFSERVICE("atMostOnce");
+		public static final ENUM_MQTTOUTPUT_QUALITYOFSERVICE atLeastOnce = new ENUM_MQTTOUTPUT_QUALITYOFSERVICE("atLeastOnce");
+		public static final ENUM_MQTTOUTPUT_QUALITYOFSERVICE exactlyOnce = new ENUM_MQTTOUTPUT_QUALITYOFSERVICE("exactlyOnce");
+
+		protected ENUM_MQTTOUTPUT_QUALITYOFSERVICE(String value) {
+			this.value = value;
+		}
+		public String toString() {
+			return value;
+		}
+
+		protected static ENUM_MQTTOUTPUT_QUALITYOFSERVICE getEnumFromString(String enumValue) {
+			ENUM_MQTTOUTPUT_QUALITYOFSERVICE enumConst = ENUM_MQTTOUTPUT_QUALITYOFSERVICE.atMostOnce;
+			if (ENUM_MQTTOUTPUT_QUALITYOFSERVICE.atLeastOnce.value.equals(enumValue)) enumConst = ENUM_MQTTOUTPUT_QUALITYOFSERVICE.atLeastOnce;
+			if (ENUM_MQTTOUTPUT_QUALITYOFSERVICE.exactlyOnce.value.equals(enumValue)) enumConst = ENUM_MQTTOUTPUT_QUALITYOFSERVICE.exactlyOnce;
+			return enumConst;
+		}
+
+		public static String[] values = new String[]{ "atMostOnce", "atLeastOnce", "exactlyOnce" };
+
+	}
 
 	/**
 	 * <I>ENUM_MQTTOUTPUT_VALIDATEMASTER</I>
@@ -133,6 +167,7 @@ public class MQTTOutputNodeUDN extends Node {
 			new NodeProperty(MQTTOutputNodeUDN.PROPERTY_CLIENTID,		NodeProperty.Usage.MANDATORY,	true,	NodeProperty.Type.STRING, null,"","",	"ComIbmOutput",	"MQTTNodes"),
 			new NodeProperty(MQTTOutputNodeUDN.PROPERTY_TOPICNAME,		NodeProperty.Usage.MANDATORY,	true,	NodeProperty.Type.STRING, null,"","",	"ComIbmOutput",	"MQTTNodes"),
 			new NodeProperty(MQTTOutputNodeUDN.PROPERTY_BROKERURL,		NodeProperty.Usage.MANDATORY,	true,	NodeProperty.Type.STRING, null,"","",	"ComIbmOutput",	"MQTTNodes"),
+			new NodeProperty(MQTTOutputNodeUDN.PROPERTY_QUALITYOFSERVICE,		NodeProperty.Usage.OPTIONAL,	true,	NodeProperty.Type.ENUMERATION, "atMostOnce", ENUM_MQTTOUTPUT_QUALITYOFSERVICE.class,"","",	"ComIbmOutput",	"MQTTNodes"),
 			new NodeProperty(MQTTOutputNodeUDN.PROPERTY_CONNECTORNAME,		NodeProperty.Usage.OPTIONAL,	false,	NodeProperty.Type.STRING, "MQTT","","",	"ComIbmOutput",	"MQTTNodes"),
 			new NodeProperty(MQTTOutputNodeUDN.PROPERTY_VALIDATEMASTER,		NodeProperty.Usage.MANDATORY,	true,	NodeProperty.Type.ENUMERATION, "inherit", ENUM_MQTTOUTPUT_VALIDATEMASTER.class,"","",	"ComIbmOutput",	"MQTTNodes"),
 			new NodeProperty(MQTTOutputNodeUDN.PROPERTY_VALIDATEFAILUREACTION,		NodeProperty.Usage.MANDATORY,	false,	NodeProperty.Type.ENUMERATION, "exception", ENUM_MQTTOUTPUT_VALIDATEFAILUREACTION.class,"",	"com.ibm.etools.mft.ibmnodes.editors.ValidateMasterListenerPropertyEditor",	"ComIbmOutput",	"MQTTNodes"),
@@ -231,6 +266,26 @@ public class MQTTOutputNodeUDN extends Node {
 	 */
 	public String getBrokerUrl() {
 		return (String)getPropertyValue(MQTTOutputNodeUDN.PROPERTY_BROKERURL);
+	}
+
+	/**
+	 * Set the <I>MQTTOutputNodeUDN</I> "<I>Quality of service</I>" property
+	 * 
+	 * @param value ENUM_MQTTOUTPUT_QUALITYOFSERVICE ; the value to set the property "<I>Quality of service</I>"
+	 */
+	public MQTTOutputNodeUDN setQualityOfService(ENUM_MQTTOUTPUT_QUALITYOFSERVICE value) {
+		setProperty(MQTTOutputNodeUDN.PROPERTY_QUALITYOFSERVICE, value.toString());
+		return this;
+	}
+
+	/**
+	 * Get the <I>MQTTOutputNodeUDN</I> "<I>Quality of service</I>" property
+	 * 
+	 * @return ENUM_MQTTOUTPUT_QUALITYOFSERVICE; the value of the property "<I>Quality of service</I>"
+	 */
+	public ENUM_MQTTOUTPUT_QUALITYOFSERVICE getQualityOfService() {
+		ENUM_MQTTOUTPUT_QUALITYOFSERVICE value = ENUM_MQTTOUTPUT_QUALITYOFSERVICE.getEnumFromString((String)getPropertyValue(MQTTOutputNodeUDN.PROPERTY_QUALITYOFSERVICE));
+		return value;
 	}
 
 	/**

@@ -195,6 +195,8 @@ public class MQTTInputConnector extends EventInputConnector implements AdminInte
         
         String brokerUrl = getProperties().getProperty("brokerUrl");
         String clientId  = getProperties().getProperty("clientId");
+        String qosStr = getProperties().getProperty("qualityOfService");
+        int qos = 0;
         String clientName = clientId;
         
         if( brokerUrl == null ) {
@@ -206,6 +208,16 @@ public class MQTTInputConnector extends EventInputConnector implements AdminInte
         if(clientName.length() > 23){
             clientName = clientName.substring(clientName.length()-23);
         }
+        
+        if(qosStr == null || "atMostOnce".equals(qosStr)) {
+        	qos = 0;
+        } else if("atLeastOnce".equals(qosStr)) {
+        	qos = 1;
+        } else if("exactlyOnce".equals(qosStr)) {
+        	qos = 2;
+        } else {
+    		getConnectorFactory().getContainerServices().throwMbRecoverableException("2111", new String[]{"Invalid QoS: " + qosStr});       		
+    	}
         try {
             dataStore = new MqttDefaultFilePersistence(getConnectorFactory().getContainerServices().getWorkDirectory()+
                                                        getConnectorFactory().getContainerServices().getFileSeparator()+
@@ -213,7 +225,7 @@ public class MQTTInputConnector extends EventInputConnector implements AdminInte
             client    =  new MqttClient(brokerUrl, clientName, dataStore);  
             client.connect();
             client.setCallback(this);
-            client.subscribe(getProperties().getProperty("topicName"));
+            client.subscribe(getProperties().getProperty("topicName"), qos);
             failedToConnect = false;
         } catch (MqttPersistenceException e) {
             if(failedToConnect == false){

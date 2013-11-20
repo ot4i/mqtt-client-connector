@@ -57,6 +57,9 @@ public class MQTTOutputInteraction extends OutputInteraction {
     private MqttDefaultFilePersistence dataStore;
     
     private String topicName = null;
+    
+    private int qos = 0;
+    
     MQTTOutputConnector getMQTTSession() throws MbException{
         return (MQTTOutputConnector)getConnector();
     }
@@ -119,16 +122,25 @@ public class MQTTOutputInteraction extends OutputInteraction {
         else{
             topicName = overrideTopic;
         }
+        String qosStr = overrideProps.getProperty("qualityOfService");
+        if(qosStr == null || qosStr.length() == 0){
+        	qosStr = getConnector().getProperties().getProperty("qualityOfService");
+        }
+        if(qosStr == null || "atMostOnce".equals(qosStr)) {
+        	qos = 0;
+        } else if("atLeastOnce".equals(qosStr)) {
+        	qos = 1;
+        } else if("exactlyOnce".equals(qosStr)) {
+        	qos = 2;
+        } else {
+    		getConnector().getConnectorFactory().getContainerServices().throwMbRecoverableException("2111", new String[]{"Invalid QoS: " + qosStr});       		
+    	}
+        
         MqttTopic topic = client.getTopic(topicName);
         // Construct the message to publish
         MqttMessage message = new MqttMessage(record.getByteData());
-        String qos = getConnector().getProperties().getProperty("qualityOfService");
-        if(qos == null){
-          message.setQos(0);
-        }
-        else{
-            message.setQos(Integer.parseInt(qos));
-        }
+        message.setQos(qos);
+        
         MqttDeliveryToken token = null;
         try {
             token = topic.publish(message);

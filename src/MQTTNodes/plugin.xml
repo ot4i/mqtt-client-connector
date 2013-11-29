@@ -10,10 +10,15 @@
     <extension point="com.ibm.etools.mft.api.nodes"/>
     <!--This is a generated file.-->
     <!--User modifications to this section will not be preserved.-->
+    <extension point="com.ibm.etools.mft.util.ui.pdHelpContentProviders">
+        <pdHelpContentProvider file="PDHelp.xml"/>
+    </extension>
+    <!--This is a generated file.-->
+    <!--User modifications to this section will not be preserved.-->
     <extension point="com.ibm.etools.mft.uri.pluginspace">
         <directory>
-            <file encoding="Cp1252" name="ComIbmOutput.msgnode"/>
-            <file encoding="Cp1252" name="ComIbmEventInput.msgnode"/>
+            <file encoding="Cp1252" name="com/ibm/connector/mqtt/ComIbmOutput.msgnode"/>
+            <file encoding="Cp1252" name="com/ibm/connector/mqtt/ComIbmEventInput.msgnode"/>
         </directory>
     </extension>
 </plugin>

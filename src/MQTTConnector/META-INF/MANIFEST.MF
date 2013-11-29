@@ -11,4 +11,3 @@ Bundle-ClassPath: .
 Export-Package: org.eclipse.paho.client.mqttv3
 Bundle-Vendor: Eclipse.org
 Implementation-Version: 1.0.0
-

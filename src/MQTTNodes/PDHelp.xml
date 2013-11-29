@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pdHelp xmlns="http://www.ibm.com/visualutils/pdhelpcontent"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.ibm.com/visualutils/pdhelpcontent http://www.ibm.com/visualutils/pdhelpcontent">
+    <pluginCategory id="MQTTNodes">
+        <fieldHelp id="com/ibm/connector/mqtt/ComIbmEventInput_basic_clientId">
+            <title>Client ID</title>
+            <description>
+                <p>Provide a unique name of a 1 to 23 byte string for the MQTT client connection.</p>
+            </description>
+        </fieldHelp>
+        <fieldHelp id="com/ibm/connector/mqtt/ComIbmEventInput_basic_topicName">
+            <title>Topic name</title>
+            <description>
+                <p>Name of the MQTT topic(s) that this node subscribes to. Levels in the hierarchy are delimited by the '/' character, such as 'Hypertension/Alert'.</p>
+            </description>
+        </fieldHelp>
+        <fieldHelp id="com/ibm/connector/mqtt/ComIbmEventInput_parsing_messageDomainProperty">
+            <title>Message domain</title>
+            <description>
+                <p>The domain used to parse the incoming message. Select from the drop-down list or specify a user-defined parser.</p>
+                <ul>
+                    <li>If parsing an XML message, use the XMLNSC parser.</li>
+                    <li>For binary or text messages with a Data Format Description Language schema model, use the DFDL parser.</li>
+                    <li>To access the byte data without parsing, use the BLOB parser.</li>
+                    <li>If you do not specify a parser, the BLOB parser is used, and the binary data can be accessed directly within the flow.</li>
+                </ul>
+                <p>The data can be reparsed with a different parser at any point in the flow by using the ResetContentDescriptor node, or by using a parse clause in a Compute node.</p>
+            </description>
+        </fieldHelp>
+        <fieldHelp id="com/ibm/connector/mqtt/ComIbmEventInput_parsing_messageSetProperty">
+            <title>Message model</title>
+            <description>
+                <p>Specify the name of the schema file, or the name or identifier of the message set, in which the incoming message is modeled.</p>
+                <p>To enable this property, set the Message Domain property to "DFDL" or "XMLNSC" and select a schema file, or set it to,"MRM" or "IDOC" and select a message set.</p>
+                <p>Only message models that are contained in your Integration project, or are contained in a referenced application or library, are available for selection.</p>
+                <p>Qualify this property by specifying a library name if the name of your schema file, or the qualified message name that you have selected in the Message property, is not unique within the referenced resources.</p>
+            </description>
+        </fieldHelp>
+        <fieldHelp id="com/ibm/connector/mqtt/ComIbmEventInput_parsing_messageTypeProperty">
+            <title>Message</title>
+            <description>
+                <p>The namespace qualified name of the incoming message.</p>
+                <p>To enable this property, set the Message Domain property to "DFDL" or "MRM" and select a message model.</p>
+                <p>Only message names from the selected message model are available for selection.</p>
+            </description>
+        </fieldHelp>
+        <fieldHelp id="com/ibm/connector/mqtt/ComIbmEventInput_parsing_messageFormatProperty">
+            <title>Physical format</title>
+            <description>
+                <p>The physical format name for the incoming message, specified in the message set. To enable this property, set the Message Domain property to "MRM" or "IDOC".</p>
+            </description>
+        </fieldHelp>
+        <fieldHelp id="com/ibm/connector/mqtt/ComIbmEventInput_parserOptions_validateTiming">
+            <title>Parse timing</title>
+            <description>
+                <p>Specify when an input message should be parsed.</p>
+                <ul>
+                    <li>On Demand: parse an input message bit stream only as far as is necessary to satisfy the current reference (referred to as partial parsing).</li>
+                    <li>Immediate: parse the entire message, including any message headers.</li>
+                    <li>Complete: parse the entire message, including any message headers.</li>
+                </ul>
+                <p>The only difference in behavior between Immediate and Complete occurs when MRM validation is enabled.</p>
+            </description>
+        </fieldHelp>
+        <fieldHelp id="com/ibm/connector/mqtt/ComIbmOutput_basic_clientId">
+            <title>Client ID</title>
+            <description>
+                <p>Provide a unique name of a 1 to 23 byte string for the MQTT client connection.</p>
+            </description>
+        </fieldHelp>
+        <fieldHelp id="com/ibm/connector/mqtt/ComIbmOutput_basic_topicName">
+            <title>Topic name</title>
+            <description>
+                <p>Name of the MQTT topic that this node publishes to. Levels in the hierarchy are delimited by the '/' character, such as 'Hypertension/Alert'.</p>
+            </description>
+        </fieldHelp>
+        <fieldHelp id="com/ibm/connector/mqtt/ComIbmOutput_basic_connectionUrl">
+            <title>Connection URL</title>
+            <description>
+                <p>URL for the MQTT server.</p>
+            </description>
+        </fieldHelp>
+        <fieldHelp id="com/ibm/connector/mqtt/ComIbmOutput_validation_validateMaster">
+            <title>Validate</title>
+            <description>
+                <ul>
+                    <li>Select "None" to perform no validation on the message. </li>
+                    <li>Select "Content" to validate the content and message composition. </li>
+                    <li>Select "Content and Value" to perform validation of the message content and value checks, such as whether the value conforms to data type, length, range, and enumeration.</li>
+                    <li>Select "Inherit" to use all the validation options that are provided with the input message tree in preference to any supplied on the node. "Inherit" therefore resolves to None, Content, or Content And Value. &#xd;
+If Inherit is selected, the other validation properties on the tab are not available.</li>
+                </ul>
+            </description>
+        </fieldHelp>
+        <fieldHelp id="com/ibm/connector/mqtt/ComIbmOutput_validation_validateFailureAction">
+            <title>Failure action</title>
+            <description>
+                <p>Specify the action to take if validation fails. To enable this property, set the Validate property to "Content" or "Content and Value". </p>
+                <ul>
+                    <li>Select "Exception" to throw an exception on the first validation failure. &#xd;
+						The failure is also logged in the user trace if you have asked for user tracing of the message flow, &#xd;
+						and validation stops. Use this setting if you want processing of the message to halt as soon as a failure &#xd;
+						happens.</li>
+                    <li>Select "Exception List" to throw an exception if validation failures happen, but only when the &#xd;
+						current parsing or writing operation has completed. Each failure is also logged in the user trace if you &#xd;
+						have asked for user tracing of the message flow, and validation stops. Use this setting if you want &#xd;
+						processing of the message to halt if a validation failure occurs, but you want to see the full list &#xd;
+						of failures. This property is affected by the Parse Timing property; when partial parsing &#xd;
+						is selected, the current parsing operation parses only a portion of an input message, so only &#xd;
+						the validation failures in that portion of the message are reported.</li>
+                    <li>Select "User Trace" to log all validation failures to user trace, even if you have not asked &#xd;
+						for user tracing of the message flow. Use this setting if you want processing of the message to &#xd;
+						continue regardless of validation failures.</li>
+                    <li>Select "Local Error Log" to log all validation &#xd;
+						failures to the system log. Use this setting if you want processing of the message to continue &#xd;
+						regardless of validation failures.</li>
+                </ul>
+            </description>
+        </fieldHelp>
+        <fieldHelp id="com/ibm/connector/mqtt/ComIbmEventInput_basic_connectionUrl">
+            <title>Connection URL</title>
+            <description>
+                <p>URL for the MQTT server.</p>
+            </description>
+        </fieldHelp>
+        <fieldHelp id="com/ibm/connector/mqtt/ComIbmEventInput_parserOptions_parserXmlnscBuildTreeUsingXMLSchema">
+            <title>Build tree using XML schema data types</title>
+            <description>
+                <p>Select this property to create syntax elements in the message tree with data types taken from the XML Schema. To enable this property, set the Validate property on the Validation tab to "Content" or "Content and Value".</p>
+            </description>
+        </fieldHelp>
+        <fieldHelp id="com/ibm/connector/mqtt/ComIbmEventInput_parserOptions_parserXmlnscUseForXmlnsDomain">
+            <title>Use XMLNSC compact parser for XMLNS domain</title>
+            <description>
+                <p>Select this property to use the XMLNSC Compact Parser for messages in the XMLNS Domain. If you set this property, the response message data is displayed under XMLNSC in nodes that are connected to the output terminal when the input MQRFH2 header or Input Message Parsing properties Message domain is XMLNS.</p>
+            </description>
+        </fieldHelp>
+        <fieldHelp id="com/ibm/connector/mqtt/ComIbmEventInput_parserOptions_parserXmlnscMixedContentRetainMode">
+            <title>Retain mixed content</title>
+            <description>
+                <p>Select this property to create elements in the message tree when the parser finds mixed text in an input message. If you clear the check box, mixed text is ignored and no elements are created.</p>
+            </description>
+        </fieldHelp>
+        <fieldHelp id="com/ibm/connector/mqtt/ComIbmEventInput_parserOptions_parserXmlnscCommentsRetainMode">
+            <title>Retain comments</title>
+            <description>
+                <p>Select this property to create elements in the message tree when the parser finds comments in an input message. If you clear the check box, comments are ignored and no elements are created.</p>
+            </description>
+        </fieldHelp>
+        <fieldHelp id="com/ibm/connector/mqtt/ComIbmEventInput_parserOptions_parserXmlnscProcessingInstructionsRetainMode">
+            <title>Retain processing instructions</title>
+            <description>
+                <p>Select this property to create elements in the message tree when the parser finds processing instructions in an input message. If you clear the check box, processing instructions are ignored and no elements are created.</p>
+            </description>
+        </fieldHelp>
+        <fieldHelp id="com/ibm/connector/mqtt/ComIbmEventInput_validation_validateMaster">
+            <title>Validate</title>
+            <description>
+                <ul>
+                    <li>Select "None" to perform no validation on the message. </li>
+                    <li>Select "Content" to validate the content and message composition. </li>
+                    <li>Select "Content and Value" to perform validation of the message content and value checks, such as whether the value conforms to data type, length, range, and enumeration.</li>
+                </ul>
+            </description>
+        </fieldHelp>
+        <fieldHelp id="com/ibm/connector/mqtt/ComIbmEventInput_validation_validateFailureAction">
+            <title>Failure action</title>
+            <description>
+                <p>Specify the action to take if validation fails. To enable this property, set the Validate property to "Content" or "Content and Value". </p>
+                <ul>
+                    <li>Select "Exception" to throw an exception on the first validation failure. &#xd;&#xd;&#xd;
+						The failure is also logged in the user trace if you have asked for user tracing of the message flow, &#xd;&#xd;&#xd;
+						and validation stops. Use this setting if you want processing of the message to halt as soon as a failure &#xd;&#xd;&#xd;
+						happens.</li>
+                    <li>Select "Exception List" to throw an exception if validation failures happen, but only when the &#xd;&#xd;&#xd;
+						current parsing or writing operation has completed. Each failure is also logged in the user trace if you &#xd;&#xd;&#xd;
+						have asked for user tracing of the message flow, and validation stops. Use this setting if you want &#xd;&#xd;&#xd;
+						processing of the message to halt if a validation failure occurs, but you want to see the full list &#xd;&#xd;&#xd;
+						of failures. This property is affected by the Parse Timing property; when partial parsing &#xd;&#xd;&#xd;
+						is selected, the current parsing operation parses only a portion of an input message, so only &#xd;&#xd;&#xd;
+						the validation failures in that portion of the message are reported.</li>
+                    <li>Select "User Trace" to log all validation failures to user trace, even if you have not asked &#xd;&#xd;&#xd;
+						for user tracing of the message flow. Use this setting if you want processing of the message to &#xd;&#xd;&#xd;
+						continue regardless of validation failures.</li>
+                    <li>Select "Local Error Log" to log all validation &#xd;&#xd;&#xd;
+						failures to the system log. Use this setting if you want processing of the message to continue &#xd;&#xd;&#xd;
+						regardless of validation failures.</li>
+                </ul>
+            </description>
+        </fieldHelp>
+    </pluginCategory>
+</pdHelp>

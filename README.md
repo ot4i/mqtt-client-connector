@@ -9,10 +9,10 @@ Install [IBM Integration Bus Developer Edition](http://www.ibm.com/software/prod
 To avoid having to manually import the projects into the Integration Toolkit, install the EGit client. A specific version of the client is needed, see [additional instructions](INSTRUCTIONS.md).
 
 ##Setup
-1. Clone the Git repositories and import the projects (see [additional instructions](INSTRUCTIONS.md) if you need more detailed instructions):
-  * Clone and import the Eclipse Paho project (URI: git://git.eclipse.org/gitroot/paho/org.eclipse.paho.mqtt.java.git). Check out tag 0.1.
-  * Clone and import this repository (URI:  git@github.com:ot4i/mqtt-client-connector.git).
- 
+1. Import the MQTT Client Connector project and its prerequisites. (For instructions on how to download and import the source from GitHub see [additional instructions](INSTRUCTIONS.md))
+  * Click "Download ZIP" on the right of [this](https://github.com/ot4i/mqtt-client-connector) page and import the archive file (selecting all the projects) into your Integration Toolkit workspace.
+  * Download the Paho Java client [v0.1](http://git.eclipse.org/c/paho/org.eclipse.paho.mqtt.java.git/snapshot/org.eclipse.paho.mqtt.java-0.1.zip) or download the appropriate v0.1 archive file for your platform from the [Eclipse Paho page](http://git.eclipse.org/c/paho/org.eclipse.paho.mqtt.java.git/).
+
 2. Add the nodes to the Integration Toolkit:
   * Clean all projects by clicking **Project** on the menu bar, and selecting **Clean...**.
   * If IIB was not installed in the default location, right-click the MQTTConnector project and select **Build Path**, followed by  **Configure Build Path**. In the **Libraries** tab, update the location of jplugin2.jar and connectors.jar to the classes folder of your IIB runtime installation. The default location of the classes folder on Windows is C:\Program Files\IBM\MQSI\9.0.0.0\classes. 

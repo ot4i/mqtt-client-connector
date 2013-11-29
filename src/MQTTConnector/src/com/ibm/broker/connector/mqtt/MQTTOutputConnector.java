@@ -19,6 +19,9 @@
 
 package com.ibm.broker.connector.mqtt;
 
+import static com.ibm.broker.connector.ContainerServices.writeServiceTraceEntry;
+import static com.ibm.broker.connector.ContainerServices.writeServiceTraceExit;
+
 import java.util.Properties;
 
 import org.eclipse.paho.client.mqttv3.MqttException;
@@ -31,9 +34,9 @@ import com.ibm.broker.plugin.MbException;
 
 public class MQTTOutputConnector extends OutputConnector implements AdminInterface {
     public static final String copyright = Copyright.LONG;
+    private static final String clsName = MQTTOutputConnector.class.getName();
 
-    public MQTTTrace trace = null;
-    private String brokerUrl = null;
+    private String connectionUrl = null;
     public static final String[] ADMINTYPES = new String[] { "Connections" };
 
     public MQTTOutputConnector(ConnectorFactory connectorFactory, 
@@ -41,88 +44,96 @@ public class MQTTOutputConnector extends OutputConnector implements AdminInterfa
                                Properties properties) throws MbException 
     {
         super(connectorFactory, name, properties);
-        if (properties.get("traceOn") != null) {
-            trace = new MQTTTrace(connectorFactory, properties);
-        }
     }
 
     @Override
     public OutputInteraction createOutputInteraction() throws MbException {
-        if (trace != null) trace.testEntry("createOutputInteraction");
-        String clientName = null;
-        String brokerUrl = getProperties().getProperty("brokerUrl");
-
-        // Default the URL if not set.
-        if (getProperties().getProperty("brokerUrl") == null) {
-            brokerUrl = MQTTConnectorFactory.DEFAULT_MQTT_URL;
+        writeServiceTraceEntry(clsName, "createOutputInteraction", "Entry");
+        try {
+	        String clientName = null;
+	        String connectionUrl = getProperties().getProperty("connectionUrl");
+	
+	        // Default the URL if not set.
+	        if (getProperties().getProperty("connectionUrl") == null) {
+	            connectionUrl = MQTTConnectorFactory.DEFAULT_MQTT_URL;
+	        }
+	
+	        String clientId = getProperties().getProperty("clientId");
+	        if (clientId == null) {
+	            clientName = getConnectorFactory().getContainerServices().containerName() + getName() + "_" + getInteractions().length;
+	        } else {
+	            clientName = clientId + "_" + getInteractions().length;
+	        }
+	        MQTTOutputInteraction newContext = new MQTTOutputInteraction(this, connectionUrl, clientName);
+	
+	        return newContext;
         }
-
-        String clientId = getProperties().getProperty("clientId");
-        if (clientId == null) {
-            clientName = getConnectorFactory().getContainerServices().containerName() + getName() + "_" + getInteractions().length;
-        } else {
-            clientName = clientId + "_" + getInteractions().length;
+        finally {
+            writeServiceTraceExit(clsName, "createOutputInteraction", "Exit");
         }
-        MQTTOutputInteraction newContext = new MQTTOutputInteraction(this, brokerUrl, clientName);
-
-        if (trace != null) trace.testExit("createOutputInteraction");
-        return newContext;
     }
 
     @Override
     public void terminate() throws MbException {
-        if (trace != null) {
-            trace.testEntry("terminate");
-            trace.terminate();
-        }
+        writeServiceTraceEntry(clsName, "terminate", "Entry");
+        writeServiceTraceExit(clsName, "terminate", "Exit");
     }
 
     @Override
     public String[] listAdminObjectTypes() throws MbException {
-        if (trace != null) trace.testEntry("listAdminObjectTypes");
-        if (trace != null) trace.testExit("listAdminObjectTypes");
+        writeServiceTraceEntry(clsName, "listAdminObjectTypes", "Entry");
+        writeServiceTraceExit(clsName, "listAdminObjectTypes", "Exit");
         return ADMINTYPES;
     }
 
     @Override
     public String[] listAdminObjectsForType(String adminObjectType) throws MbException {
-        if (trace != null) trace.testEntry("listAdminObjectsForType");
-        String[] returnValue = null;
-        
-        if (adminObjectType.equals("Connections")) {
-            OutputInteraction[] interactions = getInteractions();
-            returnValue = new String[interactions.length];
-            for (int i = 0; i < interactions.length; i++) {
-                returnValue[i] = ((MQTTOutputInteraction) interactions[i])
-                        .getClient().getClientId();
-            }
+        writeServiceTraceEntry(clsName, "listAdminObjectsForType", "Entry");
+        try {
+	        String[] returnValue = null;
+	        
+	        if (adminObjectType.equals("Connections")) {
+	            OutputInteraction[] interactions = getInteractions();
+	            returnValue = new String[interactions.length];
+	            for (int i = 0; i < interactions.length; i++) {
+	                returnValue[i] = ((MQTTOutputInteraction) interactions[i])
+	                        .getClient().getClientId();
+	            }
+	        }
+	        return returnValue;
         }
-        if (trace != null) trace.testExit("listAdminObjectsForType");
-        return returnValue;
+        finally {
+            writeServiceTraceExit(clsName, "listAdminObjectsForType", "Exit");
+        }
     }
 
     @Override
     public Properties listAdminObjectProperties(String adminObjectType, String adminObjectName) throws MbException {
-        if (trace != null) trace.testEntry("listAdminObjectProperties");
+        writeServiceTraceEntry(clsName, "listAdminObjectProperties", "Entry");
 
-        Properties properties = new Properties();
-        if (adminObjectType.equals("Connections")) {
-            OutputInteraction[] interactions = getInteractions();
-            MQTTOutputInteraction clientName = null;
-            for (int i = 0; i < interactions.length; i++) {
-                if (((MQTTOutputInteraction) interactions[i]).getClient()
-                        .getClientId().equals(adminObjectName)) {
-                    clientName = ((MQTTOutputInteraction) interactions[i]);
-                    break;
-                }
-            }
-            properties.put("isConnected", clientName.getClient().isConnected());
-            properties.put("serverURI", clientName.getClient().getServerURI());
-            properties.put("numberOfPendingDeliveryTokens", clientName
-                    .getClient().getPendingDeliveryTokens().length);
-        }
-        if (trace != null) trace.testExit("listAdminObjectProperties");
-        return properties;
+        try {
+			Properties properties = new Properties();
+			if (adminObjectType.equals("Connections")) {
+				OutputInteraction[] interactions = getInteractions();
+				MQTTOutputInteraction clientName = null;
+				for (int i = 0; i < interactions.length; i++) {
+					if (((MQTTOutputInteraction) interactions[i]).getClient()
+							.getClientId().equals(adminObjectName)) {
+						clientName = ((MQTTOutputInteraction) interactions[i]);
+						break;
+					}
+				}
+				properties.put("isConnected", clientName.getClient()
+						.isConnected());
+				properties.put("serverURI", clientName.getClient()
+						.getServerURI());
+				properties.put("numberOfPendingDeliveryTokens", clientName
+						.getClient().getPendingDeliveryTokens().length);
+			}
+			return properties;
+		} finally {
+			writeServiceTraceExit(clsName, "listAdminObjectProperties", "Exit");
+		}
     }
 
     @Override
@@ -131,72 +142,83 @@ public class MQTTOutputConnector extends OutputConnector implements AdminInterfa
                                   String adminObjectType, 
                                   String adminObjectName) throws MbException 
     {
-        if (trace != null) trace.testEntry("changeAdminObject");
+        writeServiceTraceEntry(clsName, "changeAdminObject", "Entry");
         
-        if (adminObjectType.equals("Connections")
-         && function.equalsIgnoreCase("disconnect")) {
-            OutputInteraction[] interactions = getInteractions();
-            if (!adminObjectName.equals("")) {
-                MQTTOutputInteraction clientName = null;
-                for (int i = 0; i < interactions.length; i++) {
-                    if (((MQTTOutputInteraction) interactions[i]).getClient()
-                            .getClientId().equals(adminObjectName)) {
-                        clientName = ((MQTTOutputInteraction) interactions[i]);
-                        break;
-                    }
-                }
-                if (clientName != null) {
-                    try {
-                        clientName.getClient().disconnect();
-                    }
-                    catch (MqttException e) {
-                        e.printStackTrace();
-                    }
-                }
-            } else {
-                for (int index = 0; index < interactions.length; index++) {
-                    try {
-                        ((MQTTOutputInteraction) interactions[index]).getClient().disconnect();
-                    }
-                    catch (MqttException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }
-        if (trace != null) trace.testExit("changeAdminObject");
+        try {
+			if (adminObjectType.equals("Connections")
+			 && function.equalsIgnoreCase("disconnect")) {
+			    OutputInteraction[] interactions = getInteractions();
+			    if (!adminObjectName.equals("")) {
+			        MQTTOutputInteraction clientName = null;
+			        for (int i = 0; i < interactions.length; i++) {
+			            if (((MQTTOutputInteraction) interactions[i]).getClient()
+			                    .getClientId().equals(adminObjectName)) {
+			                clientName = ((MQTTOutputInteraction) interactions[i]);
+			                break;
+			            }
+			        }
+			        if (clientName != null) {
+			            try {
+			                clientName.getClient().disconnect();
+			            }
+			            catch (MqttException e) {
+			                e.printStackTrace();
+			            }
+			        }
+			    } else {
+			        for (int index = 0; index < interactions.length; index++) {
+			            try {
+			                ((MQTTOutputInteraction) interactions[index]).getClient().disconnect();
+			            }
+			            catch (MqttException e) {
+			                e.printStackTrace();
+			            }
+			        }
+			    }
+			}
+		} finally {
+	        writeServiceTraceExit(clsName, "changeAdminObject", "Exit");
+		}
     }
 
     @Override
     public String adminKey() throws MbException {
-        if (trace != null) trace.testEntry("adminKey");
-        if (trace != null) trace.testExit("adminKey");
+        writeServiceTraceEntry(clsName, "adminKey", "Entry");
+        writeServiceTraceExit(clsName, "adminKey", "Exit");
         return null;
     }
 
     @Override
     public void initialize() throws MbException {
-        if (trace != null) trace.testEntry("initialize");
-        brokerUrl = getProperties().getProperty("brokerUrl");
-        if (brokerUrl == null) {
-            brokerUrl = MQTTConnectorFactory.DEFAULT_MQTT_URL;
-        }
-        brokerUrl = brokerUrl.trim();
-        brokerUrl = brokerUrl.toLowerCase();
-        if (brokerUrl.startsWith("tcp://") == false) {
-            getConnectorFactory().getContainerServices().throwMbRecoverableException("2111",new String[] { "not a tcp:// url" });
-        }
-        String portNumber = brokerUrl.substring(6);
-        int startOfPort = portNumber.indexOf(":");
-        if (startOfPort > -1 && startOfPort < portNumber.length() - 2) {
-            portNumber = portNumber.substring(startOfPort + 1);
-        }
+        writeServiceTraceEntry(clsName, "initialize", "Entry");
         try {
-            Integer.parseInt(portNumber);
-        }
-        catch (NumberFormatException e) {
-            getConnectorFactory().getContainerServices().throwMbRecoverableException("2112",new String[] { "not a valid integer", portNumber });
-        }
-        if (trace != null) trace.testExit("initialize");
+			connectionUrl = getProperties().getProperty("connectionUrl");
+			if (connectionUrl == null) {
+				connectionUrl = MQTTConnectorFactory.DEFAULT_MQTT_URL;
+			}
+			connectionUrl = connectionUrl.trim();
+			connectionUrl = connectionUrl.toLowerCase();
+			if (connectionUrl.startsWith("tcp://") == false) {
+				getConnectorFactory().getContainerServices()
+						.throwMbRecoverableException("2111",
+								new String[] { "not a tcp:// url" });
+			}
+			String portNumber = connectionUrl.substring(6);
+			int startOfPort = portNumber.indexOf(":");
+			if (startOfPort > -1 && startOfPort < portNumber.length() - 2) {
+				portNumber = portNumber.substring(startOfPort + 1);
+			}
+			try {
+				Integer.parseInt(portNumber);
+			} catch (NumberFormatException e) {
+				getConnectorFactory().getContainerServices()
+						.throwMbRecoverableException(
+								"2112",
+								new String[] { "not a valid integer",
+										portNumber });
+			}
+		} finally {
+			writeServiceTraceExit(clsName, "initialize", "Exit");
+		}
     }
 }

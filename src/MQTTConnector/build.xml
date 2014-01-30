@@ -1,0 +1,34 @@
+<project name="MQTTConnector" default="package">
+  <!-- Call as: ant -Ddir.iib=/opt/IBM/mqsi/9.0/ -Ddir.output=/myConnectorPath/ -Ddir.paho=/pahoJarPath/ -->
+
+  <property name="dir.build" location="build" />
+
+  <property name="jar.paho" location="${dir.paho}/org.eclipse.paho.client.mqttv3.jar" />
+  <property name="jar.MQTTConnector" location="${dir.output}/MQTTConnector.jar" />
+
+  <path id="path.compile">
+    <pathelement path="${dir.iib}/classes/jplugin2.jar"/>
+    <pathelement path="${dir.iib}/classes/connectors.jar"/>
+    <pathelement path="${jar.paho}"/>
+  </path>
+  
+  <target name="clean">
+    <delete dir="${dir.build}"/>
+    <delete file="${jar.MQTTConnector}" />
+  </target>
+
+  <target name="compile">
+    <mkdir dir="${dir.build}"/>
+    <javac destdir="${dir.build}" srcdir="src" target="1.7"
+      classpathref="path.compile" />
+  </target>
+
+  <target name="jar" depends="compile">
+    <jar destfile="${jar.MQTTConnector}" basedir="${dir.build}" />
+  </target>
+  
+  <target name="package" depends="jar">
+    <copy file="${jar.paho}" todir="${dir.output}" />
+  </target>
+
+</project>

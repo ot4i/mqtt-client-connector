@@ -25,6 +25,10 @@ To avoid having to manually import the projects into the Integration Toolkit, in
   * In the WebSphere MQ Explorer, under integration node *IB9NODE*, right-click **Configurable Services** and select **Import *.configurableservice** to import the mqtt.configurableservice from the MQTTSetupForIIB project. Note, if you do not see a Configurable Services option, ensure your integration node is connected (right-click and select **Connect**).
   * Restart integration node *IB9NODE*.
 
+##Command line install
+1. With the code loaded from git, and the paho jar either built or downloaded, the MQTTConnector can be built from the command line via ant as follows
+    ```cd /src/MQTTConnector; ant -Ddir.output=/tmp/connectorOutput -Ddir.iib=/opt/IBM/mqsi/9.0/ -Ddir.paho=/tmp/Mqttv3ClientOut/ship```
+
 ##Platforms
 Tested on Windows 7 Pro N x64 with [IIB Developer Edition](http://www.ibm.com/software/products/us/en/integration-bus/).
 

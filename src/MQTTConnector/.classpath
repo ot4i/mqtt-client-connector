@@ -3,7 +3,7 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/org.eclipse.paho.client.mqttv3"/>
-	<classpathentry kind="lib" path="C:/Program Files/IBM/MQSI/9.0.0.0/classes/connectors.jar"/>
-	<classpathentry kind="lib" path="C:/Program Files/IBM/MQSI/9.0.0.0/classes/jplugin2.jar"/>
+	<classpathentry kind="var" path="IIB_PATH/classes/jplugin2.jar"/>
+	<classpathentry kind="var" path="IIB_PATH/classes/connectors.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

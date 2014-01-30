@@ -18,6 +18,9 @@
 
 package com.ibm.broker.connector.mqtt;
 
+import static com.ibm.broker.connector.ContainerServices.writeServiceTraceEntry;
+import static com.ibm.broker.connector.ContainerServices.writeServiceTraceExit;
+
 import java.util.Properties;
 
 import org.eclipse.paho.client.mqttv3.MqttException;
@@ -33,91 +36,95 @@ import com.ibm.broker.plugin.MbException;
 
 public class MQTTEvent extends Event {
     public static final String copyright = Copyright.LONG;
+    private static final String clsName = MQTTEvent.class.getName();
 
     MqttMessage message = null;
     MqttTopic topic = null;
-    MQTTTrace trace;
 
     public MQTTInputConnector getMQTTConnector() throws MbException {
         return (MQTTInputConnector) getConnector();
     }
 
-    public MQTTEvent(MqttTopic topic, MqttMessage message, MQTTTrace unitTester)
+    public MQTTEvent(MqttTopic topic, MqttMessage message)
             throws MbException {
         this.message = message;
         this.topic = topic;
-        this.trace = unitTester;
     }
 
     @Override
     public String eventSource() throws MbException {
-        if (trace != null) trace.testEntry("eventSource");
-        if (trace != null) trace.testExit("eventSource");
+        writeServiceTraceEntry(clsName, "eventSource", "Entry");
+        writeServiceTraceExit(clsName, "eventSource", "Exit");
         return topic.getName();
     }
 
     @Override
     public void logEvent() throws MbException {
-        if (trace != null) trace.testEntry("logEvent");
+        writeServiceTraceEntry(clsName, "logEvent", "Entry");
         
-        getConnector().writeActivityLog("12065", 
-                new String[] { topic.getName() },           // Inserts
-                getMQTTConnector().getActivityLogTag());    // Activity Log tags
-        
-        if (trace != null) trace.testExit("logEvent");
+        try {
+			getConnector().writeActivityLog("12065",
+					new String[] { topic.getName() }, // Inserts
+					getMQTTConnector().getActivityLogTag()); // Activity Log tags
+		} finally {
+			writeServiceTraceExit(clsName, "logEvent", "Exit");
+		}
     }
 
     @Override
     public InputRecord buildInputRecord() throws MbException {
-        if (trace != null) trace.testEntry("buildInputRecord");
-        InputRecord inputRecord = null;
-        
-        if (trace != null && trace.isUseBuildMode() == true) {
-            inputRecord = new ElementInputRecord();
-            MbElement root = ((ElementInputRecord) inputRecord).getElement();
-            MbElement parser = root.createElementAsLastChild("XMLNSC");
-            try {
-                parser.createElementAsLastChild(MbElement.TYPE_NAME_VALUE,
-                        "Test", new String(message.getPayload()));
-            }
-            catch (MqttException e) {
-                getConnector().getConnectorFactory().getContainerServices()
-                        .throwMbRecoverableException(e);
-            }
-        } else {
-            inputRecord = new ByteArrayInputRecord();
-            try {
-                ((ByteArrayInputRecord) inputRecord).appendByteArray(message
-                        .getPayload());
-            }
-            catch (MqttException e) {
-                getConnector().getConnectorFactory().getContainerServices()
-                        .throwMbRecoverableException(e);
-            }
-        }
-        if (trace != null) trace.testExit("buildInputRecord");
-        return inputRecord;
+        writeServiceTraceEntry(clsName, "buildInputRecord", "Entry");
+        try {
+			InputRecord inputRecord = null;
+			if (getMQTTConnector().getMQTTFactory().isUseBuildMode()) {
+				inputRecord = new ElementInputRecord();
+				MbElement root = ((ElementInputRecord) inputRecord)
+						.getElement();
+				MbElement parser = root.createElementAsLastChild("XMLNSC");
+				try {
+					parser.createElementAsLastChild(MbElement.TYPE_NAME_VALUE,
+							"Test", new String(message.getPayload()));
+				} catch (MqttException e) {
+					getConnector().getConnectorFactory().getContainerServices()
+							.throwMbRecoverableException(e);
+				}
+			} else {
+				inputRecord = new ByteArrayInputRecord();
+				try {
+					((ByteArrayInputRecord) inputRecord)
+							.appendByteArray(message.getPayload());
+				} catch (MqttException e) {
+					getConnector().getConnectorFactory().getContainerServices()
+							.throwMbRecoverableException(e);
+				}
+			}
+			return inputRecord;
+		} finally {
+			writeServiceTraceExit(clsName, "buildInputRecord", "Exit");
+		}
     }
 
     @Override
     public Properties buildProperties() throws MbException {
-        if (trace != null) trace.testEntry("buildProperties");
+        writeServiceTraceEntry(clsName, "buildProperties", "Entry");
         
         Properties leValues = new Properties();
         leValues.put("Duplicate", message.isDuplicate());
         leValues.put("Retained", message.isRetained());
         
-        if (trace != null) trace.testExit("buildProperties");
+        writeServiceTraceExit(clsName, "buildProperties", "Exit");
         return leValues;
     }
 
     @Override
     public void confirm() throws MbException {
-        if (trace != null) trace.testEntry("confirm");
+        writeServiceTraceEntry(clsName, "confirm", "Entry");
         
-        super.confirm();
-        
-        if (trace != null) trace.testExit("confirm");
+        try {
+			super.confirm();
+		} finally {
+			writeServiceTraceExit(clsName, "confirm", "Exit");
+		}
     }
 
 }

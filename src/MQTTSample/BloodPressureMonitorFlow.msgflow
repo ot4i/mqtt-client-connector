@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ComIbmRoute.msgnode="ComIbmRoute.msgnode" xmlns:com_ibm_connector_mqtt_ComIbmEventInput.msgnode="com/ibm/connector/mqtt/ComIbmEventInput.msgnode" xmlns:com_ibm_connector_mqtt_ComIbmOutput.msgnode="com/ibm/connector/mqtt/ComIbmOutput.msgnode" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:eflow="http://www.ibm.com/wbi/2005/eflow" xmlns:utility="http://www.ibm.com/wbi/2005/eflow_utility" nsURI="BloodPressureMonitorFlow.msgflow"
+    nsPrefix="BloodPressureMonitorFlow.msgflow">
+  <eClassifiers xmi:type="eflow:FCMComposite" name="FCMComposite_1">
+    <eSuperTypes href="http://www.ibm.com/wbi/2005/eflow#//FCMBlock"/>
+    <translation xmi:type="utility:TranslatableString" key="BloodPressureMonitorFlow" bundleName="BloodPressureMonitorFlow" pluginId="MQTTSample"/>
+    <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/MQTTSample/icons/full/obj16/BloodPressureMonitorFlow.gif"/>
+    <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/MQTTSample/icons/full/obj30/BloodPressureMonitorFlow.gif"/>
+    <shortDescription xmi:type="utility:ConstantString" string="Blood pressure monitor sample that uses IBM Integration Bus and the Eclipse Paho sample application"/>
+    <longDescription xmi:type="utility:ConstantString" string="By default, messages are published to the publicly-accessible MQTT server at m2m.eclipse.org:1883.&#xD;&#xA;This is a sandbox server provided by the M2M Eclipse team. &#xD;&#xA;To use a different MQTT server, change m2m.eclipse.org to another server (for example, localhost) in the following places: &#xD;&#xA;- The Connection URL property of the MQTTPublish (BloodPressureMonitor) and MQTTSubscribe (HyperTensionEmergency and HyperTensionAlert) nodes&#xD;&#xA;- The org.eclipse.jdt.launching.PROGRAM_ARGUMENTS line in the three .launch files in the MQTTSample/SampleLaunchConfigFiles directory"/>
+    <composition>
+      <nodes xmi:type="com_ibm_connector_mqtt_ComIbmEventInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_11" location="161,247" clientId="BPMonitor_Sub" topicName="BloodPressureMonitor" connectionUrl="tcp://m2m.eclipse.org:1883" messageDomainProperty="JSON">
+        <translation xmi:type="utility:ConstantString" string="BloodPressureMonitor"/>
+      </nodes>
+      <nodes xmi:type="com_ibm_connector_mqtt_ComIbmOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_12" location="481,300" clientId="HTAlert_pub" topicName="HyperTension/Alert" connectionUrl="tcp://m2m.eclipse.org:1883" validateMaster="none">
+        <translation xmi:type="utility:ConstantString" string="HyperTensionAlert"/>
+      </nodes>
+      <nodes xmi:type="com_ibm_connector_mqtt_ComIbmOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_13" location="470,207" clientId="HTEmergency_pub" topicName="HyperTension/Emergency" connectionUrl="tcp://m2m.eclipse.org:1883" validateMaster="none">
+        <translation xmi:type="utility:ConstantString" string="HyperTensionEmergency"/>
+      </nodes>
+      <nodes xmi:type="ComIbmRoute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_14" location="303,247">
+        <outTerminals terminalNodeID="HyperTensionEmergency" dynamic="true" label="HyperTensionEmergency"/>
+        <outTerminals terminalNodeID="HyperTensionAlert" dynamic="true" label="HyperTensionAlert"/>
+        <translation xmi:type="utility:ConstantString" string="CheckHyperTension"/>
+        <filterTable filterPattern="$Body/Data/BloodPressure/Systolic >=  180 or  $Body/Data/BloodPressure/Diastolic  >= 110" routingOutputTerminal="HyperTensionEmergency"/>
+        <filterTable filterPattern="($Body/Data/BloodPressure/Systolic >= 140 and $Body/Data/BloodPressure/Systolic &lt; 180)   and  ($Body/Data/BloodPressure/Diastolic  >= 90 and $Body/Data/BloodPressure/Diastolic  &lt; 110)" routingOutputTerminal="HyperTensionAlert"/>
+      </nodes>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_1" targetNode="FCMComposite_1_12" sourceNode="FCMComposite_1_14" sourceTerminalName="HyperTensionAlert" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_2" targetNode="FCMComposite_1_14" sourceNode="FCMComposite_1_11" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_3" targetNode="FCMComposite_1_13" sourceNode="FCMComposite_1_14" sourceTerminalName="HyperTensionEmergency" targetTerminalName="InTerminal.in"/>
+    </composition>
+    <propertyOrganizer/>
+    <stickyBoard>
+      <stickyNote location="61,15">
+        <body xmi:type="utility:ConstantString" string="Blood pressure monitor sample that uses IBM Integration Bus and the Eclipse Paho sample application&#xD;&#xA;&#xD;&#xA;By default, messages are published to the publicly-accessible MQTT server at m2m.eclipse.org:1883.&#xD;&#xA;This is a sandbox server provided by the M2M Eclipse team. &#xD;&#xA;To use a different MQTT server, change m2m.eclipse.org to another server (for example, localhost) in the following places: &#xD;&#xA;- The Connection URL property of the MQTTPublish (BloodPressureMonitor) and MQTTSubscribe (HyperTensionEmergency and HyperTensionAlert) nodes&#xD;&#xA;- The org.eclipse.jdt.launching.PROGRAM_ARGUMENTS line in the three .launch files in the MQTTSample/SampleLaunchConfigFiles directory"/>
+      </stickyNote>
+    </stickyBoard>
+  </eClassifiers>
+</ecore:EPackage>

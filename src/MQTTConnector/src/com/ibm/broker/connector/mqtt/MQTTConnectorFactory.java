@@ -18,6 +18,10 @@
  
 package com.ibm.broker.connector.mqtt;
 
+import static com.ibm.broker.connector.ContainerServices.writeServiceTraceData;
+import static com.ibm.broker.connector.ContainerServices.writeServiceTraceEntry;
+import static com.ibm.broker.connector.ContainerServices.writeServiceTraceExit;
+
 import java.util.Properties;
 
 import com.ibm.broker.connector.ConnectorFactory;
@@ -29,13 +33,15 @@ public class MQTTConnectorFactory extends ConnectorFactory {
     public static final String copyright = Copyright.LONG;
     
     public static final String DEFAULT_MQTT_URL = "tcp://m2m.eclipse.org:1883";
+    private static final String clsName = MQTTConnectorFactory.class.getName();
     
-    public MQTTTrace trace = null;
-
+    private boolean useBuildMode = false;
+	boolean changeAdminToActivityLog = false;
+    
     @Override
     public String getInfo() throws MbException {
-        if(trace != null)trace.testEntry("getInfo");
-        if(trace != null)trace.testExit("getInfo");
+        writeServiceTraceEntry(clsName, "getInfo", "Entry");
+        writeServiceTraceExit(clsName, "getInfo", "Exit");
         return "MQTT provider v1.1";
     }
     
@@ -50,20 +56,20 @@ public class MQTTConnectorFactory extends ConnectorFactory {
      */
     @Override
     public void initialize(String providerName, Properties providerProps) throws MbException {
-         // Initialise the trace object
-        trace = new MQTTTrace(this, providerProps);
-        
-        if(trace != null)trace.testEntry("initialize");
-        
-        String tracePropertiesData = "";
-        for(String key : providerProps.stringPropertyNames()){
-            if(!tracePropertiesData.equals("")){
-                tracePropertiesData += ",";
-            }
-            tracePropertiesData += key+"="+providerProps.getProperty(key);
-        }
-        if(trace != null)trace.traceData("initialize", tracePropertiesData);
-        if(trace != null)trace.testExit("initialize");
+        writeServiceTraceEntry(clsName, "initialize", "Entry");
+        try {
+			writeServiceTraceData(clsName, "initialize",
+					"Connector properties: " + providerProps.toString());
+			if (providerProps.getProperty("property1") != null) {
+				useBuildMode = providerProps.getProperty("property1")
+						.equalsIgnoreCase("useBuildMode");
+				changeAdminToActivityLog = providerProps.getProperty(
+						"property1").equalsIgnoreCase(
+						"changeAdminToActivityLog");
+			}
+		} finally {
+			writeServiceTraceExit(clsName, "initialize", "Exit");
+		}
     }
     
     /**
@@ -75,15 +81,18 @@ public class MQTTConnectorFactory extends ConnectorFactory {
      */
     @Override
     public OutputConnector createOutputConnector(String name, Properties nodeProps) throws MbException {
-        if(trace != null)trace.testEntry("createOutputConnector");
-        
-        // Set the default MQTT port if one has not been provided.
-        if(nodeProps.getProperty("brokerUrl") == null){
-            nodeProps.put("brokerUrl", DEFAULT_MQTT_URL);
-        }
-        
-        if(trace != null)trace.testExit("createOutputConnector");
-        return new MQTTOutputConnector(this,name, nodeProps);  
+        writeServiceTraceEntry(clsName, "createOutputConnector", "Entry");
+        try {
+			writeServiceTraceData(clsName, "createOutputConnector",
+					"Output node properties: " + nodeProps.toString());
+			// Set the default MQTT port if one has not been provided.
+			if (nodeProps.getProperty("connectionUrl") == null) {
+				nodeProps.put("connectionUrl", DEFAULT_MQTT_URL);
+			}
+			return new MQTTOutputConnector(this, name, nodeProps);
+		} finally {
+			writeServiceTraceExit(clsName, "createOutputConnector", "Exit");
+		}  
     }
     
     /**
@@ -95,15 +104,19 @@ public class MQTTConnectorFactory extends ConnectorFactory {
      */
     @Override
     public EventInputConnector createEventInputConnector(String name, Properties nodeProps) throws MbException {
-        if(trace != null)trace.testEntry("createEventInputConnector");
-        
-        // Set the default MQTT port if one has not been provided.
-        if(nodeProps.getProperty("brokerUrl") == null){
-            nodeProps.put("brokerUrl", MQTTConnectorFactory.DEFAULT_MQTT_URL);
-        }
-        
-        if(trace != null)trace.testExit("createEventInputConnector");
-        return new MQTTInputConnector(this,name, nodeProps); 
+        writeServiceTraceEntry(clsName, "createEventInputConnector", "Entry");
+        try {
+			writeServiceTraceData(clsName, "createEventInputConnector",
+					"Input node properties: " + nodeProps.toString());
+			// Set the default MQTT port if one has not been provided.
+			if (nodeProps.getProperty("connectionUrl") == null) {
+				nodeProps.put("connectionUrl",
+						MQTTConnectorFactory.DEFAULT_MQTT_URL);
+			}
+			return new MQTTInputConnector(this, name, nodeProps);
+		} finally {
+			writeServiceTraceExit(clsName, "createEventInputConnector", "Exit");
+		} 
     }
 
     /**
@@ -112,8 +125,8 @@ public class MQTTConnectorFactory extends ConnectorFactory {
      */
     @Override    
     public void start() throws MbException {
-        if(trace != null)trace.testEntry("start");
-        if(trace != null)trace.testExit("start");
+        writeServiceTraceEntry(clsName, "start", "Entry");
+        writeServiceTraceExit(clsName, "start", "Exit");
     }
 
     /**
@@ -122,8 +135,8 @@ public class MQTTConnectorFactory extends ConnectorFactory {
      */
     @Override
     public void stop() throws MbException {
-        if(trace != null)trace.testEntry("stop");
-        if(trace != null)trace.testExit("stop");
+        writeServiceTraceEntry(clsName, "stop", "Entry");
+        writeServiceTraceExit(clsName, "stop", "Exit");
     }
 
     /**
@@ -131,10 +144,12 @@ public class MQTTConnectorFactory extends ConnectorFactory {
      */
     @Override
     public void terminate() throws MbException {
-        if(trace != null){
-            trace.testEntry("terminate");
-            trace.terminate();
-            trace = null;
-        }
+        writeServiceTraceEntry(clsName, "terminate", "Entry");
+        writeServiceTraceExit(clsName, "terminate", "Exit");
     } 
+    
+	public boolean isUseBuildMode() {
+		return useBuildMode;
+	}
+
 }

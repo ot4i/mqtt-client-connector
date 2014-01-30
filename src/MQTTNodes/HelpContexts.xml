@@ -2,10 +2,16 @@
 <contexts>
     <!--This is a generated file.-->
     <!--User modifications to the values in this file will be preserved-->
-    <context id="ComIbmEventInput" title="MQTTInput">
-        <description>MQTTInput</description>
+    <context id="com.ibm.connector.mqtt.ComIbmEventInput" title="MQTTSubscribe">
+        <description>MQTTSubscribe</description>
     </context>
-    <context id="ComIbmOutput" title="MQTTOutput">
-        <description>MQTTOutput</description>
+    <context id="com/ibm/connector/mqtt/ComIbmOutput" title="MQTTPublish">
+        <description>MQTTPublish</description>
+    </context>
+    <context id="com/ibm/connector/mqtt/ComIbmEventInput" title="MQTTSubscribe">
+        <description>MQTTSubscribe</description>
+    </context>
+    <context id="com.ibm.connector.mqtt.ComIbmOutput" title="MQTTPublish">
+        <description>MQTTPublish</description>
     </context>
 </contexts>

@@ -4,7 +4,7 @@ mqtt-client-connector
 The MQTT connector enables you to extend the capability of IBM Integration Bus (IIB) to connect to an MQTT server. [IIB](http://www.ibm.com/software/products/us/en/integration-bus/) is available free of charge for developers. This repository includes nodes that allow you to publish and subscribe to topics on an MQTT server from a message flow, and a sample to demonstrate this. 
 
 ##Dependencies
-Install [IBM Integration Bus Developer Edition](http://www.ibm.com/software/products/us/en/integration-bus/).
+Install [IBM Integration Bus Developer Edition](http://www-03.ibm.com/software/products/en/ibm-integration-bus).
 
 To avoid having to manually import the projects into the Integration Toolkit, install the EGit client. A specific version of the client is needed, see [additional instructions](INSTRUCTIONS.md).
 
@@ -26,7 +26,7 @@ To avoid having to manually import the projects into the Integration Toolkit, in
   * Restart integration node *IB9NODE*.
 
 ##Platforms
-Tested on Windows 7 Pro N x64 with [IIB Developer Edition](http://www.ibm.com/software/products/us/en/integration-bus/).
+Tested on Windows 7 Pro N x64 with [IIB Developer Edition](http://www-03.ibm.com/software/products/en/ibm-integration-bus).
 
 ##Copyright and license
 Copyright 2013 IBM Corp. under the [Eclipse Public license](http://www.eclipse.org/legal/epl-v10.html).

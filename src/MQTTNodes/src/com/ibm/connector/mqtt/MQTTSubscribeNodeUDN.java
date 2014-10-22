@@ -1,16 +1,3 @@
-/*******************************************************************************
- * Copyright (c) 2013 IBM Corporation and other Contributors
- *
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *     IBM - initial implementation
- *******************************************************************************/
-
-
 package com.ibm.connector.mqtt;
 
 import com.ibm.broker.config.appdev.InputTerminal;
@@ -21,18 +8,23 @@ import com.ibm.broker.config.appdev.NodePropertyRow;
 import com.ibm.broker.config.appdev.NodePropertyTable;
 import com.ibm.broker.config.appdev.OutputTerminal;
 
+/*** 
+ * <p>  <I>MQTTSubscribeNodeUDN</I> instance</p>
+ * <p></p>
+ */
 public class MQTTSubscribeNodeUDN extends Node {
 
 	private static final long serialVersionUID = 1L;
 
 	// Node constants
-	protected final static String NODE_TYPE_NAME = "com/ibm/connector/mqtt/ComIbmEventInputNode";
+	protected final static String NODE_TYPE_NAME = "com/ibm/connector/mqtt/EventInputNode";
 	protected final static String NODE_GRAPHIC_16 = "platform:/plugin/MQTTNodes/icons/full/obj16/com/ibm/connector/mqtt/ComIbmEventInput.gif";
 	protected final static String NODE_GRAPHIC_32 = "platform:/plugin/MQTTNodes/icons/full/obj30/com/ibm/connector/mqtt/ComIbmEventInput.gif";
 
 	protected final static String PROPERTY_CLIENTID = "clientId";
 	protected final static String PROPERTY_TOPICNAME = "topicName";
-	protected final static String PROPERTY_CONNECTIONURL = "connectionUrl";
+	protected final static String PROPERTY_HOSTNAME = "hostName";
+	protected final static String PROPERTY_PORT = "port";
 	protected final static String PROPERTY_CONNECTORNAME = "connectorName";
 	protected final static String PROPERTY_MESSAGEDOMAINPROPERTY = "messageDomainProperty";
 	protected final static String PROPERTY_MESSAGESETPROPERTY = "messageSetProperty";
@@ -275,7 +267,8 @@ public class MQTTSubscribeNodeUDN extends Node {
 		return new NodeProperty[] {
 			new NodeProperty(MQTTSubscribeNodeUDN.PROPERTY_CLIENTID,		NodeProperty.Usage.MANDATORY,	true,	NodeProperty.Type.STRING, null,"","",	"com/ibm/connector/mqtt/ComIbmEventInput",	"MQTTNodes"),
 			new NodeProperty(MQTTSubscribeNodeUDN.PROPERTY_TOPICNAME,		NodeProperty.Usage.MANDATORY,	true,	NodeProperty.Type.STRING, null,"","",	"com/ibm/connector/mqtt/ComIbmEventInput",	"MQTTNodes"),
-			new NodeProperty(MQTTSubscribeNodeUDN.PROPERTY_CONNECTIONURL,		NodeProperty.Usage.MANDATORY,	true,	NodeProperty.Type.STRING, null,"","",	"com/ibm/connector/mqtt/ComIbmEventInput",	"MQTTNodes"),
+			new NodeProperty(MQTTSubscribeNodeUDN.PROPERTY_HOSTNAME,		NodeProperty.Usage.MANDATORY,	true,	NodeProperty.Type.STRING, null,"","",	"com/ibm/connector/mqtt/ComIbmEventInput",	"MQTTNodes"),
+			new NodeProperty(MQTTSubscribeNodeUDN.PROPERTY_PORT,		NodeProperty.Usage.MANDATORY,	true,	NodeProperty.Type.INTEGER, "1883","","",	"com/ibm/connector/mqtt/ComIbmEventInput",	"MQTTNodes"),
 			new NodeProperty(MQTTSubscribeNodeUDN.PROPERTY_CONNECTORNAME,		NodeProperty.Usage.OPTIONAL,	false,	NodeProperty.Type.STRING, "MQTT","","",	"com/ibm/connector/mqtt/ComIbmEventInput",	"MQTTNodes"),
 			new NodeProperty(MQTTSubscribeNodeUDN.PROPERTY_MESSAGEDOMAINPROPERTY,		NodeProperty.Usage.OPTIONAL,	false,	NodeProperty.Type.STRING, null,"",	"com.ibm.etools.mft.ibmnodes.editors.MRMessageDomainPropertyEditor",	"com/ibm/connector/mqtt/ComIbmEventInput",	"MQTTNodes"),
 			new NodeProperty(MQTTSubscribeNodeUDN.PROPERTY_MESSAGESETPROPERTY,		NodeProperty.Usage.OPTIONAL,	false,	NodeProperty.Type.STRING, null,"",	"com.ibm.etools.mft.ibmnodes.editors.MRMessageSetNamePropertyEditorV8",	"com/ibm/connector/mqtt/ComIbmEventInput",	"MQTTNodes"),
@@ -464,22 +457,42 @@ public class MQTTSubscribeNodeUDN extends Node {
 	}
 
 	/**
-	 * Set the <I>MQTTSubscribeNodeUDN</I> "<I>Connection URL</I>" property
+	 * Set the <I>MQTTSubscribeNodeUDN</I> "<I>Host name</I>" property
 	 * 
-	 * @param value String ; the value to set the property "<I>Connection URL</I>"
+	 * @param value String ; the value to set the property "<I>Host name</I>"
 	 */
-	public MQTTSubscribeNodeUDN setConnectionUrl(String value) {
-		setProperty(MQTTSubscribeNodeUDN.PROPERTY_CONNECTIONURL, value);
+	public MQTTSubscribeNodeUDN setHostName(String value) {
+		setProperty(MQTTSubscribeNodeUDN.PROPERTY_HOSTNAME, value);
 		return this;
 	}
 
 	/**
-	 * Get the <I>MQTTSubscribeNodeUDN</I> "<I>Connection URL</I>" property
+	 * Get the <I>MQTTSubscribeNodeUDN</I> "<I>Host name</I>" property
 	 * 
-	 * @return String; the value of the property "<I>Connection URL</I>"
+	 * @return String; the value of the property "<I>Host name</I>"
 	 */
-	public String getConnectionUrl() {
-		return (String)getPropertyValue(MQTTSubscribeNodeUDN.PROPERTY_CONNECTIONURL);
+	public String getHostName() {
+		return (String)getPropertyValue(MQTTSubscribeNodeUDN.PROPERTY_HOSTNAME);
+	}
+
+	/**
+	 * Set the <I>MQTTSubscribeNodeUDN</I> "<I>Port</I>" property
+	 * 
+	 * @param value int ; the value to set the property "<I>Port</I>"
+	 */
+	public MQTTSubscribeNodeUDN setPort(int value) {
+		setProperty(MQTTSubscribeNodeUDN.PROPERTY_PORT, Integer.toString(value));
+		return this;
+	}
+
+	/**
+	 * Get the <I>MQTTSubscribeNodeUDN</I> <I>Port</I> property
+	 * 
+	 * @return int; the value of the property "<I>Port</I>"
+	 */
+	public int getPort() {
+		String value = (String)getPropertyValue(MQTTSubscribeNodeUDN.PROPERTY_PORT);
+		return Integer.valueOf(value).intValue();
 	}
 
 	/**

@@ -25,15 +25,14 @@ import static com.ibm.broker.connector.ContainerServices.writeServiceTraceExit;
 
 import java.util.Properties;
 
+import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttClient;
-import org.eclipse.paho.client.mqttv3.MqttDefaultFilePersistence;
-import org.eclipse.paho.client.mqttv3.MqttDeliveryToken;
+import org.eclipse.paho.client.mqttv3.MqttClientPersistence;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.MqttPersistenceException;
 import org.eclipse.paho.client.mqttv3.MqttSecurityException;
-import org.eclipse.paho.client.mqttv3.MqttTopic;
 
 import com.ibm.broker.connector.AdminInterface;
 import com.ibm.broker.connector.ConnectorFactory;
@@ -47,12 +46,10 @@ public class MQTTInputConnector extends EventInputConnector implements AdminInte
     private static final String clsName = MQTTInputConnector.class.getName();
 
     private MqttClient client;
-    private int countMessages = 0;
-    private int checkPointCount = 10000;
     private boolean failedToConnect = false;
     private Properties activityLogTag = new Properties();
     private String connectionUrl = null;
-    private MqttDefaultFilePersistence dataStore;
+    private MqttClientPersistence dataStore;
     
     // The BIP messages will come from the Integration Bus-provided catalog.
     public static final String MESSAGE_CATALOG_NAME = "BIPmsgs";
@@ -149,19 +146,33 @@ public class MQTTInputConnector extends EventInputConnector implements AdminInte
 					writeServiceTraceData(clsName, "changeAdminObject",
 							"Attempting to connect ...");
 					client.connect();
+					failedToConnect = false;
 					writeServiceTraceData(clsName, "changeAdminObject",
 							"Connected OK.");
-				} catch (MqttSecurityException e) {
-					getConnectorFactory().getContainerServices()
-							.throwMbRecoverableException(e);
+					writeActivityLog("12063", new String[] { connectionUrl },
+							activityLogTag);
 				} catch (MqttException e) {
-					getConnectorFactory().getContainerServices()
+					if (failedToConnect == false) {
+						failedToConnect = true;
+						writeActivityLog("12067", 
+								new String[] {connectionUrl, e.getMessage()},
+								activityLogTag);
+						getConnectorFactory().getContainerServices()
 							.throwMbRecoverableException(e);
+					}
 				}
 			} else if (adminFunction.equals("disconnect")) {
 				try {
-					client.disconnect();
+					if (client.isConnected()) {
+						client.disconnect();
+                        writeActivityLog("12066", 
+							new String[] {connectionUrl},
+							activityLogTag);
+					}
 				} catch (MqttException e) {
+                    writeActivityLog("12067", 
+							new String[] {connectionUrl, e.getMessage()},
+							activityLogTag);
 					getConnectorFactory().getContainerServices()
 							.throwMbRecoverableException(e);
 				}
@@ -179,35 +190,11 @@ public class MQTTInputConnector extends EventInputConnector implements AdminInte
 			// Tag activity log entries with the topic
 			activityLogTag.put("Topic", getProperties()
 					.getProperty("topicName"));
-			connectionUrl = getProperties().getProperty("connectionUrl");
-			if (connectionUrl == null) {
-				connectionUrl = MQTTConnectorFactory.DEFAULT_MQTT_URL;
-			} else {
-				// Tidy up the URL
-				connectionUrl = connectionUrl.trim().toLowerCase();
-			}
-			if (connectionUrl.startsWith("tcp://") == false) {
-				getConnectorFactory().getContainerServices()
-						.throwMbRecoverableException("2111",
-								new String[] { "not a tcp:// url" });
-			}
-			// Strip off the leading protocol (tcp://)
-			String portNumber = connectionUrl.substring(6);
-			// Then find the port (the 2nd colon in the string, having stripped off the protocol)
-			int startOfPort = portNumber.indexOf(":");
-			if ((startOfPort > -1) && (startOfPort < portNumber.length() - 2)) {
-				portNumber = portNumber.substring(startOfPort + 1);
-			}
-			try {
-				Integer.parseInt(portNumber);
-			} catch (NumberFormatException e) {
-				getConnectorFactory().getContainerServices()
-						.throwMbRecoverableException(
-								"2112",
-								new String[] { "not a valid integer",
-										portNumber });
-			}
+
+			this.connectionUrl = getMQTTFactory().getConnectionURL(getProperties());
+			String clientId = getProperties().getProperty("clientId");
 			activityLogTag.put("connectionUrl", connectionUrl);
+			activityLogTag.put("clientID", clientId);
 		} finally {
 			writeServiceTraceExit(clsName, "initialize", "Exit");
 		}
@@ -218,12 +205,8 @@ public class MQTTInputConnector extends EventInputConnector implements AdminInte
         writeServiceTraceEntry(clsName, "start", "Entry");
         
         try {
-			String connectionUrl = getProperties().getProperty("connectionUrl");
 			String clientId = getProperties().getProperty("clientId");
 			String clientName = clientId;
-			if (connectionUrl == null) {
-				connectionUrl = MQTTConnectorFactory.DEFAULT_MQTT_URL;
-			}
 			if (clientId == null) {
 				clientName = getConnectorFactory().getContainerServices()
 						.containerName() + getName();
@@ -232,45 +215,24 @@ public class MQTTInputConnector extends EventInputConnector implements AdminInte
 				clientName = clientName.substring(clientName.length() - 23);
 			}
 			try {
-				dataStore = new MqttDefaultFilePersistence(
-						getConnectorFactory().getContainerServices()
-								.getWorkDirectory()
-								+ getConnectorFactory().getContainerServices()
-										.getFileSeparator()
-								+ clientName
-								+ System.currentTimeMillis());
+				dataStore = ((MQTTConnectorFactory)getConnectorFactory()).getClientPersistence();
 				client = new MqttClient(connectionUrl, clientName, dataStore);
-				writeServiceTraceData(clsName, "start",
-						"Attempting to connect ...");
-				client.connect();
-				writeServiceTraceData(clsName, "start", "Connected OK.");
 				client.setCallback(this);
-				client.subscribe(getProperties().getProperty("topicName"));
-				failedToConnect = false;
-			} catch (MqttPersistenceException e) {
-				if (failedToConnect == false) {
-					failedToConnect = true;
-
-					writeActivityLog("12067", new String[] { connectionUrl },
-							activityLogTag);
-					writeActivityLog("12071", new String[] { connectionUrl },
-							activityLogTag);
-				}
-				getConnectorFactory().getContainerServices()
-						.throwMbRecoverableException("12067",
-								new String[] { connectionUrl });
+				connectClient();
+                writeActivityLog("12066", 	new String[] {connectionUrl, clientId},
+						activityLogTag);
 			} catch (MqttException e) {
 				if (failedToConnect == false) {
 					failedToConnect = true;
 
-					writeActivityLog("12067", new String[] { connectionUrl },
+					writeActivityLog("12067", new String[] { connectionUrl + " when starting " + client.getClientId() },
 							activityLogTag);
 					writeActivityLog("12071", new String[] { connectionUrl },
 							activityLogTag);
 				}
 				getConnectorFactory().getContainerServices()
-						.throwMbRecoverableException("12067",
-								new String[] { connectionUrl });
+				.throwMbRecoverableException("12067",
+						new String[] { connectionUrl + " when starting " + client.getClientId() });
 			}
 			writeActivityLog("12063", new String[] { connectionUrl },
 					activityLogTag);
@@ -279,17 +241,52 @@ public class MQTTInputConnector extends EventInputConnector implements AdminInte
 		}
     }
     
+	private void connectClient() throws MqttSecurityException, MqttException {
+        writeServiceTraceEntry(clsName, "connectClient", "Entry");
+		try {
+			writeServiceTraceData(clsName, "connectClient",	"Attempting to connect ...");
+			client.connect();
+			writeActivityLog("12063", new String[] { connectionUrl },
+					activityLogTag);
+			// QoS defaults to 0.
+			// int qos = getMQTTFactory().getQos(getProperties());
+			int qos = 0;
+			client.subscribe(getProperties().getProperty("topicName"), qos);
+			failedToConnect = false;
+			writeServiceTraceData(clsName, "connectClient", "Connected OK.");
+			writeActivityLog("12066", new String[] {getProperties().getProperty("topicName"), "" + qos}, activityLogTag);
+		} catch (MbException e) {
+            try {
+                getConnectorFactory().getContainerServices().writeSystemLogError("2111", 
+                	new String[]{e.getLocalizedMessage()});
+            } catch (MbException e1) {
+            }
+		}
+		finally {
+			writeServiceTraceExit(clsName, "connectClient", "Exit");
+		}
+	}
+    
     public void stop() throws MbException  {
         writeServiceTraceEntry(clsName, "stop", "Entry");
         try {
             client.unsubscribe(getProperties().getProperty("topicName"));
             client.disconnect(5000);
+            writeActivityLog("12066", 
+					new String[] { connectionUrl},
+					activityLogTag);
         } 
         catch (MqttPersistenceException e) {
-            throw new MbRecoverableException(this, "createOutputContext", MESSAGE_CATALOG_NAME, "BIP2111", "MQTT error", new String[]{"MQTT error"});
+            writeActivityLog("12067", 
+					new String[] { connectionUrl, e.getMessage()},
+					activityLogTag);
+            throw new MbRecoverableException(this, "stop", MESSAGE_CATALOG_NAME, "BIP2111", "MQTT error", new String[]{"MQTT error"});
         } 
         catch (MqttException e) {
-            throw new MbRecoverableException(this, "createOutputContext", MESSAGE_CATALOG_NAME, "BIP2111", "MQTT error", new String[]{"MQTT error"});
+            writeActivityLog("12067", 
+					new String[] { connectionUrl, e.getMessage()},
+					activityLogTag);
+            throw new MbRecoverableException(this, "stop", MESSAGE_CATALOG_NAME, "BIP2111", "MQTT error", new String[]{"MQTT error"});
         }
         finally {
         	writeServiceTraceExit(clsName, "stop", "Exit");
@@ -300,20 +297,23 @@ public class MQTTInputConnector extends EventInputConnector implements AdminInte
     public void connectionLost(Throwable arg0) {
         writeServiceTraceEntry(clsName, "connectionLost", "Entry");
         try {
-            writeActivityLog("12062", new String[]{getProperties().getProperty("connectionUrl")},activityLogTag);
-            String lastMessageKey = "";
+            writeActivityLog("12062", new String[]{connectionUrl},activityLogTag);
+			int attempts = 1;
             while(isStarted() && client.isConnected() == false){
                 try {
-                  start(); 
-                } catch (MbException e) {
+                  connectClient(); 
+				} catch (MqttException e) {
                     try {
-                        if(lastMessageKey.equals(e.getMessageKey()) == false){
-                          getConnectorFactory().getContainerServices().writeSystemLogError(e.getMessageKey(), (String[])e.getInserts());
-                        }
-                        Thread.sleep(2000);
-                    } catch (InterruptedException e1) {
-                    }
-                }
+						getConnectorFactory().getContainerServices()
+						.writeSystemLogError("12067", 
+								new String[] {connectionUrl + " when reconnecting " + client.getClientId() });
+					} catch (Exception e1) {}
+                    // Sleep for an increasing amount of time, up to 2 mins max.
+                    try {
+						Thread.sleep(attempts * 5000);
+						attempts += (attempts < 25) ? 1 : 0;  
+					} catch (InterruptedException e1) {}
+                } 
             }
         } catch (MbException e) {
             try {
@@ -327,28 +327,16 @@ public class MQTTInputConnector extends EventInputConnector implements AdminInte
     }
 
     @Override
-    public void deliveryComplete(MqttDeliveryToken arg0) {
+    public void deliveryComplete(IMqttDeliveryToken arg0) {
         writeServiceTraceEntry(clsName, "deliveryComplete", "Entry");
         writeServiceTraceExit(clsName, "deliveryComplete", "Exit");
     }
 
     @Override
-    public void messageArrived(MqttTopic topic, MqttMessage message)
+    public void messageArrived(String topic, MqttMessage message)
             throws Exception {
         writeServiceTraceEntry(clsName, "messageArrived", "Entry");
         try {
-			countMessages++;
-			int totalMessage = countMessages;
-			if (totalMessage > checkPointCount) {
-				synchronized (this) {
-					if (totalMessage > checkPointCount) {
-						checkPointCount += 10000;
-						writeServiceTraceData(clsName, "messageArrived", ""
-								+ System.currentTimeMillis() / 1000
-								+ " countMessages: " + totalMessage);
-					}
-				}
-			}
 			Event[] events = new Event[1];
 			events[0] = new MQTTEvent(topic, message);
 			deliverEvents(events);

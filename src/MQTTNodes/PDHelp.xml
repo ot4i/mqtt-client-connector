@@ -6,12 +6,26 @@
             <title>Client ID</title>
             <description>
                 <p>Provide a unique name of a 1 to 23 byte string for the MQTT client connection.</p>
+                <p>(Note: The link below is an external link, but it will display within the IBM Integration Toolkit help. The URL is: http://public.dhe.ibm.com/software/dw/webservices/ws-mqtt/mqtt-v3r1.html#connect)</p>
             </description>
         </fieldHelp>
         <fieldHelp id="com/ibm/connector/mqtt/ComIbmEventInput_basic_topicName">
             <title>Topic name</title>
             <description>
                 <p>Name of the MQTT topic(s) that this node subscribes to. Levels in the hierarchy are delimited by the '/' character, such as 'Hypertension/Alert'.</p>
+                <p>(Note: The link below is an external link, but it will display within the IBM Integration Toolkit help. The URL is: http://public.dhe.ibm.com/software/dw/webservices/ws-mqtt/mqtt-v3r1.html)</p>
+            </description>
+        </fieldHelp>
+        <fieldHelp id="com/ibm/connector/mqtt/ComIbmEventInput_basic_hostName">
+            <title>Host name</title>
+            <description>
+                <p>Host name for the MQTT server, for example: localhost</p>
+            </description>
+        </fieldHelp>
+        <fieldHelp id="com/ibm/connector/mqtt/ComIbmEventInput_basic_port">
+            <title>Port</title>
+            <description>
+                <p>Port number to connect to the MQTT server, for example: 1883</p>
             </description>
         </fieldHelp>
         <fieldHelp id="com/ibm/connector/mqtt/ComIbmEventInput_parsing_messageDomainProperty">
@@ -66,20 +80,28 @@
             <title>Client ID</title>
             <description>
                 <p>Provide a unique name of a 1 to 23 byte string for the MQTT client connection.</p>
+		<p>(Note: The link below is an external link, but it will display within the IBM Integration Toolkit help. The URL is: http://public.dhe.ibm.com/software/dw/webservices/ws-mqtt/mqtt-v3r1.html#connect)</p>
             </description>
         </fieldHelp>
         <fieldHelp id="com/ibm/connector/mqtt/ComIbmOutput_basic_topicName">
             <title>Topic name</title>
             <description>
                 <p>Name of the MQTT topic that this node publishes to. Levels in the hierarchy are delimited by the '/' character, such as 'Hypertension/Alert'.</p>
+		<p>(Note: The link below is an external link, but it will display within the IBM Integration Toolkit help. The URL is: http://public.dhe.ibm.com/software/dw/webservices/ws-mqtt/mqtt-v3r1.html)</p>
             </description>
         </fieldHelp>
-        <fieldHelp id="com/ibm/connector/mqtt/ComIbmOutput_basic_connectionUrl">
-            <title>Connection URL</title>
+        <fieldHelp id="com/ibm/connector/mqtt/ComIbmOutput_basic_hostName">
+            <title>Host name</title>
             <description>
-                <p>URL for the MQTT server.</p>
+                <p>Host name for the MQTT server, for example: localhost</p>
             </description>
         </fieldHelp>
+        <fieldHelp id="com/ibm/connector/mqtt/ComIbmOutput_basic_port">
+            <title>Port</title>
+            <description>
+                <p>Port number to connect to the MQTT server, for example: 1883</p>
+            </description>
+        </fieldHelp> 
         <fieldHelp id="com/ibm/connector/mqtt/ComIbmOutput_validation_validateMaster">
             <title>Validate</title>
             <description>
@@ -105,9 +127,7 @@ If Inherit is selected, the other validation properties on the tab are not avail
 						current parsing or writing operation has completed. Each failure is also logged in the user trace if you &#xd;
 						have asked for user tracing of the message flow, and validation stops. Use this setting if you want &#xd;
 						processing of the message to halt if a validation failure occurs, but you want to see the full list &#xd;
-						of failures. This property is affected by the Parse Timing property; when partial parsing &#xd;
-						is selected, the current parsing operation parses only a portion of an input message, so only &#xd;
-						the validation failures in that portion of the message are reported.</li>
+						of failures.</li>
                     <li>Select "User Trace" to log all validation failures to user trace, even if you have not asked &#xd;
 						for user tracing of the message flow. Use this setting if you want processing of the message to &#xd;
 						continue regardless of validation failures.</li>
@@ -115,12 +135,6 @@ If Inherit is selected, the other validation properties on the tab are not avail
 						failures to the system log. Use this setting if you want processing of the message to continue &#xd;
 						regardless of validation failures.</li>
                 </ul>
-            </description>
-        </fieldHelp>
-        <fieldHelp id="com/ibm/connector/mqtt/ComIbmEventInput_basic_connectionUrl">
-            <title>Connection URL</title>
-            <description>
-                <p>URL for the MQTT server.</p>
             </description>
         </fieldHelp>
         <fieldHelp id="com/ibm/connector/mqtt/ComIbmEventInput_parserOptions_parserXmlnscBuildTreeUsingXMLSchema">

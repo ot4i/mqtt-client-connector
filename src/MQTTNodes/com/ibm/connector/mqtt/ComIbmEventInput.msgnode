@@ -68,8 +68,11 @@
     <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.topicName" name="topicName" lowerBound="1">
       <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.connectionUrl" name="connectionUrl" lowerBound="1">
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.hostName" name="hostName" lowerBound="1">
       <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.port" name="port" lowerBound="1" defaultValueLiteral="1883">
+      <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     </eStructuralFeatures>
     <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.connectorName" name="connectorName" defaultValueLiteral="MQTT">
       <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -124,44 +127,47 @@
         <propertyName xmi:type="utility:TranslatableString" key="Property.clientId" bundleName="com/ibm/connector/mqtt/ComIbmEventInput" pluginId="MQTTNodes"/>
         <propertyDescriptor configurable="true" describedAttribute="Property.topicName">
           <propertyName xmi:type="utility:TranslatableString" key="Property.topicName" bundleName="com/ibm/connector/mqtt/ComIbmEventInput" pluginId="MQTTNodes"/>
-          <propertyDescriptor configurable="true" describedAttribute="Property.connectionUrl">
-            <propertyName xmi:type="utility:TranslatableString" key="Property.connectionUrl" bundleName="com/ibm/connector/mqtt/ComIbmEventInput" pluginId="MQTTNodes"/>
-            <propertyDescriptor hidden="true" describedAttribute="Property.connectorName">
-              <propertyName xmi:type="utility:TranslatableString" key="Property.connectorName" bundleName="com/ibm/connector/mqtt/ComIbmEventInput" pluginId="MQTTNodes"/>
-              <propertyDescriptor groupName="Group.parsing" propertyEditor="com.ibm.etools.mft.ibmnodes.editors.MRMessageDomainPropertyEditor" describedAttribute="Property.messageDomainProperty">
-                <propertyName xmi:type="utility:TranslatableString" key="Property.messageDomainProperty" bundleName="com/ibm/connector/mqtt/ComIbmEventInput" pluginId="MQTTNodes"/>
-                <propertyDescriptor groupName="Group.parsing" propertyEditor="com.ibm.etools.mft.ibmnodes.editors.MRMessageSetNamePropertyEditorV8" describedAttribute="Property.messageSetProperty">
-                  <propertyName xmi:type="utility:TranslatableString" key="Property.messageSetProperty" bundleName="com/ibm/connector/mqtt/ComIbmEventInput" pluginId="MQTTNodes"/>
-                  <propertyDescriptor groupName="Group.parsing" propertyEditor="com.ibm.etools.mft.ibmnodes.editors.MRMessageTypePropertyEditorV8" describedAttribute="Property.messageTypeProperty">
-                    <propertyName xmi:type="utility:TranslatableString" key="Property.messageTypeProperty" bundleName="com/ibm/connector/mqtt/ComIbmEventInput" pluginId="MQTTNodes"/>
-                    <propertyDescriptor groupName="Group.parsing" propertyEditor="com.ibm.etools.mft.ibmnodes.editors.MRMessageFormatPropertyEditor" describedAttribute="Property.messageFormatProperty">
-                      <propertyName xmi:type="utility:TranslatableString" key="Property.messageFormatProperty" bundleName="com/ibm/connector/mqtt/ComIbmEventInput" pluginId="MQTTNodes"/>
-                      <propertyDescriptor groupName="Group.parserOptions.sub" describedAttribute="Property.validateTiming">
-                        <propertyName xmi:type="utility:TranslatableString" key="Property.validateTiming" bundleName="com/ibm/connector/mqtt/ComIbmEventInput" pluginId="MQTTNodes"/>
-                        <propertyDescriptor groupName="Group.parserOptions.sub" propertyEditor="com.ibm.etools.mft.ibmnodes.editors.BuildTreePropertyEditor" compiler="com.ibm.etools.mft.ibmnodes.compilers.BooleanPropertyCompiler" describedAttribute="Property.parserXmlnscBuildTreeUsingXMLSchema">
-                          <propertyName xmi:type="utility:TranslatableString" key="Property.parserXmlnscBuildTreeUsingXMLSchema" bundleName="com/ibm/connector/mqtt/ComIbmEventInput" pluginId="MQTTNodes"/>
-                          <propertyDescriptor groupName="Group.parserOptions.sub" propertyEditor="com.ibm.etools.mft.ibmnodes.editors.XmlnsMessageDomainPropertyEditor" compiler="com.ibm.etools.mft.ibmnodes.compilers.BooleanPropertyCompiler" describedAttribute="Property.parserXmlnscUseForXmlnsDomain">
-                            <propertyName xmi:type="utility:TranslatableString" key="Property.parserXmlnscUseForXmlnsDomain" bundleName="com/ibm/connector/mqtt/ComIbmEventInput" pluginId="MQTTNodes"/>
-                            <propertyDescriptor groupName="Group.parserOptions.sub" propertyEditor="com.ibm.etools.mft.ibmnodes.editors.XmlnscPropertyEditor" describedAttribute="Property.parserXmlnscMixedContentRetainMode">
-                              <propertyName xmi:type="utility:TranslatableString" key="Property.parserXmlnscMixedContentRetainMode" bundleName="com/ibm/connector/mqtt/ComIbmEventInput" pluginId="MQTTNodes"/>
-                              <propertyDescriptor groupName="Group.parserOptions.sub" propertyEditor="com.ibm.etools.mft.ibmnodes.editors.XmlnscPropertyEditor" describedAttribute="Property.parserXmlnscCommentsRetainMode">
-                                <propertyName xmi:type="utility:TranslatableString" key="Property.parserXmlnscCommentsRetainMode" bundleName="com/ibm/connector/mqtt/ComIbmEventInput" pluginId="MQTTNodes"/>
-                                <propertyDescriptor groupName="Group.parserOptions.sub" propertyEditor="com.ibm.etools.mft.ibmnodes.editors.XmlnscPropertyEditor" describedAttribute="Property.parserXmlnscProcessingInstructionsRetainMode">
-                                  <propertyName xmi:type="utility:TranslatableString" key="Property.parserXmlnscProcessingInstructionsRetainMode" bundleName="com/ibm/connector/mqtt/ComIbmEventInput" pluginId="MQTTNodes"/>
-                                  <propertyDescriptor groupName="Group.parserOptions.sub" propertyEditor="com.ibm.etools.mft.ibmnodes.editors.OpaqueElementsPropertyEditor" describedReference="Property.parserXmlnscOpaqueElements">
-                                    <propertyName xmi:type="utility:TranslatableString" key="Property.parserXmlnscOpaqueElements" bundleName="com/ibm/connector/mqtt/ComIbmEventInput" pluginId="MQTTNodes"/>
-                                    <propertyDescriptor groupName="Group.validation" propertyEditor="com.ibm.etools.mft.ibmnodes.editors.ValidateMasterForOpaqueParsingAndBuildTreePropertyEditor" configurable="true" describedAttribute="Property.validateMaster">
-                                      <propertyName xmi:type="utility:TranslatableString" key="Property.validateMaster" bundleName="com/ibm/connector/mqtt/ComIbmEventInput" pluginId="MQTTNodes"/>
-                                      <propertyDescriptor groupName="Group.validation" propertyEditor="com.ibm.etools.mft.ibmnodes.editors.ValidateMasterListenerPropertyEditor" describedAttribute="Property.validateFailureAction">
-                                        <propertyName xmi:type="utility:TranslatableString" key="Property.validateFailureAction" bundleName="com/ibm/connector/mqtt/ComIbmEventInput" pluginId="MQTTNodes"/>
-                                        <propertyDescriptor groupName="Group.validation" compiler="com.ibm.etools.mft.ibmnodes.compilers.BooleanPropertyCompiler" readOnly="true" hidden="true" describedAttribute="Property.validateAllValueConstraints">
-                                          <propertyName xmi:type="utility:TranslatableString" key="Property.validateAllValueConstraints" bundleName="com/ibm/connector/mqtt/ComIbmEventInput" pluginId="MQTTNodes"/>
-                                          <propertyDescriptor groupName="Group.validation" readOnly="true" hidden="true" describedAttribute="Property.validateFixup">
-                                            <propertyName xmi:type="utility:TranslatableString" key="Property.validateFixup" bundleName="com/ibm/connector/mqtt/ComIbmEventInput" pluginId="MQTTNodes"/>
-                                            <propertyDescriptor groupName="Group.monitoring" readOnly="true" hidden="true" describedReference="Property.nsMappingTable">
-                                              <propertyName xmi:type="utility:TranslatableString" key="Property.nsMappingTable" bundleName="com/ibm/connector/mqtt/ComIbmEventInput" pluginId="MQTTNodes"/>
-                                              <propertyDescriptor groupName="Group.monitoring" propertyEditor="com.ibm.etools.mft.ibmnodes.editors.monitoring.MonitoringEventsComplexPropertyEditor" describedReference="Property.monitorEvents">
-                                                <propertyName xmi:type="utility:TranslatableString" key="Property.monitorEvents" bundleName="com/ibm/connector/mqtt/ComIbmEventInput" pluginId="MQTTNodes"/>
+          <propertyDescriptor configurable="true" describedAttribute="Property.hostName">
+            <propertyName xmi:type="utility:TranslatableString" key="Property.hostName" bundleName="com/ibm/connector/mqtt/ComIbmEventInput" pluginId="MQTTNodes"/>
+            <propertyDescriptor configurable="true" describedAttribute="Property.port">
+              <propertyName xmi:type="utility:TranslatableString" key="Property.port" bundleName="com/ibm/connector/mqtt/ComIbmEventInput" pluginId="MQTTNodes"/>
+              <propertyDescriptor hidden="true" describedAttribute="Property.connectorName">
+                <propertyName xmi:type="utility:TranslatableString" key="Property.connectorName" bundleName="com/ibm/connector/mqtt/ComIbmEventInput" pluginId="MQTTNodes"/>
+                <propertyDescriptor groupName="Group.parsing" propertyEditor="com.ibm.etools.mft.ibmnodes.editors.MRMessageDomainPropertyEditor" describedAttribute="Property.messageDomainProperty">
+                  <propertyName xmi:type="utility:TranslatableString" key="Property.messageDomainProperty" bundleName="com/ibm/connector/mqtt/ComIbmEventInput" pluginId="MQTTNodes"/>
+                  <propertyDescriptor groupName="Group.parsing" propertyEditor="com.ibm.etools.mft.ibmnodes.editors.MRMessageSetNamePropertyEditorV8" describedAttribute="Property.messageSetProperty">
+                    <propertyName xmi:type="utility:TranslatableString" key="Property.messageSetProperty" bundleName="com/ibm/connector/mqtt/ComIbmEventInput" pluginId="MQTTNodes"/>
+                    <propertyDescriptor groupName="Group.parsing" propertyEditor="com.ibm.etools.mft.ibmnodes.editors.MRMessageTypePropertyEditorV8" describedAttribute="Property.messageTypeProperty">
+                      <propertyName xmi:type="utility:TranslatableString" key="Property.messageTypeProperty" bundleName="com/ibm/connector/mqtt/ComIbmEventInput" pluginId="MQTTNodes"/>
+                      <propertyDescriptor groupName="Group.parsing" propertyEditor="com.ibm.etools.mft.ibmnodes.editors.MRMessageFormatPropertyEditor" describedAttribute="Property.messageFormatProperty">
+                        <propertyName xmi:type="utility:TranslatableString" key="Property.messageFormatProperty" bundleName="com/ibm/connector/mqtt/ComIbmEventInput" pluginId="MQTTNodes"/>
+                        <propertyDescriptor groupName="Group.parserOptions.sub" describedAttribute="Property.validateTiming">
+                          <propertyName xmi:type="utility:TranslatableString" key="Property.validateTiming" bundleName="com/ibm/connector/mqtt/ComIbmEventInput" pluginId="MQTTNodes"/>
+                          <propertyDescriptor groupName="Group.parserOptions.sub" propertyEditor="com.ibm.etools.mft.ibmnodes.editors.BuildTreePropertyEditor" compiler="com.ibm.etools.mft.ibmnodes.compilers.BooleanPropertyCompiler" describedAttribute="Property.parserXmlnscBuildTreeUsingXMLSchema">
+                            <propertyName xmi:type="utility:TranslatableString" key="Property.parserXmlnscBuildTreeUsingXMLSchema" bundleName="com/ibm/connector/mqtt/ComIbmEventInput" pluginId="MQTTNodes"/>
+                            <propertyDescriptor groupName="Group.parserOptions.sub" propertyEditor="com.ibm.etools.mft.ibmnodes.editors.XmlnsMessageDomainPropertyEditor" compiler="com.ibm.etools.mft.ibmnodes.compilers.BooleanPropertyCompiler" describedAttribute="Property.parserXmlnscUseForXmlnsDomain">
+                              <propertyName xmi:type="utility:TranslatableString" key="Property.parserXmlnscUseForXmlnsDomain" bundleName="com/ibm/connector/mqtt/ComIbmEventInput" pluginId="MQTTNodes"/>
+                              <propertyDescriptor groupName="Group.parserOptions.sub" propertyEditor="com.ibm.etools.mft.ibmnodes.editors.XmlnscPropertyEditor" describedAttribute="Property.parserXmlnscMixedContentRetainMode">
+                                <propertyName xmi:type="utility:TranslatableString" key="Property.parserXmlnscMixedContentRetainMode" bundleName="com/ibm/connector/mqtt/ComIbmEventInput" pluginId="MQTTNodes"/>
+                                <propertyDescriptor groupName="Group.parserOptions.sub" propertyEditor="com.ibm.etools.mft.ibmnodes.editors.XmlnscPropertyEditor" describedAttribute="Property.parserXmlnscCommentsRetainMode">
+                                  <propertyName xmi:type="utility:TranslatableString" key="Property.parserXmlnscCommentsRetainMode" bundleName="com/ibm/connector/mqtt/ComIbmEventInput" pluginId="MQTTNodes"/>
+                                  <propertyDescriptor groupName="Group.parserOptions.sub" propertyEditor="com.ibm.etools.mft.ibmnodes.editors.XmlnscPropertyEditor" describedAttribute="Property.parserXmlnscProcessingInstructionsRetainMode">
+                                    <propertyName xmi:type="utility:TranslatableString" key="Property.parserXmlnscProcessingInstructionsRetainMode" bundleName="com/ibm/connector/mqtt/ComIbmEventInput" pluginId="MQTTNodes"/>
+                                    <propertyDescriptor groupName="Group.parserOptions.sub" propertyEditor="com.ibm.etools.mft.ibmnodes.editors.OpaqueElementsPropertyEditor" describedReference="Property.parserXmlnscOpaqueElements">
+                                      <propertyName xmi:type="utility:TranslatableString" key="Property.parserXmlnscOpaqueElements" bundleName="com/ibm/connector/mqtt/ComIbmEventInput" pluginId="MQTTNodes"/>
+                                      <propertyDescriptor groupName="Group.validation" propertyEditor="com.ibm.etools.mft.ibmnodes.editors.ValidateMasterForOpaqueParsingAndBuildTreePropertyEditor" configurable="true" describedAttribute="Property.validateMaster">
+                                        <propertyName xmi:type="utility:TranslatableString" key="Property.validateMaster" bundleName="com/ibm/connector/mqtt/ComIbmEventInput" pluginId="MQTTNodes"/>
+                                        <propertyDescriptor groupName="Group.validation" propertyEditor="com.ibm.etools.mft.ibmnodes.editors.ValidateMasterListenerPropertyEditor" describedAttribute="Property.validateFailureAction">
+                                          <propertyName xmi:type="utility:TranslatableString" key="Property.validateFailureAction" bundleName="com/ibm/connector/mqtt/ComIbmEventInput" pluginId="MQTTNodes"/>
+                                          <propertyDescriptor groupName="Group.validation" compiler="com.ibm.etools.mft.ibmnodes.compilers.BooleanPropertyCompiler" readOnly="true" hidden="true" describedAttribute="Property.validateAllValueConstraints">
+                                            <propertyName xmi:type="utility:TranslatableString" key="Property.validateAllValueConstraints" bundleName="com/ibm/connector/mqtt/ComIbmEventInput" pluginId="MQTTNodes"/>
+                                            <propertyDescriptor groupName="Group.validation" readOnly="true" hidden="true" describedAttribute="Property.validateFixup">
+                                              <propertyName xmi:type="utility:TranslatableString" key="Property.validateFixup" bundleName="com/ibm/connector/mqtt/ComIbmEventInput" pluginId="MQTTNodes"/>
+                                              <propertyDescriptor groupName="Group.monitoring" readOnly="true" hidden="true" describedReference="Property.nsMappingTable">
+                                                <propertyName xmi:type="utility:TranslatableString" key="Property.nsMappingTable" bundleName="com/ibm/connector/mqtt/ComIbmEventInput" pluginId="MQTTNodes"/>
+                                                <propertyDescriptor groupName="Group.monitoring" propertyEditor="com.ibm.etools.mft.ibmnodes.editors.monitoring.MonitoringEventsComplexPropertyEditor" describedReference="Property.monitorEvents">
+                                                  <propertyName xmi:type="utility:TranslatableString" key="Property.monitorEvents" bundleName="com/ibm/connector/mqtt/ComIbmEventInput" pluginId="MQTTNodes"/>
+                                                </propertyDescriptor>
                                               </propertyDescriptor>
                                             </propertyDescriptor>
                                           </propertyDescriptor>

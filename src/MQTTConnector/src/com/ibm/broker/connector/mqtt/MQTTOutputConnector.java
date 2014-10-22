@@ -37,6 +37,8 @@ public class MQTTOutputConnector extends OutputConnector implements AdminInterfa
     private static final String clsName = MQTTOutputConnector.class.getName();
 
     private String connectionUrl = null;
+    private String clientId = null;
+    
     public static final String[] ADMINTYPES = new String[] { "Connections" };
 
     public MQTTOutputConnector(ConnectorFactory connectorFactory, 
@@ -51,14 +53,6 @@ public class MQTTOutputConnector extends OutputConnector implements AdminInterfa
         writeServiceTraceEntry(clsName, "createOutputInteraction", "Entry");
         try {
 	        String clientName = null;
-	        String connectionUrl = getProperties().getProperty("connectionUrl");
-	
-	        // Default the URL if not set.
-	        if (getProperties().getProperty("connectionUrl") == null) {
-	            connectionUrl = MQTTConnectorFactory.DEFAULT_MQTT_URL;
-	        }
-	
-	        String clientId = getProperties().getProperty("clientId");
 	        if (clientId == null) {
 	            clientName = getConnectorFactory().getContainerServices().containerName() + getName() + "_" + getInteractions().length;
 	        } else {
@@ -192,31 +186,8 @@ public class MQTTOutputConnector extends OutputConnector implements AdminInterfa
     public void initialize() throws MbException {
         writeServiceTraceEntry(clsName, "initialize", "Entry");
         try {
-			connectionUrl = getProperties().getProperty("connectionUrl");
-			if (connectionUrl == null) {
-				connectionUrl = MQTTConnectorFactory.DEFAULT_MQTT_URL;
-			}
-			connectionUrl = connectionUrl.trim();
-			connectionUrl = connectionUrl.toLowerCase();
-			if (connectionUrl.startsWith("tcp://") == false) {
-				getConnectorFactory().getContainerServices()
-						.throwMbRecoverableException("2111",
-								new String[] { "not a tcp:// url" });
-			}
-			String portNumber = connectionUrl.substring(6);
-			int startOfPort = portNumber.indexOf(":");
-			if (startOfPort > -1 && startOfPort < portNumber.length() - 2) {
-				portNumber = portNumber.substring(startOfPort + 1);
-			}
-			try {
-				Integer.parseInt(portNumber);
-			} catch (NumberFormatException e) {
-				getConnectorFactory().getContainerServices()
-						.throwMbRecoverableException(
-								"2112",
-								new String[] { "not a valid integer",
-										portNumber });
-			}
+			this.connectionUrl = ((MQTTConnectorFactory)getConnectorFactory()).getConnectionURL(getProperties());
+	        this.clientId = getProperties().getProperty("clientId");
 		} finally {
 			writeServiceTraceExit(clsName, "initialize", "Exit");
 		}

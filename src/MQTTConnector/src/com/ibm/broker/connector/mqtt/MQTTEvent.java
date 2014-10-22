@@ -23,9 +23,7 @@ import static com.ibm.broker.connector.ContainerServices.writeServiceTraceExit;
 
 import java.util.Properties;
 
-import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
-import org.eclipse.paho.client.mqttv3.MqttTopic;
 
 import com.ibm.broker.connector.ByteArrayInputRecord;
 import com.ibm.broker.connector.ElementInputRecord;
@@ -39,13 +37,13 @@ public class MQTTEvent extends Event {
     private static final String clsName = MQTTEvent.class.getName();
 
     MqttMessage message = null;
-    MqttTopic topic = null;
+    String topic = null;
 
     public MQTTInputConnector getMQTTConnector() throws MbException {
         return (MQTTInputConnector) getConnector();
     }
 
-    public MQTTEvent(MqttTopic topic, MqttMessage message)
+    public MQTTEvent(String topic, MqttMessage message)
             throws MbException {
         this.message = message;
         this.topic = topic;
@@ -55,7 +53,7 @@ public class MQTTEvent extends Event {
     public String eventSource() throws MbException {
         writeServiceTraceEntry(clsName, "eventSource", "Entry");
         writeServiceTraceExit(clsName, "eventSource", "Exit");
-        return topic.getName();
+        return topic;
     }
 
     @Override
@@ -63,9 +61,9 @@ public class MQTTEvent extends Event {
         writeServiceTraceEntry(clsName, "logEvent", "Entry");
         
         try {
-			getConnector().writeActivityLog("12065",
-					new String[] { topic.getName() }, // Inserts
-					getMQTTConnector().getActivityLogTag()); // Activity Log tags
+        	getConnector().writeActivityLog("12065",
+					new String[] { topic }, // Inserts
+			getMQTTConnector().getActivityLogTag()); // Activity Log tags
 		} finally {
 			writeServiceTraceExit(clsName, "logEvent", "Exit");
 		}
@@ -81,22 +79,12 @@ public class MQTTEvent extends Event {
 				MbElement root = ((ElementInputRecord) inputRecord)
 						.getElement();
 				MbElement parser = root.createElementAsLastChild("XMLNSC");
-				try {
-					parser.createElementAsLastChild(MbElement.TYPE_NAME_VALUE,
-							"Test", new String(message.getPayload()));
-				} catch (MqttException e) {
-					getConnector().getConnectorFactory().getContainerServices()
-							.throwMbRecoverableException(e);
-				}
+				parser.createElementAsLastChild(MbElement.TYPE_NAME_VALUE,
+						"Test", new String(message.getPayload()));
 			} else {
 				inputRecord = new ByteArrayInputRecord();
-				try {
-					((ByteArrayInputRecord) inputRecord)
-							.appendByteArray(message.getPayload());
-				} catch (MqttException e) {
-					getConnector().getConnectorFactory().getContainerServices()
-							.throwMbRecoverableException(e);
-				}
+				((ByteArrayInputRecord) inputRecord)
+				.appendByteArray(message.getPayload());
 			}
 			return inputRecord;
 		} finally {

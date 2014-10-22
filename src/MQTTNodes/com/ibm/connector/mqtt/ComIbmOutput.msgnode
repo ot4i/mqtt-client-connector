@@ -58,8 +58,11 @@
     <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.topicName" name="topicName" lowerBound="1">
       <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.connectionUrl" name="connectionUrl" lowerBound="1">
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.hostName" name="hostName" lowerBound="1">
       <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.port" name="port" lowerBound="1" defaultValueLiteral="1883">
+      <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     </eStructuralFeatures>
     <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.connectorName" name="connectorName" defaultValueLiteral="MQTT">
       <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -94,24 +97,27 @@
         <propertyName xmi:type="utility:TranslatableString" key="Property.clientId" bundleName="com/ibm/connector/mqtt/ComIbmOutput" pluginId="MQTTNodes"/>
         <propertyDescriptor configurable="true" describedAttribute="Property.topicName">
           <propertyName xmi:type="utility:TranslatableString" key="Property.topicName" bundleName="com/ibm/connector/mqtt/ComIbmOutput" pluginId="MQTTNodes"/>
-          <propertyDescriptor configurable="true" describedAttribute="Property.connectionUrl">
-            <propertyName xmi:type="utility:TranslatableString" key="Property.connectionUrl" bundleName="com/ibm/connector/mqtt/ComIbmOutput" pluginId="MQTTNodes"/>
-            <propertyDescriptor hidden="true" describedAttribute="Property.connectorName">
-              <propertyName xmi:type="utility:TranslatableString" key="Property.connectorName" bundleName="com/ibm/connector/mqtt/ComIbmOutput" pluginId="MQTTNodes"/>
-              <propertyDescriptor groupName="Group.validation" configurable="true" describedAttribute="Property.validateMaster">
-                <propertyName xmi:type="utility:TranslatableString" key="Property.validateMaster" bundleName="com/ibm/connector/mqtt/ComIbmOutput" pluginId="MQTTNodes"/>
-                <propertyDescriptor groupName="Group.validation" propertyEditor="com.ibm.etools.mft.ibmnodes.editors.ValidateMasterListenerPropertyEditor" describedAttribute="Property.validateFailureAction">
-                  <propertyName xmi:type="utility:TranslatableString" key="Property.validateFailureAction" bundleName="com/ibm/connector/mqtt/ComIbmOutput" pluginId="MQTTNodes"/>
-                  <propertyDescriptor groupName="Group.validation" compiler="com.ibm.etools.mft.ibmnodes.compilers.BooleanPropertyCompiler" readOnly="true" hidden="true" describedAttribute="Property.validateAllValueConstraints">
-                    <propertyName xmi:type="utility:TranslatableString" key="Property.validateAllValueConstraints" bundleName="com/ibm/connector/mqtt/ComIbmOutput" pluginId="MQTTNodes"/>
-                    <propertyDescriptor groupName="Group.validation" readOnly="true" hidden="true" describedAttribute="Property.validateFixup">
-                      <propertyName xmi:type="utility:TranslatableString" key="Property.validateFixup" bundleName="com/ibm/connector/mqtt/ComIbmOutput" pluginId="MQTTNodes"/>
-                      <propertyDescriptor groupName="Group.security" propertyEditor="com.ibm.etools.mft.ibmnodes.editors.SecurityProfileNamePropertyEditor" hidden="true" configurable="true" describedAttribute="Property.securityProfileName">
-                        <propertyName xmi:type="utility:TranslatableString" key="Property.securityProfileName" bundleName="com/ibm/connector/mqtt/ComIbmOutput" pluginId="MQTTNodes"/>
-                        <propertyDescriptor groupName="Group.monitoring" readOnly="true" hidden="true" describedReference="Property.nsMappingTable">
-                          <propertyName xmi:type="utility:TranslatableString" key="Property.nsMappingTable" bundleName="com/ibm/connector/mqtt/ComIbmOutput" pluginId="MQTTNodes"/>
-                          <propertyDescriptor groupName="Group.monitoring" propertyEditor="com.ibm.etools.mft.ibmnodes.editors.monitoring.MonitoringEventsComplexPropertyEditor" describedReference="Property.monitorEvents">
-                            <propertyName xmi:type="utility:TranslatableString" key="Property.monitorEvents" bundleName="com/ibm/connector/mqtt/ComIbmOutput" pluginId="MQTTNodes"/>
+          <propertyDescriptor configurable="true" describedAttribute="Property.hostName">
+            <propertyName xmi:type="utility:TranslatableString" key="Property.hostName" bundleName="com/ibm/connector/mqtt/ComIbmOutput" pluginId="MQTTNodes"/>
+            <propertyDescriptor configurable="true" describedAttribute="Property.port">
+              <propertyName xmi:type="utility:TranslatableString" key="Property.port" bundleName="com/ibm/connector/mqtt/ComIbmOutput" pluginId="MQTTNodes"/>
+              <propertyDescriptor hidden="true" describedAttribute="Property.connectorName">
+                <propertyName xmi:type="utility:TranslatableString" key="Property.connectorName" bundleName="com/ibm/connector/mqtt/ComIbmOutput" pluginId="MQTTNodes"/>
+                <propertyDescriptor groupName="Group.validation" configurable="true" describedAttribute="Property.validateMaster">
+                  <propertyName xmi:type="utility:TranslatableString" key="Property.validateMaster" bundleName="com/ibm/connector/mqtt/ComIbmOutput" pluginId="MQTTNodes"/>
+                  <propertyDescriptor groupName="Group.validation" propertyEditor="com.ibm.etools.mft.ibmnodes.editors.ValidateMasterListenerPropertyEditor" describedAttribute="Property.validateFailureAction">
+                    <propertyName xmi:type="utility:TranslatableString" key="Property.validateFailureAction" bundleName="com/ibm/connector/mqtt/ComIbmOutput" pluginId="MQTTNodes"/>
+                    <propertyDescriptor groupName="Group.validation" compiler="com.ibm.etools.mft.ibmnodes.compilers.BooleanPropertyCompiler" readOnly="true" hidden="true" describedAttribute="Property.validateAllValueConstraints">
+                      <propertyName xmi:type="utility:TranslatableString" key="Property.validateAllValueConstraints" bundleName="com/ibm/connector/mqtt/ComIbmOutput" pluginId="MQTTNodes"/>
+                      <propertyDescriptor groupName="Group.validation" readOnly="true" hidden="true" describedAttribute="Property.validateFixup">
+                        <propertyName xmi:type="utility:TranslatableString" key="Property.validateFixup" bundleName="com/ibm/connector/mqtt/ComIbmOutput" pluginId="MQTTNodes"/>
+                        <propertyDescriptor groupName="Group.security" propertyEditor="com.ibm.etools.mft.ibmnodes.editors.SecurityProfileNamePropertyEditor" hidden="true" configurable="true" describedAttribute="Property.securityProfileName">
+                          <propertyName xmi:type="utility:TranslatableString" key="Property.securityProfileName" bundleName="com/ibm/connector/mqtt/ComIbmOutput" pluginId="MQTTNodes"/>
+                          <propertyDescriptor groupName="Group.monitoring" readOnly="true" hidden="true" describedReference="Property.nsMappingTable">
+                            <propertyName xmi:type="utility:TranslatableString" key="Property.nsMappingTable" bundleName="com/ibm/connector/mqtt/ComIbmOutput" pluginId="MQTTNodes"/>
+                            <propertyDescriptor groupName="Group.monitoring" propertyEditor="com.ibm.etools.mft.ibmnodes.editors.monitoring.MonitoringEventsComplexPropertyEditor" describedReference="Property.monitorEvents">
+                              <propertyName xmi:type="utility:TranslatableString" key="Property.monitorEvents" bundleName="com/ibm/connector/mqtt/ComIbmOutput" pluginId="MQTTNodes"/>
+                            </propertyDescriptor>
                           </propertyDescriptor>
                         </propertyDescriptor>
                       </propertyDescriptor>

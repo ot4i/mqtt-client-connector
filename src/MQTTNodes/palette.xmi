@@ -2,13 +2,13 @@
 <palette:CategoryCmp xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:palette="http://www.ibm.com/wbi/2005/eflow_palette" xmlns:utility="http://www.ibm.com/wbi/2005/eflow_utility" xmi:id="MQTT">
   <categoryLabel xsi:type="utility:TranslatableString" key="category.name" bundleName="palette" pluginId="MQTTNodes"/>
   <cmpGroups xsi:type="palette:GroupCmp">
-    <cmpEntries xsi:type="palette:ToolEntry" xmi:id="com.ibm.connector.mqtt.ComIbmEventInput" icon16Name="platform:/plugin/MQTTNodes/icons/full/clcl16/com/ibm/connector/mqtt/ComIbmEventInput.gif" icon32Name="platform:/plugin/MQTTNodes/icons/full/obj32/com/ibm/connector/mqtt/ComIbmEventInput.gif" toolClassName="com.ibm.etools.mft.flow.editor.MFTNodeCreationTool" toolClassPluginId="com.ibm.etools.mft.flow" nodeURI="com/ibm/connector/mqtt/ComIbmEventInput.msgnode">
-      <entryLabel xsi:type="utility:TranslatableString" key="entry.com.ibm.connector.mqtt.ComIbmEventInput" bundleName="palette" pluginId="MQTTNodes"/>
-      <entryShortDescription xsi:type="utility:TranslatableString" key="tooltip.com.ibm.connector.mqtt.ComIbmEventInput" bundleName="palette" pluginId="MQTTNodes"/>
-    </cmpEntries>
     <cmpEntries xsi:type="palette:ToolEntry" xmi:id="com.ibm.connector.mqtt.ComIbmOutput" icon16Name="platform:/plugin/MQTTNodes/icons/full/clcl16/com/ibm/connector/mqtt/ComIbmOutput.gif" icon32Name="platform:/plugin/MQTTNodes/icons/full/obj32/com/ibm/connector/mqtt/ComIbmOutput.gif" toolClassName="com.ibm.etools.mft.flow.editor.MFTNodeCreationTool" toolClassPluginId="com.ibm.etools.mft.flow" nodeURI="com/ibm/connector/mqtt/ComIbmOutput.msgnode">
       <entryLabel xsi:type="utility:TranslatableString" key="entry.com.ibm.connector.mqtt.ComIbmOutput" bundleName="palette" pluginId="MQTTNodes"/>
       <entryShortDescription xsi:type="utility:TranslatableString" key="tooltip.com.ibm.connector.mqtt.ComIbmOutput" bundleName="palette" pluginId="MQTTNodes"/>
+    </cmpEntries>
+    <cmpEntries xsi:type="palette:ToolEntry" xmi:id="com.ibm.connector.mqtt.ComIbmEventInput" icon16Name="platform:/plugin/MQTTNodes/icons/full/clcl16/com/ibm/connector/mqtt/ComIbmEventInput.gif" icon32Name="platform:/plugin/MQTTNodes/icons/full/obj32/com/ibm/connector/mqtt/ComIbmEventInput.gif" toolClassName="com.ibm.etools.mft.flow.editor.MFTNodeCreationTool" toolClassPluginId="com.ibm.etools.mft.flow" nodeURI="com/ibm/connector/mqtt/ComIbmEventInput.msgnode">
+      <entryLabel xsi:type="utility:TranslatableString" key="entry.com.ibm.connector.mqtt.ComIbmEventInput" bundleName="palette" pluginId="MQTTNodes"/>
+      <entryShortDescription xsi:type="utility:TranslatableString" key="tooltip.com.ibm.connector.mqtt.ComIbmEventInput" bundleName="palette" pluginId="MQTTNodes"/>
     </cmpEntries>
   </cmpGroups>
 </palette:CategoryCmp>

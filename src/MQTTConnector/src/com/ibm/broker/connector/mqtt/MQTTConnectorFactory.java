@@ -24,19 +24,28 @@ import static com.ibm.broker.connector.ContainerServices.writeServiceTraceExit;
 
 import java.util.Properties;
 
+import org.eclipse.paho.client.mqttv3.MqttClientPersistence;
+import org.eclipse.paho.client.mqttv3.persist.MqttDefaultFilePersistence;
+import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
+
 import com.ibm.broker.connector.ConnectorFactory;
 import com.ibm.broker.connector.EventInputConnector;
 import com.ibm.broker.connector.OutputConnector;
 import com.ibm.broker.plugin.MbException;
+import com.ibm.broker.plugin.MbRecoverableException;
 
 public class MQTTConnectorFactory extends ConnectorFactory {
     public static final String copyright = Copyright.LONG;
     
-    public static final String DEFAULT_MQTT_URL = "tcp://m2m.eclipse.org:1883";
+    public static final String DEFAULT_HOST = "";
+    public static final String DEFAULT_PORT = "1883";
+    public static final String DEFAULT_MQTT_URL = "tcp://" + DEFAULT_HOST + ":" + DEFAULT_PORT;
+    public static final String DEFAULT_QOS = "0";
     private static final String clsName = MQTTConnectorFactory.class.getName();
     
     private boolean useBuildMode = false;
 	boolean changeAdminToActivityLog = false;
+	private MqttClientPersistence cp = null;
     
     @Override
     public String getInfo() throws MbException {
@@ -67,9 +76,24 @@ public class MQTTConnectorFactory extends ConnectorFactory {
 						"property1").equalsIgnoreCase(
 						"changeAdminToActivityLog");
 			}
+			
+			if ("file".equalsIgnoreCase(providerProps.getProperty("property2"))) {
+				String cpDir = getContainerServices().getWorkDirectory()
+					+ getContainerServices().getFileSeparator()
+					+ getContainerServices().containerName();
+				cp = new MqttDefaultFilePersistence(cpDir);
+			}
+			
+			else {
+				cp = new MemoryPersistence();
+			}
 		} finally {
 			writeServiceTraceExit(clsName, "initialize", "Exit");
 		}
+    }
+    
+	public MqttClientPersistence getClientPersistence() {
+    	return cp;
     }
     
     /**
@@ -85,10 +109,6 @@ public class MQTTConnectorFactory extends ConnectorFactory {
         try {
 			writeServiceTraceData(clsName, "createOutputConnector",
 					"Output node properties: " + nodeProps.toString());
-			// Set the default MQTT port if one has not been provided.
-			if (nodeProps.getProperty("connectionUrl") == null) {
-				nodeProps.put("connectionUrl", DEFAULT_MQTT_URL);
-			}
 			return new MQTTOutputConnector(this, name, nodeProps);
 		} finally {
 			writeServiceTraceExit(clsName, "createOutputConnector", "Exit");
@@ -108,11 +128,6 @@ public class MQTTConnectorFactory extends ConnectorFactory {
         try {
 			writeServiceTraceData(clsName, "createEventInputConnector",
 					"Input node properties: " + nodeProps.toString());
-			// Set the default MQTT port if one has not been provided.
-			if (nodeProps.getProperty("connectionUrl") == null) {
-				nodeProps.put("connectionUrl",
-						MQTTConnectorFactory.DEFAULT_MQTT_URL);
-			}
 			return new MQTTInputConnector(this, name, nodeProps);
 		} finally {
 			writeServiceTraceExit(clsName, "createEventInputConnector", "Exit");
@@ -152,4 +167,55 @@ public class MQTTConnectorFactory extends ConnectorFactory {
 		return useBuildMode;
 	}
 
+	public String getConnectionURL(Properties props) throws MbException, MbRecoverableException {
+        writeServiceTraceExit(clsName, "getConnectionURL", "Exit");
+		// Handle any 'connectionUrl' property for backward compatibility 
+		String connectionUrl = DEFAULT_MQTT_URL;
+		
+		if (props.containsKey("hostName")) {
+			String host = props.getProperty("hostName");
+			String port = props.getProperty("port", MQTTConnectorFactory.DEFAULT_PORT);
+			try {
+				Integer.parseInt(port);
+			} catch (NumberFormatException e) {
+				getContainerServices().throwMbRecoverableException(
+					"2112",	new String[] { "not a valid integer", port });
+			}
+			
+			connectionUrl = "tcp://" + host + ":" + port;
+		}
+		else {
+			connectionUrl = props.getProperty("connectionUrl", props.getProperty("brokerUrl", DEFAULT_MQTT_URL));
+			// Tidy up the URL
+			connectionUrl = connectionUrl.trim().toLowerCase();
+			if (!connectionUrl.startsWith("tcp://")) {
+				getContainerServices().throwMbRecoverableException(
+					"2111", new String[] { "not a tcp:// url" });
+			}
+			int colon = connectionUrl.indexOf(':', 6);
+			if (colon > -1) {
+				String portNumber = connectionUrl.substring(colon+1);
+				try {
+					Integer.parseInt(portNumber);
+				} catch (NumberFormatException e) {
+					getContainerServices().throwMbRecoverableException(
+						"2112",	new String[] { "not a valid integer", portNumber });
+				}
+			}
+		}
+		
+		/* 
+		 * If tcp://:1883 is passed to Paho it defaults to localhost, so we need a specific
+		 * incorrect hostname that will be obvious to the user that they have not entered one correctly. 
+		 */ 
+		if(connectionUrl.equals("tcp://:1883"))
+		{
+			connectionUrl = "tcp://HOSTNAME_NOT_PROVIDED:1883";
+		}
+		
+		writeServiceTraceData(clsName, "getConnectionURL", "MQTT Connection URL: " + connectionUrl);
+		props.put("connectionUrl", connectionUrl);
+        writeServiceTraceExit(clsName, "getConnectionURL", "Exit");
+		return connectionUrl;
+	}
 }

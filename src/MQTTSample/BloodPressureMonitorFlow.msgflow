@@ -26,9 +26,9 @@
         <filterTable filterPattern="$Body/Data/BloodPressure/Systolic >=  180 or  $Body/Data/BloodPressure/Diastolic  >= 110" routingOutputTerminal="HyperTensionEmergency"/>
         <filterTable filterPattern="($Body/Data/BloodPressure/Systolic >= 140 and $Body/Data/BloodPressure/Systolic &lt; 180)   and  ($Body/Data/BloodPressure/Diastolic  >= 90 and $Body/Data/BloodPressure/Diastolic  &lt; 110)" routingOutputTerminal="HyperTensionAlert"/>
       </nodes>
-      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_1" targetNode="FCMComposite_1_12" sourceNode="FCMComposite_1_14" sourceTerminalName="HyperTensionAlert" targetTerminalName="InTerminal.in"/>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_2" targetNode="FCMComposite_1_14" sourceNode="FCMComposite_1_11" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_3" targetNode="FCMComposite_1_13" sourceNode="FCMComposite_1_14" sourceTerminalName="HyperTensionEmergency" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_4" targetNode="FCMComposite_1_12" sourceNode="FCMComposite_1_14" sourceTerminalName="HyperTensionAlert" targetTerminalName="InTerminal.in"/>
     </composition>
     <propertyOrganizer/>
     <stickyBoard>

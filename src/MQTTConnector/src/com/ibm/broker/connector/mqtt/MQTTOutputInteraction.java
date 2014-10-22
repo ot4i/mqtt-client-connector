@@ -26,12 +26,11 @@ import static com.ibm.broker.connector.ContainerServices.writeServiceTraceExit;
 import java.util.Properties;
 
 import org.eclipse.paho.client.mqttv3.MqttClient;
-import org.eclipse.paho.client.mqttv3.MqttDefaultFilePersistence;
+import org.eclipse.paho.client.mqttv3.MqttClientPersistence;
 import org.eclipse.paho.client.mqttv3.MqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.MqttPersistenceException;
-import org.eclipse.paho.client.mqttv3.MqttSecurityException;
 import org.eclipse.paho.client.mqttv3.MqttTopic;
 
 import com.ibm.broker.connector.OutputConnector;
@@ -40,13 +39,15 @@ import com.ibm.broker.connector.OutputRecord;
 import com.ibm.broker.plugin.MbException;
 
 public class MQTTOutputInteraction extends OutputInteraction {
+	private static final String DEFAULT_RESPONSE_TIMEOUT = "30";
     private static final String clsName = MQTTOutputInteraction.class.getName();
     Properties topicTag = new Properties();
+    private final String connectionUrl;
     
     @Override
     public void logSend() throws MbException {
         topicTag.put("Topic", sentDestination());
-        getConnector().writeActivityLog("12064", new String[]{sentDestination()},topicTag);
+        getConnector().writeActivityLog("12064", new String[]{sentDestination(), "" + 0},topicTag);
     }
 
     public static final String copyright = Copyright.LONG;
@@ -56,9 +57,11 @@ public class MQTTOutputInteraction extends OutputInteraction {
         return client;
     }
 
-    private MqttDefaultFilePersistence dataStore;
+    private MqttClientPersistence dataStore;
     
     private String topicName = null;
+    private int responseTimeout = 30;
+    
     MQTTOutputConnector getMQTTSession() throws MbException{
         return (MQTTOutputConnector)getConnector();
     }
@@ -66,9 +69,16 @@ public class MQTTOutputInteraction extends OutputInteraction {
         super(connector);
         writeServiceTraceEntry(clsName, "MQTTOutputInteraction", "Entry");
         try {
+        	this.connectionUrl = connectionUrl;
 			topicTag.put("Topic", connector.getProperties().get("topicName"));
-			topicTag.put("connectionUrl", connector.getProperties()
-					.get("connectionUrl"));
+			topicTag.put("connectionUrl", connectionUrl);			
+			String strTimeout = connector.getProperties().getProperty("responseTimeout", DEFAULT_RESPONSE_TIMEOUT);
+			try {
+				this.responseTimeout = Integer.parseInt(strTimeout);
+			} catch (NumberFormatException e1) {
+				getConnector().getConnectorFactory().getContainerServices()
+					.throwMbRecoverableException(e1);
+			}
 			String clientNameTrun = null;
 			if (clientId.length() > 23) {
 				clientNameTrun = clientId.substring(clientId.length() - 23);
@@ -76,33 +86,22 @@ public class MQTTOutputInteraction extends OutputInteraction {
 				clientNameTrun = clientId;
 			}
 			try {
-				dataStore = new MqttDefaultFilePersistence(getConnector()
-						.getConnectorFactory().getContainerServices()
-						.getWorkDirectory()
-						+ getConnector().getConnectorFactory()
-								.getContainerServices().getFileSeparator()
-						+ clientNameTrun + System.currentTimeMillis());
+				dataStore = ((MQTTConnectorFactory)getConnector().getConnectorFactory()).getClientPersistence();
 				client = new MqttClient(connectionUrl, clientNameTrun, dataStore);
 				writeServiceTraceData(clsName, "MQTTOutputInteraction",
 						"Attempting to connect ...");
 				client.connect();
+				getConnector().writeActivityLog("12063", new String[] { connectionUrl },
+						topicTag);
 				writeServiceTraceData(clsName, "MQTTOutputInteraction",
 						"Connected OK.");
 			} catch (MqttException e) {
-				getConnector().writeActivityLog("12067",
-						new String[] { connectionUrl }, topicTag);
-				getConnector()
-						.getConnectorFactory()
-						.getContainerServices()
-						.throwMbRecoverableException("12067",
-								new String[] { connectionUrl });
+				String msg = connectionUrl + " when connecting " + client.getClientId() + " on initialisation";
+				getConnector().writeActivityLog("12067", new String[] {msg}, topicTag);
+				getConnector().getConnectorFactory().getContainerServices()
+					.throwMbRecoverableException("12067", new String[] {msg});
 			}
-			getConnector()
-					.writeActivityLog(
-							"12063",
-							new String[] { ""
-									+ getConnector().getProperties().get(
-											"connectionUrl") }, topicTag);
+			getConnector().writeActivityLog("12063", new String[] {connectionUrl}, topicTag);
 		} finally {
 	        writeServiceTraceExit(clsName, "MQTTOutputInteraction", "Exit");
 		}
@@ -115,44 +114,18 @@ public class MQTTOutputInteraction extends OutputInteraction {
 			writeServiceTraceData(clsName, "send", overrideProps.toString());
 			if (!client.isConnected()) {
 				try {
-					writeServiceTraceData(clsName, "send",
-							"Attempting to connect ...");
+					writeServiceTraceData(clsName, "send", "Attempting to connect ...");
 					client.connect();
+					topicTag.put("clientId", client.getClientId());
+					getConnector().writeActivityLog("12063", new String[] {connectionUrl}, topicTag);
 					writeServiceTraceData(clsName, "send", "Connected OK.");
-				} catch (MqttSecurityException e) {
-					getConnector().writeActivityLog(
-							"12067",
-							new String[] { ""
-									+ getConnector().getProperties().get(
-											"connectionUrl") }, topicTag);
-					getConnector()
-							.getConnectorFactory()
-							.getContainerServices()
-							.throwMbRecoverableException(
-									"12067",
-									new String[] { ""
-											+ getConnector().getProperties()
-													.get("connectionUrl") });
 				} catch (MqttException e) {
-					getConnector().writeActivityLog(
-							"12067",
-							new String[] { ""
-									+ getConnector().getProperties().get(
-											"connectionUrl") }, topicTag);
-					getConnector()
-							.getConnectorFactory()
-							.getContainerServices()
-							.throwMbRecoverableException(
-									"12067",
-									new String[] { ""
-											+ getConnector().getProperties()
-													.get("connectionUrl") });
+					String msg = connectionUrl + " when connecting " + client.getClientId() + " on send";
+					getConnector().writeActivityLog("12067", new String[] {msg}, topicTag);
+					getConnector().getConnectorFactory().getContainerServices()
+						.throwMbRecoverableException("12067", new String[] {msg});
 				}
-				getConnector().writeActivityLog(
-						"12063",
-						new String[] { ""
-								+ getConnector().getProperties().get(
-										"connectionUrl") }, topicTag);
+				getConnector().writeActivityLog("12063", new String[] {connectionUrl}, topicTag);
 			}
 			String overrideTopic = overrideProps.getProperty("TopicName");
 			if (overrideTopic == null) {
@@ -175,7 +148,7 @@ public class MQTTOutputInteraction extends OutputInteraction {
 			try {
 				writeServiceTraceData(clsName, "send", "Sending: " + record.getUTF8Data());
 				token = topic.publish(message);
-				token.waitForCompletion();
+				token.waitForCompletion(this.responseTimeout * 1000);
 			} catch (MqttPersistenceException e) {
 				getConnector().getConnectorFactory().getContainerServices()
 						.throwMbRecoverableException(e);
@@ -206,9 +179,15 @@ public class MQTTOutputInteraction extends OutputInteraction {
         writeServiceTraceEntry(clsName, "terminate", "Entry");
         try {
             client.disconnect();
+            getConnector().writeActivityLog("12066", 
+					new String[] {connectionUrl},
+					topicTag);
             dataStore.clear();
             dataStore.close();
         } catch (MqttException e) {
+            getConnector().writeActivityLog("12066", 
+					new String[] {connectionUrl, e.getMessage()},
+					topicTag);
             getConnector().getConnectorFactory().getContainerServices().throwMbRecoverableException(e);
         }
         finally {

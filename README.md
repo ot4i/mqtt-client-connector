@@ -35,7 +35,7 @@ The MQTT nodes appear in the message flow node palette permanently.
 In order for us to accept pull-request please email ot4i@uk.ibm.com
   
 ##Platforms
-Tested on Windows 7 Pro N x64 with [IIB Developer Edition](http://www.ibm.com/software/products/us/en/integration-bus/).
+Tested on Windows 7 Pro N x64 with [IIB Developer Edition](http://www-03.ibm.com/software/products/en/ibm-integration-bus).
 
 ##Copyright and license
 Copyright 2013 IBM Corp. under the [Eclipse Public license](http://www.eclipse.org/legal/epl-v10.html).

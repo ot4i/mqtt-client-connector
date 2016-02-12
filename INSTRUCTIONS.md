@@ -13,7 +13,7 @@ In the Integration Toolkit, import the Git repositories and set up IIB:
 * Import the Eclipse Paho project into your workspace (in the Git Repositories view, under org.eclipse.paho.mqtt.java, right-click Working Directory and select **Import Projects**). 
 * In the Git Repositories view, click the **Clone a Git Repository** icon on the toolbar at the top right of the window.
 * Clone and import the projects:
-  * Set the git repository URI to git://github.com/ot4i/mqtt-client-connector.git
+  * Set the git repository URI to http://github.com/ot4i/mqtt-client-connector.git
   * Click Next, and select the master branch.
   * Click Next, and set a local destination.
   * Select the option **Import all existing projects after clone finishes**, and click Finish. 
